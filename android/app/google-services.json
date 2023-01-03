@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "155636095880",
+    "project_id": "loker-5bbc5",
+    "storage_bucket": "loker-5bbc5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:155636095880:android:3985fef932681058d8b83d",
+        "android_client_info": {
+          "package_name": "com.example.lowongan_pekerjaan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "155636095880-ou3q70827hs7q407dni7n34phaqds8ev.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCaiD7wSm8dMF0CA9j6rUDENTYzyGHOsRg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "155636095880-ou3q70827hs7q407dni7n34phaqds8ev.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "155636095880-1dik6p2ldbfqras5iu7rea70s66q4iuo.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.lowonganPekerjaan"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
