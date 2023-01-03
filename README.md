@@ -1,16 +1,17 @@
 # lowongan_pekerjaan
 
-A new Flutter project.
+Nama aplikasi : CariIn
+Nama tim : Nano
+Anggota :
+1. Javier Gavra Abhinaya
+2. Muhammad Firdan Azhari
+3. Sinatrya Rasyid Fawwaz
 
-## Getting Started
+## Informasi
 
-This project is a starting point for a Flutter application.
+Projek ini menggunakan teknologi Flutter.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Link Github anggota tim
+- [Javier Gavra Abhinaya](https://github.com/JavierGavra)
+- [Muhammad Firdan Azhari](https://github.com/FirdanAz)
+- [Sinatrya Rasyid Fawwaz](https://github.com/BijiTapir)
