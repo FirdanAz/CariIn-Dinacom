@@ -38,6 +38,7 @@ dependencies:
   firebase_auth: ^4.2.4
   google_fonts:
   flutter_svg:
+  flutter_screenutil: ^5.6.0
 
 dev_dependencies:
   flutter_test:
@@ -65,7 +66,7 @@ flutter:
 #   assets:
 #     - assets/reset_password.svg
   assets:
-    - assets/reset_password.svg
+    - assets/
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

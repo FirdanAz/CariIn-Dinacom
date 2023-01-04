@@ -1,7 +1,9 @@
 # lowongan_pekerjaan
 
 Nama aplikasi : CariIn
+
 Nama tim : Nano
+
 Anggota :
 1. Javier Gavra Abhinaya
 2. Muhammad Firdan Azhari
