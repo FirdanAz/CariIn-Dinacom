@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:lowongan_pekerjaan/common/color_app.dart';
 import 'package:lowongan_pekerjaan/common/svg_assets.dart';
 import 'package:lowongan_pekerjaan/ui/widget/home_header.dart';
@@ -71,10 +72,10 @@ class _HomePageState extends State<HomePage> {
               children: [
                 const SizedBox(height: 25),
                 cvCard(),
-                const SizedBox(height: 800),
+                lowonganCard()
               ],
             ),
-          )
+          ),
         ],
       ),
     );
@@ -82,6 +83,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget cvCard() {
     return Container(
+      alignment: Alignment.centerLeft,
       height: 100,
       width: 310.w,
       decoration: BoxDecoration(
@@ -94,6 +96,78 @@ class _HomePageState extends State<HomePage> {
             blurRadius: 4,
           )
         ],
+      ),
+    );
+  }
+
+  Widget lowonganCard() {
+    return Container(
+      alignment: Alignment.centerLeft,
+      margin: EdgeInsets.all(10),
+      width: 310.w,
+      child: Card(
+        elevation: 2,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+          //set border radius more than 50% of height and width to make circle
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      height: 35,
+                      child: CircleAvatar(
+                        child: ClipRRect(borderRadius: BorderRadius.all(Radius.circular(1000)) ,child: Image.network('https://winaero.com/blog/wp-content/uploads/2018/08/Windows-10-user-icon-big.png', fit: BoxFit.fill,)),
+                      )
+                    ),
+                    Text(
+                      'Mobile Front End',
+                      style: GoogleFonts.poppins(
+                          color: ColorApp.accentColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16
+                      ),
+                    ),
+                    SizedBox(height: 10,),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Icon(
+                          Icons.location_city_sharp,
+                          size: 15,
+                        ),
+                        Text(
+                          'PT. Nano Group',
+                          style: GoogleFonts.poppins(
+                            fontSize: 11,
+                            fontWeight: FontWeight.w600
+                          ),
+                        )
+                      ],
+                    ),
+                    SizedBox(height: 10,),
+                    Text(
+                      'Kab. Kudus, Jawa Tengah',
+                      style: GoogleFonts.poppins(
+                        fontSize: 11,
+                        color: Colors.black45
+                      ),
+                    )
+                  ],
+                ),
+              ),
+
+            ],
+          ),
+        ),
       ),
     );
   }
