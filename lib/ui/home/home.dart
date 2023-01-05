@@ -13,6 +13,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final cvCheck = 4;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,6 +86,7 @@ class _HomePageState extends State<HomePage> {
     return Container(
       height: 100,
       width: 310.w,
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
       decoration: BoxDecoration(
         color: ColorApp.accentColor,
         borderRadius: BorderRadius.circular(10),
@@ -93,6 +96,52 @@ class _HomePageState extends State<HomePage> {
             offset: Offset(0, 4),
             blurRadius: 4,
           )
+        ],
+      ),
+      child: Row(
+        children: [
+          SvgPicture.asset(cv_logo),
+          SizedBox(width: 10.w),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                "Lengkapi Data CV mu",
+                style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600),
+              ),
+              SizedBox(height: 5.h),
+              SizedBox(
+                width: 173.w,
+                child: const Text(
+                  "Dapatkan rekomendasi pekerjaan sesuai Kartu CV mu!",
+                  style: TextStyle(fontSize: 10, fontWeight: FontWeight.w500),
+                ),
+              ),
+              SizedBox(height: 3.h),
+              Row(
+                children: [
+                  for (int i = 1; i <= 6; i++)
+                    Container(
+                      height: 4,
+                      width: 20,
+                      margin: const EdgeInsets.only(right: 5),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(2),
+                          color: i <= cvCheck
+                              ? ColorApp.secondaryColor
+                              : const Color(0x4d3A4750)),
+                    ),
+                  SizedBox(width: 5.w),
+                  Text(
+                    "$cvCheck Dari 6",
+                    style: TextStyle(fontSize: 10, fontWeight: FontWeight.w500),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          const Spacer(),
+          const Icon(Icons.arrow_forward_ios, color: ColorApp.primaryColor),
         ],
       ),
     );

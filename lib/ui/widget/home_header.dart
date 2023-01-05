@@ -30,8 +30,21 @@ class HomeHeader extends SliverPersistentHeaderDelegate {
           Container(
             height: 40,
             width: 310.w,
+            padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
                 color: Colors.white, borderRadius: BorderRadius.circular(10)),
+            child: Row(
+              children: [
+                Icon(Icons.search, size: 20.w, color: const Color(0x99303841)),
+                SizedBox(
+                  width: 5.w,
+                ),
+                const Text(
+                  "Cari loker atau perushaan",
+                  style: TextStyle(fontSize: 13, color: Color(0x99303841)),
+                )
+              ],
+            ),
           ),
           const Spacer(),
           Container(
