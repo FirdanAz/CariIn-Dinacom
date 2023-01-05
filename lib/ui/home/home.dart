@@ -127,6 +127,7 @@ class _HomePageState extends State<HomePage> {
                         child: ClipRRect(borderRadius: BorderRadius.all(Radius.circular(1000)) ,child: Image.network('https://winaero.com/blog/wp-content/uploads/2018/08/Windows-10-user-icon-big.png', fit: BoxFit.fill,)),
                       )
                     ),
+                    SizedBox(height: 10,),
                     Text(
                       'Mobile Front End',
                       style: GoogleFonts.poppins(
@@ -135,7 +136,7 @@ class _HomePageState extends State<HomePage> {
                           fontSize: 16
                       ),
                     ),
-                    SizedBox(height: 10,),
+                    SizedBox(height: 5,),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -144,22 +145,107 @@ class _HomePageState extends State<HomePage> {
                           Icons.location_city_sharp,
                           size: 15,
                         ),
+                        SizedBox(width: 10,),
                         Text(
                           'PT. Nano Group',
                           style: GoogleFonts.poppins(
                             fontSize: 11,
-                            fontWeight: FontWeight.w600
+                            fontWeight: FontWeight.w500
                           ),
                         )
                       ],
                     ),
-                    SizedBox(height: 10,),
+                    SizedBox(height: 5,),
                     Text(
                       'Kab. Kudus, Jawa Tengah',
                       style: GoogleFonts.poppins(
                         fontSize: 11,
                         color: Colors.black45
                       ),
+                    ),
+                    SizedBox(height: 5,),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.school_outlined,
+                          size: 15,
+                        ),
+                        SizedBox(width: 10,),
+                        Text(
+                          'SMA/SMK',
+                          style: GoogleFonts.poppins(
+                            fontSize: 11
+                          ),
+                        )
+                      ],
+                    ),
+                    SizedBox(height: 5,),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.work_outline,
+                          size: 15,
+                        ),
+                        SizedBox(width: 10,),
+                        Text(
+                          'Full-Time,On-Site',
+                          style: GoogleFonts.poppins(
+                              fontSize: 11
+                          ),
+                        )
+                      ],
+                    ),
+                    SizedBox(height: 5,),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.money,
+                          size: 15,
+                        ),
+                        SizedBox(width: 10,),
+                        Text(
+                          'Rp 3.000.000 - Rp 4.000.000',
+                          style: GoogleFonts.poppins(
+                              fontSize: 11
+                          ),
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Dibutuhkan Segera',
+                              style: GoogleFonts.poppins(
+                                  color: ColorApp.accentColor,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w600
+                              ),
+                            ),
+                            Text(
+                              '5 orang dibutuhkan',
+                              style: GoogleFonts.poppins(
+                                  color: ColorApp.accentColor,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w400
+                              ),
+                            )
+                          ],
+                        ),
+                        Text(
+                          '1 Hari yang lalu',
+                          style: GoogleFonts.poppins(
+                            color: Colors.black45,
+                            fontSize: 11
+                          ),
+                        )
+                      ],
                     )
                   ],
                 ),
