@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lowongan_pekerjaan/common/color_app.dart';
 import 'package:lowongan_pekerjaan/ui/home/home.dart';
+import 'package:lowongan_pekerjaan/ui/profil/profil.dart';
 
 class CustomBottomNavBar extends StatefulWidget {
   const CustomBottomNavBar({super.key});
@@ -18,7 +19,7 @@ class CustomBottomNavBarState extends State<CustomBottomNavBar> {
     HomePage(),
     Center(child: Text("Halaman 2", style: TextStyle(color: Colors.black))),
     Center(child: Text("Halaman 3", style: TextStyle(color: Colors.black))),
-    Center(child: Text("Halaman 4", style: TextStyle(color: Colors.black))),
+    ProfilPage(),
   ];
 
   @override
