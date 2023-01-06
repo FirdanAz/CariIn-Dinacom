@@ -144,13 +144,15 @@ class _HomePageState extends State<HomePage> {
                         Icon(
                           Icons.location_city_sharp,
                           size: 15,
+                          color: Colors.black
                         ),
                         SizedBox(width: 10,),
                         Text(
                           'PT. Nano Group',
                           style: GoogleFonts.poppins(
                             fontSize: 11,
-                            fontWeight: FontWeight.w500
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black
                           ),
                         )
                       ],
@@ -169,12 +171,14 @@ class _HomePageState extends State<HomePage> {
                         Icon(
                           Icons.school_outlined,
                           size: 15,
+                          color: Colors.black
                         ),
                         SizedBox(width: 10,),
                         Text(
                           'SMA/SMK',
                           style: GoogleFonts.poppins(
-                            fontSize: 11
+                            fontSize: 11,
+                            color: Colors.black
                           ),
                         )
                       ],
@@ -185,12 +189,14 @@ class _HomePageState extends State<HomePage> {
                         Icon(
                           Icons.work_outline,
                           size: 15,
+                          color: Colors.black
                         ),
                         SizedBox(width: 10,),
                         Text(
                           'Full-Time,On-Site',
                           style: GoogleFonts.poppins(
-                              fontSize: 11
+                            fontSize: 11,
+                            color: Colors.black
                           ),
                         )
                       ],
@@ -201,12 +207,14 @@ class _HomePageState extends State<HomePage> {
                         Icon(
                           Icons.money,
                           size: 15,
+                          color: Colors.black
                         ),
                         SizedBox(width: 10,),
                         Text(
                           'Rp 3.000.000 - Rp 4.000.000',
                           style: GoogleFonts.poppins(
-                              fontSize: 11
+                            fontSize: 11,
+                            color: Colors.black
                           ),
                         )
                       ],
