@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lowongan_pekerjaan/common/color_app.dart';
+import 'package:lowongan_pekerjaan/ui/search/search.dart';
 
 class HomeHeader extends SliverPersistentHeaderDelegate {
   double maxHeight = 87;
+  double minHeight = 70;
 
   @override
   Widget build(
@@ -27,23 +29,31 @@ class HomeHeader extends SliverPersistentHeaderDelegate {
       ),
       child: Column(
         children: [
-          Container(
-            height: 40,
-            width: 310.w,
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(10)),
-            child: Row(
-              children: [
-                Icon(Icons.search, size: 20.w, color: const Color(0x99303841)),
-                SizedBox(
-                  width: 5.w,
-                ),
-                const Text(
-                  "Cari loker atau perushaan",
-                  style: TextStyle(fontSize: 13, color: Color(0x99303841)),
-                )
-              ],
+          GestureDetector(
+            onTap: () {
+              print("Klik");
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const SearchPage()));
+            },
+            child: Container(
+              height: 40,
+              width: 310.w,
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                  color: Colors.white, borderRadius: BorderRadius.circular(10)),
+              child: Row(
+                children: [
+                  Icon(Icons.search,
+                      size: 20.w, color: const Color(0x99303841)),
+                  SizedBox(
+                    width: 5.w,
+                  ),
+                  const Text(
+                    "Cari loker atau perushaan",
+                    style: TextStyle(fontSize: 13, color: Color(0x99303841)),
+                  )
+                ],
+              ),
             ),
           ),
           const Spacer(),
@@ -66,7 +76,7 @@ class HomeHeader extends SliverPersistentHeaderDelegate {
 
   @override
   // TODO: implement minExtent
-  double get minExtent => 70;
+  double get minExtent => minHeight;
 
   @override
   bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) =>

@@ -45,7 +45,8 @@ class _HomePageState extends State<HomePage> {
               backgroundColor: ColorApp.primaryColor,
               flexibleSpace: FlexibleSpaceBar(
                 collapseMode: CollapseMode.pin,
-                background: Padding(
+                background:  Container(
+                  color: ColorApp.primaryColor,
                   padding: EdgeInsets.only(top: 10, left: 25, right: 125.w),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -79,9 +80,7 @@ class _HomePageState extends State<HomePage> {
                   textData('Berdasarkan Profilmu'),
                   Container(
                     height: 270,
-                    margin: EdgeInsets.only(
-                      top: 5,
-                    ),
+                    margin: EdgeInsets.only(top: 5),
                     child: ScrollConfiguration(
                       behavior: const MaterialScrollBehavior().copyWith(overscroll: false),
                       child: ListView.builder(
@@ -148,9 +147,9 @@ class _HomePageState extends State<HomePage> {
   Widget cvCard() {
     return Container(
       alignment: Alignment.centerLeft,
-      height: 106,
+      height: 106.h,
       width: 310.w,
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
       decoration: BoxDecoration(
         color: ColorApp.accentColor,
         borderRadius: BorderRadius.circular(10),
@@ -167,18 +166,20 @@ class _HomePageState extends State<HomePage> {
           SvgPicture.asset(cv_logo),
           SizedBox(width: 10.w),
           Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              Text(
                 "Lengkapi Data CV mu",
-                style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600),
+                style: TextStyle(fontSize: 10.sp, fontWeight: FontWeight.w600),
               ),
               SizedBox(height: 5.h),
               SizedBox(
                 width: 173.w,
-                child: const Text(
+                child: Text(
                   "Dapatkan rekomendasi pekerjaan sesuai Kartu CV mu!",
-                  style: TextStyle(fontSize: 10, fontWeight: FontWeight.w500),
+                  style:
+                      TextStyle(fontSize: 10.sp, fontWeight: FontWeight.w500),
                 ),
               ),
               SizedBox(height: 3.h),
@@ -188,7 +189,7 @@ class _HomePageState extends State<HomePage> {
                     Container(
                       height: 4,
                       width: 20,
-                      margin: const EdgeInsets.only(right: 5),
+                      margin: EdgeInsets.only(right: 5.w),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(2),
                           color: i <= cvCheck
@@ -198,7 +199,8 @@ class _HomePageState extends State<HomePage> {
                   SizedBox(width: 5.w),
                   Text(
                     "$cvCheck Dari 6",
-                    style: TextStyle(fontSize: 10, fontWeight: FontWeight.w500),
+                    style:
+                        TextStyle(fontSize: 10.sp, fontWeight: FontWeight.w500),
                   ),
                 ],
               ),
@@ -238,29 +240,30 @@ class _HomePageState extends State<HomePage> {
                     Container(
                         height: 35,
                         child: CircleAvatar(
-                          child: ClipRRect(borderRadius: BorderRadius.all(Radius.circular(1000)) ,child: Image.network('https://winaero.com/blog/wp-content/uploads/2018/08/Windows-10-user-icon-big.png', fit: BoxFit.fill,)),
-                        )
-                    ),
-                    SizedBox(height: 10,),
+                          child: ClipRRect(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(1000)),
+                              child: Image.network(
+                                'https://winaero.com/blog/wp-content/uploads/2018/08/Windows-10-user-icon-big.png',
+                                fit: BoxFit.fill,
+                              )),
+                        )),
+                    SizedBox(height: 10),
                     Text(
                       'Mobile Front End',
                       style: GoogleFonts.poppins(
                           color: ColorApp.accentColor,
                           fontWeight: FontWeight.bold,
-                          fontSize: 16
-                      ),
+                          fontSize: 16),
                     ),
-                    SizedBox(height: 5,),
+                    SizedBox(height: 5),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Icon(
-                            Icons.location_city_sharp,
-                            size: 15,
-                            color: ColorApp.primaryColor
-                        ),
-                        SizedBox(width: 10,),
+                        Icon(Icons.location_city_sharp,
+                            size: 15, color: Colors.black),
+                        SizedBox(width: 10),
                         Text(
                           'PT. Nano Group',
                           style: GoogleFonts.poppins(
@@ -271,71 +274,50 @@ class _HomePageState extends State<HomePage> {
                         )
                       ],
                     ),
-                    SizedBox(height: 5,),
+                    SizedBox(height: 5),
                     Text(
                       'Kab. Kudus, Jawa Tengah',
                       style: GoogleFonts.poppins(
-                          fontSize: 11,
-                          color: Colors.black45
-                      ),
+                          fontSize: 11, color: Colors.black45),
                     ),
-                    SizedBox(height: 5,),
+                    SizedBox(height: 5),
                     Row(
                       children: [
-                        Icon(
-                            Icons.school_outlined,
-                            size: 15,
-                            color: ColorApp.primaryColor
-                        ),
-                        SizedBox(width: 10,),
+                        Icon(Icons.school_outlined,
+                            size: 15, color: Colors.black),
+                        SizedBox(width: 10),
                         Text(
                           'SMA/SMK',
                           style: GoogleFonts.poppins(
-                              fontSize: 11,
-                              color: ColorApp.primaryColor
-                          ),
+                              fontSize: 11, color: Colors.black),
                         )
                       ],
                     ),
-                    SizedBox(height: 5,),
+                    SizedBox(height: 5),
                     Row(
                       children: [
-                        Icon(
-                            Icons.work_outline,
-                            size: 15,
-                            color: ColorApp.primaryColor
-                        ),
-                        SizedBox(width: 10,),
+                        Icon(Icons.work_outline, size: 15, color: ColorApp.primaryColor),
+                        SizedBox(width: 10),
                         Text(
                           'Full-Time,On-Site',
                           style: GoogleFonts.poppins(
-                              fontSize: 11,
-                              color: ColorApp.primaryColor
-                          ),
+                              fontSize: 11, color: ColorApp.primaryColor),
                         )
                       ],
                     ),
-                    SizedBox(height: 5,),
+                    SizedBox(height: 5),
                     Row(
                       children: [
-                        Icon(
-                            Icons.money,
-                            size: 15,
-                            color: ColorApp.primaryColor
-                        ),
-                        SizedBox(width: 10,),
+                        Icon(Icons.money, size: 15, color: ColorApp.primaryColor),
+                        SizedBox(width: 10),
                         Text(
                           'Rp 3.000.000 - Rp 4.000.000',
                           style: GoogleFonts.poppins(
-                              fontSize: 11,
-                              color: ColorApp.primaryColor
-                          ),
+                              fontSize: 11, color: ColorApp.primaryColor),
                         )
                       ],
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
+                    SizedBox(height: 10),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -347,25 +329,21 @@ class _HomePageState extends State<HomePage> {
                               style: GoogleFonts.poppins(
                                   color: ColorApp.accentColor,
                                   fontSize: 12,
-                                  fontWeight: FontWeight.w600
-                              ),
+                                  fontWeight: FontWeight.w600),
                             ),
                             Text(
                               '5 orang dibutuhkan',
                               style: GoogleFonts.poppins(
                                   color: ColorApp.accentColor,
                                   fontSize: 12,
-                                  fontWeight: FontWeight.w400
-                              ),
+                                  fontWeight: FontWeight.w400),
                             )
                           ],
                         ),
                         Text(
                           '1 Hari yang lalu',
                           style: GoogleFonts.poppins(
-                              color: Colors.black45,
-                              fontSize: 11
-                          ),
+                              color: Colors.black45, fontSize: 11),
                         )
                       ],
                     )
