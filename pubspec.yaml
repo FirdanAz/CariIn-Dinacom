@@ -40,6 +40,7 @@ dependencies:
   flutter_svg:
   flutter_screenutil: ^5.6.0
   convex_bottom_bar: ^3.1.0+1
+  page_transition:
 
 dev_dependencies:
   flutter_test:
