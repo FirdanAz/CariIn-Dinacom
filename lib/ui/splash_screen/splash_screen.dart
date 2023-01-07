@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lowongan_pekerjaan/common/svg_assets.dart';
+import 'package:lowongan_pekerjaan/ui/bottom_navigation/bottom_navigation.dart';
 import 'package:lowongan_pekerjaan/ui/home/home.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -37,7 +38,7 @@ class _SpashScreenState extends State<SpashScreen> {
       //         }
       //         return const Center(child: CircularProgressIndicator());
       //       },), type: PageTransitionType.fade));
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomePage(),));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const CustomBottomNavBar(),));
     });
   }
 
