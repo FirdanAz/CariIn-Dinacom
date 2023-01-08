@@ -19,15 +19,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final cvCheck = 4;
   final _lowonganCardHorizonLenght = 3;
-  List lowongan = [];
-  var administrasi;
-
-  Future getDocID() async {
-    await FirebaseFirestore.instance.collection('category').doc('dvPSUvsmmKov6aHRDbhf').collection('administrasi').get().then((snapshot) => snapshot.docs.forEach((element) {
-      print(element.reference);
-      lowongan.add(element.reference.id);
-    }));
-  }
+  final CollectionReference _lowongan = 
+      FirebaseFirestore.instance.collection('category').doc('dvPSUvsmmKov6aHRDbhf').collection('programmer');
 
   @override
   Widget build(BuildContext context) {
@@ -119,15 +112,35 @@ class _HomePageState extends State<HomePage> {
                   SizedBox(height: 25.h),
                   textData('Pekerjaan Baru', false),
                   SizedBox(height: 25.h),
-                  ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: administrasi.length,
-                    itemBuilder: (context, index) {
-                      return lowonganCardVertikal();
+                  // ListView.builder(
+                  //   scrollDirection: Axis.vertical,
+                  //   shrinkWrap: true,
+                  //   physics: NeverScrollableScrollPhysics(),
+                  //   itemCount: 3,
+                  //   itemBuilder: (context, index) {
+                  //     return lowonganCardVertikal();
+                  //   },
+                  // ),
+                  StreamBuilder(
+                    stream: _lowongan.snapshots(),
+                    builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                      if(streamSnapshot.hasData) {
+                        return ListView.builder(
+                          physics: NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: streamSnapshot.data!.docs.length,
+                          itemBuilder: (context, index) {
+                            final DocumentSnapshot documnentSnapshot =
+                                streamSnapshot.data!.docs[index];
+                            return lowonganCardVertikal(documnentSnapshot['name']);
+                          },
+                        );
+                      }
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
                     },
-                  ),
+                  )
                 ],
               ),
             ),
@@ -372,7 +385,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget lowonganCardVertikal() {
+  Widget lowonganCardVertikal(String name) {
     return Padding(
       padding: EdgeInsets.only(left: 8.w, right: 8, bottom: 20),
       child: Card(
@@ -403,7 +416,7 @@ class _HomePageState extends State<HomePage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Mobile Front End",
+                          name,
                           style: GoogleFonts.poppins(
                               fontWeight: FontWeight.w600,
                               fontSize: 16,
