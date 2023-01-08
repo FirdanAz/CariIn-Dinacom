@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lowongan_pekerjaan/common/color_app.dart';
 import 'package:lowongan_pekerjaan/common/svg_assets.dart';
 import 'package:lowongan_pekerjaan/ui/widget/home_header.dart';
+import 'package:lowongan_pekerjaan/ui/widget/lowongan_card_horizontal.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -98,7 +99,7 @@ class _HomePageState extends State<HomePage> {
                                   ? 30
                                   : 0,
                             ),
-                            child: lowonganCardHorizon(),
+                            child: lowonganCardVertical(),
                           );
                         },
                       ),
@@ -113,7 +114,7 @@ class _HomePageState extends State<HomePage> {
                     physics: NeverScrollableScrollPhysics(),
                     itemCount: 5,
                     itemBuilder: (context, index) {
-                      return lowonganCardVertikal();
+                      return LowonganCardHorizontal();
                     },
                   )
                 ],
@@ -219,7 +220,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget lowonganCardHorizon() {
+  Widget lowonganCardVertical() {
     return Container(
       alignment: Alignment.centerLeft,
       width: 250.w,
@@ -353,133 +354,6 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget lowonganCardVertikal() {
-    return Padding(
-      padding: EdgeInsets.only(left: 8.w, right: 8, bottom: 20),
-      child: Card(
-        child: Container(
-          color: Colors.white,
-          width: double.maxFinite,
-          alignment: Alignment.centerLeft,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Row(
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(left: 13),
-                    child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image.network(
-                          'https://winaero.com/blog/wp-content/uploads/2018/08/Windows-10-user-icon-big.png',
-                          fit: BoxFit.fill,
-                          height: 60,
-                        )),
-                  ),
-                  Container(
-                    height: 150,
-                    margin: EdgeInsets.only(left: 20, top: 8, bottom: 8),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Mobile Front end',
-                          style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16,
-                              color: ColorApp.accentColor),
-                        ),
-                        SizedBox(height: 3),
-                        Text(
-                          'PT. Nano Group',
-                          style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 11,
-                              color: ColorApp.primaryColor),
-                        ),
-                        SizedBox(height: 3),
-                        Text(
-                          'Kab. Kudus, Jawa Tengah',
-                          style: GoogleFonts.poppins(
-                              fontSize: 11, color: Colors.black45),
-                        ),
-                        SizedBox(height: 3),
-                        Text(
-                          'SMA/SMK',
-                          style: GoogleFonts.poppins(
-                              fontSize: 11, color: ColorApp.primaryColor),
-                        ),
-                        SizedBox(height: 3),
-                        Text(
-                          'Full-time, On-site',
-                          style: GoogleFonts.poppins(
-                              fontSize: 11, color: ColorApp.primaryColor),
-                        ),
-                        SizedBox(height: 6),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Dibutuhkan Segera',
-                                  style: GoogleFonts.poppins(
-                                      color: ColorApp.accentColor,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                                Text(
-                                  '5 orang dibutuhkan',
-                                  style: GoogleFonts.poppins(
-                                      color: ColorApp.accentColor,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w400),
-                                )
-                              ],
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 15),
-                              child: Text(
-                                '1 Hari yang lalu',
-                                style: GoogleFonts.poppins(
-                                    color: Colors.black45, fontSize: 11),
-                              ),
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              ClipRRect(
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    bottomLeft: Radius.circular(20)),
-                child: Container(
-                  width: 56,
-                  alignment: Alignment.center,
-                  color: ColorApp.secondaryColor,
-                  margin: EdgeInsets.only(top: 10),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      'New',
-                      style: GoogleFonts.poppins(
-                          fontSize: 10, fontWeight: FontWeight.w600),
-                    ),
-                  ),
-                ),
-              )
             ],
           ),
         ),
