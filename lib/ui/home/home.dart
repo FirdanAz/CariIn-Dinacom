@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -5,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lowongan_pekerjaan/common/color_app.dart';
 import 'package:lowongan_pekerjaan/common/svg_assets.dart';
 import 'package:lowongan_pekerjaan/ui/widget/home_header.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -16,6 +19,15 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final cvCheck = 4;
   final _lowonganCardHorizonLenght = 3;
+  List lowongan = [];
+  var administrasi;
+
+  Future getDocID() async {
+    await FirebaseFirestore.instance.collection('category').doc('dvPSUvsmmKov6aHRDbhf').collection('administrasi').get().then((snapshot) => snapshot.docs.forEach((element) {
+      print(element.reference);
+      lowongan.add(element.reference.id);
+    }));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -111,11 +123,11 @@ class _HomePageState extends State<HomePage> {
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
-                    itemCount: 5,
+                    itemCount: administrasi.length,
                     itemBuilder: (context, index) {
                       return lowonganCardVertikal();
                     },
-                  )
+                  ),
                 ],
               ),
             ),
@@ -391,7 +403,7 @@ class _HomePageState extends State<HomePage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Mobile Front end',
+                          "Mobile Front End",
                           style: GoogleFonts.poppins(
                               fontWeight: FontWeight.w600,
                               fontSize: 16,
