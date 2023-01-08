@@ -107,14 +107,18 @@ class _HomePageState extends State<HomePage> {
                   ),
                   SizedBox(height: 25.h),
                   textData('Pekerjaan Baru', false),
-                  SizedBox(height: 25.h),
+                  SizedBox(height: 17.h),
                   ListView.builder(
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
                     itemCount: 5,
                     itemBuilder: (context, index) {
-                      return LowonganCardHorizontal();
+                      return Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 10.w, vertical: 8.h),
+                        child: LowonganCardHorizontal(),
+                      );
                     },
                   )
                 ],
