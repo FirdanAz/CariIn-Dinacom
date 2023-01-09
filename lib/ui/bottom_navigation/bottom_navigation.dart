@@ -20,7 +20,7 @@ class CustomBottomNavBarState extends State<CustomBottomNavBar> {
     HomePage(),
     Center(child: Text("Halaman 2", style: TextStyle(color: Colors.black))),
     Center(child: Text("Halaman 3", style: TextStyle(color: Colors.black))),
-    NotUserLogin(),
+    ProfilPage(),
   ];
 
   @override
