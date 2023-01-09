@@ -13,21 +13,22 @@ import '../../common/color_app.dart';
 class SpashScreen extends StatefulWidget {
   const SpashScreen({Key? key}) : super(key: key);
 
-
   @override
   State<SpashScreen> createState() => _SpashScreenState();
 }
 
 class _SpashScreenState extends State<SpashScreen> {
+  double _logoOpacity = 0;
   Future<FirebaseApp> _initializedFirebase() async {
     FirebaseApp firebaseApp = await Firebase.initializeApp();
     return firebaseApp;
   }
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
+  Future _initialize() async {
+    await Future.delayed(const Duration(milliseconds: 500));
+    setState(() {
+      _logoOpacity = 1;
+    });
     Timer(Duration(seconds: 2), () {
       // Navigator.pushReplacement(context,
       //     PageTransition(child: FutureBuilder(
@@ -38,8 +39,21 @@ class _SpashScreenState extends State<SpashScreen> {
       //         }
       //         return const Center(child: CircularProgressIndicator());
       //       },), type: PageTransitionType.fade));
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const CustomBottomNavBar(),));
+      Navigator.pushReplacement(
+          context,
+          PageTransition(
+              child: const CustomBottomNavBar(),
+              type: PageTransitionType.fade,
+              duration: const Duration(milliseconds: 900),
+              curve: Curves.ease));
     });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _initialize();
   }
 
   @override
@@ -47,7 +61,11 @@ class _SpashScreenState extends State<SpashScreen> {
     return Scaffold(
       backgroundColor: ColorApp.secondaryColor,
       body: Center(
-        child: SvgPicture.asset(appbar_logo),
+        child: AnimatedOpacity(
+          duration: const Duration(milliseconds: 360),
+          opacity: _logoOpacity,
+          child: SvgPicture.asset(appbar_logo),
+        ),
       ),
     );
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lowongan_pekerjaan/common/color_app.dart';
+import 'package:lowongan_pekerjaan/ui/wishlist/wishlist.dart';
 
 class ProfilPage extends StatelessWidget {
   const ProfilPage({super.key});
@@ -57,7 +58,12 @@ class ProfilPage extends StatelessWidget {
                   SizedBox(height: 44.h),
                   button(Icons.account_circle, "Account", () {}),
                   const SizedBox(height: 18),
-                  button(Icons.bookmark, "Wishlist", () {}),
+                  button(Icons.bookmark, "Wishlist", () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => WishlistPage()));
+                  }),
                   const SizedBox(height: 18),
                   button(Icons.design_services, "Pusat Bantuan", () {}),
                   const SizedBox(height: 18),

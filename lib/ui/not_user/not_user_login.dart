@@ -41,23 +41,66 @@ class _NotLoginState extends State<NotUserLogin> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Email',
+                    'Nama',
                     style: GoogleFonts.poppins(
                       color: ColorApp.accentColor
                     ),
                   ),
-                  TextField(
-                    maxLines: 1,
-                    style: TextStyle(
-                        fontSize: 18
+                  SizedBox(
+                    height: 10,
+                  ),
+                  SizedBox(
+                    height: 55,
+                    child: TextField(
+                      textAlign: TextAlign.left,
+                      style: GoogleFonts.poppins(
+                        color: Colors.black
+                      ),
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintStyle: GoogleFonts.poppins(
+                          color: Colors.black45
+                        ),
+                        enabledBorder: OutlineInputBorder(borderSide: BorderSide(
+                          width: 2,
+                          color: ColorApp.primaryColor,
+                        ),
+                          borderRadius: BorderRadius.circular(10)
+                        ),
+                        hintText: 'Nama',
+                      ),
                     ),
-                    decoration: InputDecoration(
-                        enabledBorder: InputBorder.none,
-                        hintText: "Name",
-                        hintStyle: TextStyle(
-                          color: Colors.black26,
-                          fontSize: 18,
-                        )
+                  ),
+                  SizedBox(height: 10,),
+                  Text(
+                    'Nama perusahaan',
+                    style: GoogleFonts.poppins(
+                        color: ColorApp.accentColor
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  SizedBox(
+                    height: 55,
+                    child: TextField(
+                      textAlign: TextAlign.left,
+                      style: GoogleFonts.poppins(
+                          color: Colors.black
+                      ),
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintStyle: GoogleFonts.poppins(
+                            color: Colors.black45
+                        ),
+                        enabledBorder: OutlineInputBorder(borderSide: BorderSide(
+                          width: 2,
+                          color: ColorApp.primaryColor,
+                        ),
+                            borderRadius: BorderRadius.circular(10)
+                        ),
+                        hintText: 'Perusahaan',
+                      ),
                     ),
                   ),
                 ],
