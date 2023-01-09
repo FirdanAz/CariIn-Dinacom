@@ -1,7 +1,14 @@
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lowongan_pekerjaan/common/color_app.dart';
+import 'package:lowongan_pekerjaan/login_page.dart';
 import 'package:lowongan_pekerjaan/ui/home/home.dart';
 import 'package:lowongan_pekerjaan/ui/not_user/not_user_login.dart';
 import 'package:lowongan_pekerjaan/ui/profil/profil.dart';
@@ -15,12 +22,13 @@ class CustomBottomNavBar extends StatefulWidget {
 
 class CustomBottomNavBarState extends State<CustomBottomNavBar> {
   int _initPage = 0;
+  Widget check = LoginPage();
 
   final pages = const [
     HomePage(),
     Center(child: Text("Halaman 2", style: TextStyle(color: Colors.black))),
     Center(child: Text("Halaman 3", style: TextStyle(color: Colors.black))),
-    ProfilPage(),
+
   ];
 
   @override
