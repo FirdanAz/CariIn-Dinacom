@@ -91,19 +91,29 @@ class _HomePageState extends State<HomePage> {
                     child: ScrollConfiguration(
                       behavior: const MaterialScrollBehavior()
                           .copyWith(overscroll: false),
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        shrinkWrap: true,
-                        itemCount: _lowonganCardHorizonLenght,
-                        padding: EdgeInsets.symmetric(horizontal: 23.w),
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: EdgeInsets.only(
-                              right: index < _lowonganCardHorizonLenght - 1
-                                  ? 30
-                                  : 0,
-                            ),
-                            child: lowonganCardHorizon(),
+                      child: StreamBuilder(
+                        stream: _lowongan.snapshots(),
+                        builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                          if(streamSnapshot.hasData){
+                            return ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              shrinkWrap: true,
+                              itemCount: streamSnapshot.data!.docs.length,
+                              padding: EdgeInsets.symmetric(horizontal: 23.w),
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: EdgeInsets.only(
+                                    right: index < streamSnapshot.data!.docs.length - 1
+                                        ? 30
+                                        : 0,
+                                  ),
+                                  child: lowonganCardHorizon(),
+                                );
+                              },
+                            );
+                          }
+                          return const Center(
+                            child: CircularProgressIndicator(),
                           );
                         },
                       ),
@@ -112,15 +122,6 @@ class _HomePageState extends State<HomePage> {
                   SizedBox(height: 25.h),
                   textData('Pekerjaan Baru', false),
                   SizedBox(height: 25.h),
-                  // ListView.builder(
-                  //   scrollDirection: Axis.vertical,
-                  //   shrinkWrap: true,
-                  //   physics: NeverScrollableScrollPhysics(),
-                  //   itemCount: 3,
-                  //   itemBuilder: (context, index) {
-                  //     return lowonganCardVertikal();
-                  //   },
-                  // ),
                   StreamBuilder(
                     stream: _lowongan.snapshots(),
                     builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
