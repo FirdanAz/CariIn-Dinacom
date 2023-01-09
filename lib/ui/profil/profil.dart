@@ -1,6 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lowongan_pekerjaan/common/color_app.dart';
+import 'package:lowongan_pekerjaan/login_page.dart';
+import 'package:lowongan_pekerjaan/ui/bottom_navigation/bottom_navigation.dart';
+import 'package:lowongan_pekerjaan/ui/not_user/not_user_login.dart';
 import 'package:lowongan_pekerjaan/ui/wishlist/wishlist.dart';
 
 class ProfilPage extends StatelessWidget {
@@ -9,7 +13,7 @@ class ProfilPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
-    return Scaffold(
+    return FirebaseAuth.instance.currentUser == null ? NotUserLogin() : Scaffold(
       body: SingleChildScrollView(
         child: Stack(
           children: [
@@ -56,20 +60,20 @@ class ProfilPage extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 44.h),
-                  button(Icons.account_circle, "Account", () {}),
+                  button(context, Icons.account_circle, "Account", () {}),
                   const SizedBox(height: 18),
-                  button(Icons.bookmark, "Wishlist", () {
+                  button(context, Icons.bookmark, "Wishlist", () {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => WishlistPage()));
                   }),
                   const SizedBox(height: 18),
-                  button(Icons.design_services, "Pusat Bantuan", () {}),
+                  button(context, Icons.design_services, "Pusat Bantuan", () {}),
                   const SizedBox(height: 18),
-                  button(Icons.info, "About", () {}),
+                  button(context, Icons.info, "About", () {}),
                   const SizedBox(height: 18),
-                  button(Icons.logout, "Log Out", () {}),
+                  button(context, Icons.logout, "Log Out", () {}),
                 ],
               ),
             ),
@@ -123,10 +127,13 @@ class ProfilPage extends StatelessWidget {
     );
   }
 
-  Widget button(IconData icon, String text, Function()? function) {
+  Widget button(BuildContext context, IconData icon, String text, Function()? function) {
     bool isLogOut = text == "Log Out";
     return InkWell(
-      onTap: function,
+      onTap: (){
+        FirebaseAuth.instance.signOut();
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => CustomBottomNavBar(intPage: 3),));
+      },
       child: Container(
         height: 50.h,
         width: 270.w,

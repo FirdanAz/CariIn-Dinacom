@@ -1,6 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_signin_button/button_list.dart';
+import 'package:flutter_signin_button/button_view.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lowongan_pekerjaan/common/color_app.dart';
+import 'package:lowongan_pekerjaan/ui/bottom_navigation/bottom_navigation.dart';
 
 class NotUserLogin extends StatefulWidget {
   const NotUserLogin({Key? key}) : super(key: key);
@@ -10,6 +14,24 @@ class NotUserLogin extends StatefulWidget {
 }
 
 class _NotLoginState extends State<NotUserLogin> {
+  final _usernameController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+  static Future<User?> loginUsingEmailPaswword({required String email, required String password, required BuildContext context}) async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    User? user;
+    try {
+      UserCredential userCredential = await auth.signInWithEmailAndPassword(email: email, password: password);
+      user = userCredential.user;
+    } on FirebaseAuthException catch (e){
+      if
+      (e.code == "user-not-found"){
+        print('No user found for that email');
+      }
+    }
+
+    return user;
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,9 +63,10 @@ class _NotLoginState extends State<NotUserLogin> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Nama',
+                    'Email',
                     style: GoogleFonts.poppins(
-                      color: ColorApp.accentColor
+                      color: ColorApp.accentColor,
+                      fontWeight: FontWeight.w500
                     ),
                   ),
                   SizedBox(
@@ -52,6 +75,7 @@ class _NotLoginState extends State<NotUserLogin> {
                   SizedBox(
                     height: 55,
                     child: TextField(
+                      controller: _usernameController,
                       textAlign: TextAlign.left,
                       style: GoogleFonts.poppins(
                         color: Colors.black
@@ -67,15 +91,16 @@ class _NotLoginState extends State<NotUserLogin> {
                         ),
                           borderRadius: BorderRadius.circular(10)
                         ),
-                        hintText: 'Nama',
+                        hintText: 'Email Anda',
                       ),
                     ),
                   ),
                   SizedBox(height: 10,),
                   Text(
-                    'Nama perusahaan',
+                    'Kata Sandi',
                     style: GoogleFonts.poppins(
-                        color: ColorApp.accentColor
+                      color: ColorApp.accentColor,
+                      fontWeight: FontWeight.w500
                     ),
                   ),
                   SizedBox(
@@ -84,6 +109,8 @@ class _NotLoginState extends State<NotUserLogin> {
                   SizedBox(
                     height: 55,
                     child: TextField(
+                      controller: _passwordController,
+                      obscureText: true,
                       textAlign: TextAlign.left,
                       style: GoogleFonts.poppins(
                           color: Colors.black
@@ -99,12 +126,126 @@ class _NotLoginState extends State<NotUserLogin> {
                         ),
                             borderRadius: BorderRadius.circular(10)
                         ),
-                        hintText: 'Perusahaan',
+                        hintText: 'Kata Sandi Anda',
                       ),
                     ),
                   ),
                 ],
               ),
+            ),
+          ),
+          Container(
+            alignment: Alignment.topRight,
+            margin: EdgeInsets.only(
+              right: 20
+            ),
+            child: InkWell(
+              onTap: (){},
+              child: Text(
+                'Lupa Kata Sandi?',
+                style: GoogleFonts.poppins(
+                  color: ColorApp.accentColor,
+                  fontWeight: FontWeight.w500
+                ),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(
+                left:20,
+                right: 20
+            ),
+            child: InkWell(
+              onTap: () async {
+                User? user = await loginUsingEmailPaswword(email: _usernameController.text, password: _passwordController.text, context: context);
+                if(user != null){
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => CustomBottomNavBar(intPage: 3),));
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      backgroundColor: Color.fromARGB(255, 23, 23, 23),
+                      duration: Duration(seconds: 1),
+                      content: Row(
+                        children: [
+                          Icon(Icons.login,
+                              color: Colors.orange,size: 18),
+                          SizedBox(width: 15),
+                          Text("Login Success"),
+                        ],
+                      )));
+                } else{
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      backgroundColor: Color.fromARGB(255, 23, 23, 23),
+                      duration: Duration(seconds: 1),
+                      content: Row(
+                        children: [
+                          Icon(Icons.error,
+                              color: Color.fromARGB(255, 213, 70, 70), size: 18),
+                          SizedBox(width: 15),
+                          Text("Login Failed"),
+                        ],
+                      )));
+                }
+              },
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(15),
+                child: Container(
+                  color: ColorApp.accentColor,
+                  height: 50,
+                  child: Center(
+                    child: Text(
+                      'Masuk'
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                Divider(
+                  thickness: 2,
+                ),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 5),
+                  child: Text(
+                    'atau',
+                    style: GoogleFonts.poppins(
+                      color: Colors.black45
+                    ),
+                  ),
+                  color: Colors.white,
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+
+              ],
+            ),
+          ),
+          Center(
+            child: Column(
+              children: [
+                SignInButton(
+                  Buttons.Google,
+                  onPressed: () {},
+                ),
+                SignInButton(
+                  Buttons.Facebook,
+                  onPressed: (){},
+                ),
+                SignInButton(
+                  Buttons.LinkedIn,
+                  onPressed: (){},
+                )
+              ],
             ),
           )
         ],

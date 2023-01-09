@@ -9,29 +9,36 @@ import 'package:lowongan_pekerjaan/ui/profil/profil.dart';
 import 'package:lowongan_pekerjaan/ui/widget/navbar_item.dart';
 
 class CustomBottomNavBar extends StatefulWidget {
-  const CustomBottomNavBar({super.key});
+  CustomBottomNavBar({super.key, required this.intPage});
+  int intPage;
 
   @override
   State<CustomBottomNavBar> createState() => CustomBottomNavBarState();
 }
 
 class CustomBottomNavBarState extends State<CustomBottomNavBar> {
-  int _initPage = 0;
   double _tabPositionLeft = 11.w;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    onChangedTab(widget.intPage);
+  }
 
   void onChangedTab(int index) {
     setState(() {
-      _initPage = index;
+      widget.intPage = index;
     });
-    if (_initPage == 1) {
+    if (widget.intPage == 1) {
       setState(() {
         _tabPositionLeft = 97.w;
       });
-    } else if (_initPage == 2) {
+    } else if (widget.intPage == 2) {
       setState(() {
         _tabPositionLeft = 183.w;
       });
-    } else if (_initPage == 3) {
+    } else if (widget.intPage == 3) {
       setState(() {
         _tabPositionLeft = 269.w;
       });
@@ -51,8 +58,11 @@ class CustomBottomNavBarState extends State<CustomBottomNavBar> {
 
   @override
   Widget build(BuildContext context) {
+    setState(() {
+      widget.intPage = widget.intPage;
+    });
     return Scaffold(
-      body: pages[_initPage],
+      body: pages[widget.intPage],
       bottomNavigationBar: BottomAppBar(
         // elevation: 0,
         color: ColorApp.secondaryColor,
@@ -81,25 +91,25 @@ class CustomBottomNavBarState extends State<CustomBottomNavBar> {
                       icon: Icons.home_outlined,
                       iconSelcted: Icons.home,
                       indexItem: 0,
-                      index: _initPage,
+                      index: widget.intPage,
                       onChangedTab: onChangedTab),
                   NavbarItem(
                       icon: Icons.work_outline,
                       iconSelcted: Icons.work,
                       indexItem: 1,
-                      index: _initPage,
+                      index: widget.intPage,
                       onChangedTab: onChangedTab),
                   NavbarItem(
                       icon: Icons.mail_outline,
                       iconSelcted: Icons.mail,
                       indexItem: 2,
-                      index: _initPage,
+                      index: widget.intPage,
                       onChangedTab: onChangedTab),
                   NavbarItem(
                       icon: Icons.person_outline,
                       iconSelcted: Icons.person,
                       indexItem: 3,
-                      index: _initPage,
+                      index: widget.intPage,
                       onChangedTab: onChangedTab),
                 ],
               ),
