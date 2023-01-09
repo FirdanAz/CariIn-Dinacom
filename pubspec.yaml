@@ -48,6 +48,7 @@ dependencies:
   cloud_firestore:
   # firestore_ui: ^1.24.0
   intl: ^0.17.0
+  flutter_signin_button:
 
 dev_dependencies:
   flutter_test:

@@ -20,11 +20,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final cvCheck = 4;
-  final CollectionReference _lowongan = FirebaseFirestore.instance
-      .collection('category')
-      .doc('dvPSUvsmmKov6aHRDbhf')
-      .collection('administrasi');
+  final cvCheck = 2;
+  final CollectionReference _lowongan = 
+      FirebaseFirestore.instance.collection('category').doc('dvPSUvsmmKov6aHRDbhf').collection('administrasi');
   List<LowonganModel> lowongan = [];
 
   var _numberToMonthMap = {
