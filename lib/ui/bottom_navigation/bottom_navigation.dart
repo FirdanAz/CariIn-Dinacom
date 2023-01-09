@@ -5,6 +5,7 @@ import 'package:lowongan_pekerjaan/common/color_app.dart';
 import 'package:lowongan_pekerjaan/ui/home/home.dart';
 import 'package:lowongan_pekerjaan/ui/not_user/not_user_login.dart';
 import 'package:lowongan_pekerjaan/ui/kotak_masuk/kotak_masuk.dart';
+import 'package:lowongan_pekerjaan/ui/pekerjaan/pekerjaan.dart';
 import 'package:lowongan_pekerjaan/ui/profil/profil.dart';
 import 'package:lowongan_pekerjaan/ui/widget/navbar_item.dart';
 
@@ -44,7 +45,7 @@ class CustomBottomNavBarState extends State<CustomBottomNavBar> {
 
   final pages = const [
     HomePage(),
-    Center(child: Text("Halaman 2", style: TextStyle(color: Colors.black))),
+    PekerjaanPage(),
     KotakMasukPage(),
     ProfilPage(),
   ];

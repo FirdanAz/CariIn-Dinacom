@@ -12,7 +12,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:lowongan_pekerjaan/ui/widget/lowongan_card_horizontal.dart';
 import 'package:lowongan_pekerjaan/ui/widget/lowongan_card_vertikal.dart';
 
-
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -22,25 +21,26 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final cvCheck = 4;
-  final CollectionReference _lowongan = 
-      FirebaseFirestore.instance.collection('category').doc('dvPSUvsmmKov6aHRDbhf').collection('administrasi');
+  final CollectionReference _lowongan = FirebaseFirestore.instance
+      .collection('category')
+      .doc('dvPSUvsmmKov6aHRDbhf')
+      .collection('administrasi');
   List<LowonganModel> lowongan = [];
 
   var _numberToMonthMap = {
-    1 : 'Jan',
-    2 : 'Feb',
-    3 : 'Mar',
-    4 : 'Apr',
-    5 : 'Mei',
-    6 : 'Jun',
-    7 : 'Jul',
-    8 : 'Agu',
-    9 : 'Sep',
-    10 : 'Oct',
-    11 : 'Nov',
-    12 : 'Des'
+    1: 'Jan',
+    2: 'Feb',
+    3: 'Mar',
+    4: 'Apr',
+    5: 'Mei',
+    6: 'Jun',
+    7: 'Jul',
+    8: 'Agu',
+    9: 'Sep',
+    10: 'Oct',
+    11: 'Nov',
+    12: 'Des'
   };
-  
 
   @override
   Widget build(BuildContext context) {
@@ -49,13 +49,6 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: ColorApp.primaryColor,
-        actions: [
-          IconButton(
-            padding: const EdgeInsets.only(right: 8),
-            onPressed: () {},
-            icon: const Icon(Icons.notifications_outlined),
-          )
-        ],
         title: Container(
           padding: const EdgeInsets.only(left: 8),
           child: SvgPicture.asset(appbar_logo, height: 30, width: 63),
@@ -113,44 +106,45 @@ class _HomePageState extends State<HomePage> {
                           .copyWith(overscroll: false),
                       child: StreamBuilder(
                         stream: _lowongan.snapshots(),
-                        builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
-                          if(streamSnapshot.hasData){
-                            return ListView.builder(
+                        builder: (context,
+                            AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                          if (streamSnapshot.hasData) {
+                            return ListView.separated(
                               scrollDirection: Axis.horizontal,
                               shrinkWrap: true,
                               itemCount: streamSnapshot.data!.docs.length,
                               padding: EdgeInsets.symmetric(horizontal: 23.w),
+                              separatorBuilder: (context, index) => Divider(
+                                indent: 30.h,
+                                color: Colors.transparent,
+                              ),
                               itemBuilder: (context, index) {
                                 final DocumentSnapshot documnentSnapshot =
-                                streamSnapshot.data!.docs[index];
+                                    streamSnapshot.data!.docs[index];
 
                                 //waktu
-                                Timestamp t = documnentSnapshot['date'] as Timestamp;
+                                Timestamp t =
+                                    documnentSnapshot['date'] as Timestamp;
                                 DateTime date = t.toDate();
 
                                 //rupiah
-                                final formartter = NumberFormat.simpleCurrency(locale: 'id_ID');
+                                final formartter = NumberFormat.simpleCurrency(
+                                    locale: 'id_ID');
                                 var nilai = documnentSnapshot['wages'];
                                 var rupiah = formartter.format(nilai);
 
-                                return Padding(
-                                  padding: EdgeInsets.only(
-                                    right: index < streamSnapshot.data!.docs.length - 1
-                                        ? 30
-                                        : 0,
-                                  ),
-                                  child: LowonganCardVertikal(
-                                    id: streamSnapshot.data!.docs.toString(),
-                                    name: documnentSnapshot['name'],
-                                    ptName: documnentSnapshot['ptName'],
-                                    ptLocation: documnentSnapshot['ptLocation'],
-                                    profession: documnentSnapshot['profession'],
-                                    division: documnentSnapshot['division'],
-                                    experience: documnentSnapshot['experience'],
-                                    times: '${_numberToMonthMap[date.month]} ${date.day} ${date.year}',
-                                    people: documnentSnapshot['people'],
-                                    wages: rupiah.toString(),
-                                  ),
+                                return LowonganCardVertikal(
+                                  id: streamSnapshot.data!.docs.toString(),
+                                  name: documnentSnapshot['name'],
+                                  ptName: documnentSnapshot['ptName'],
+                                  ptLocation: documnentSnapshot['ptLocation'],
+                                  profession: documnentSnapshot['profession'],
+                                  division: documnentSnapshot['division'],
+                                  experience: documnentSnapshot['experience'],
+                                  times:
+                                      '${_numberToMonthMap[date.month]} ${date.day} ${date.year}',
+                                  people: documnentSnapshot['people'],
+                                  wages: rupiah.toString(),
                                 );
                               },
                             );
@@ -167,8 +161,9 @@ class _HomePageState extends State<HomePage> {
                   SizedBox(height: 17.h),
                   StreamBuilder(
                     stream: _lowongan.snapshots(),
-                    builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
-                      if(streamSnapshot.hasData) {
+                    builder:
+                        (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                      if (streamSnapshot.hasData) {
                         return ListView.builder(
                           physics: NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
@@ -179,7 +174,12 @@ class _HomePageState extends State<HomePage> {
                             return Padding(
                               padding: EdgeInsets.symmetric(
                                   horizontal: 10.w, vertical: 8.h),
-                              child: LowonganCardHorizontal(name: documnentSnapshot['name'],),);
+                              child: LowonganCardHorizontal(
+                                isWishlistPage: false,
+                                isNew: true,
+                                name: documnentSnapshot['name'],
+                              ),
+                            );
                           },
                         );
                       }
