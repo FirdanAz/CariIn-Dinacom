@@ -42,7 +42,7 @@ class _SpashScreenState extends State<SpashScreen> {
       Navigator.pushReplacement(
           context,
           PageTransition(
-              child: const CustomBottomNavBar(),
+              child: CustomBottomNavBar(intPage: 0),
               type: PageTransitionType.fade,
               duration: const Duration(milliseconds: 900),
               curve: Curves.ease));

@@ -47,6 +47,7 @@ dependencies:
   provider:
   cloud_firestore:
   intl: ^0.17.0
+  flutter_signin_button:
 
 dev_dependencies:
   flutter_test:
