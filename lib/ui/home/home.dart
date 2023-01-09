@@ -1,11 +1,17 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:lowongan_pekerjaan/common/color_app.dart';
 import 'package:lowongan_pekerjaan/common/svg_assets.dart';
+import 'package:lowongan_pekerjaan/model/lowongan_model.dart';
 import 'package:lowongan_pekerjaan/ui/widget/home_header.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:lowongan_pekerjaan/ui/widget/lowongan_card_horizontal.dart';
+import 'package:lowongan_pekerjaan/ui/widget/lowongan_card_vertikal.dart';
+
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -16,7 +22,25 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final cvCheck = 4;
-  final _lowonganCardHorizonLenght = 3;
+  final CollectionReference _lowongan = 
+      FirebaseFirestore.instance.collection('category').doc('dvPSUvsmmKov6aHRDbhf').collection('administrasi');
+  List<LowonganModel> lowongan = [];
+
+  var _numberToMonthMap = {
+    1 : 'Jan',
+    2 : 'Feb',
+    3 : 'Mar',
+    4 : 'Apr',
+    5 : 'Mei',
+    6 : 'Jun',
+    7 : 'Jul',
+    8 : 'Agu',
+    9 : 'Sep',
+    10 : 'Oct',
+    11 : 'Nov',
+    12 : 'Des'
+  };
+  
 
   @override
   Widget build(BuildContext context) {
@@ -87,19 +111,52 @@ class _HomePageState extends State<HomePage> {
                     child: ScrollConfiguration(
                       behavior: const MaterialScrollBehavior()
                           .copyWith(overscroll: false),
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        shrinkWrap: true,
-                        itemCount: _lowonganCardHorizonLenght,
-                        padding: EdgeInsets.symmetric(horizontal: 23.w),
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: EdgeInsets.only(
-                              right: index < _lowonganCardHorizonLenght - 1
-                                  ? 30
-                                  : 0,
-                            ),
-                            child: lowonganCardVertical(),
+                      child: StreamBuilder(
+                        stream: _lowongan.snapshots(),
+                        builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                          if(streamSnapshot.hasData){
+                            return ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              shrinkWrap: true,
+                              itemCount: streamSnapshot.data!.docs.length,
+                              padding: EdgeInsets.symmetric(horizontal: 23.w),
+                              itemBuilder: (context, index) {
+                                final DocumentSnapshot documnentSnapshot =
+                                streamSnapshot.data!.docs[index];
+
+                                //waktu
+                                Timestamp t = documnentSnapshot['date'] as Timestamp;
+                                DateTime date = t.toDate();
+
+                                //rupiah
+                                final formartter = NumberFormat.simpleCurrency(locale: 'id_ID');
+                                var nilai = documnentSnapshot['wages'];
+                                var rupiah = formartter.format(nilai);
+
+                                return Padding(
+                                  padding: EdgeInsets.only(
+                                    right: index < streamSnapshot.data!.docs.length - 1
+                                        ? 30
+                                        : 0,
+                                  ),
+                                  child: LowonganCardVertikal(
+                                    id: streamSnapshot.data!.docs.toString(),
+                                    name: documnentSnapshot['name'],
+                                    ptName: documnentSnapshot['ptName'],
+                                    ptLocation: documnentSnapshot['ptLocation'],
+                                    profession: documnentSnapshot['profession'],
+                                    division: documnentSnapshot['division'],
+                                    experience: documnentSnapshot['experience'],
+                                    times: '${_numberToMonthMap[date.month]} ${date.day} ${date.year}',
+                                    people: documnentSnapshot['people'],
+                                    wages: rupiah.toString(),
+                                  ),
+                                );
+                              },
+                            );
+                          }
+                          return const Center(
+                            child: CircularProgressIndicator(),
                           );
                         },
                       ),
@@ -108,16 +165,26 @@ class _HomePageState extends State<HomePage> {
                   SizedBox(height: 25.h),
                   textData('Pekerjaan Baru', false),
                   SizedBox(height: 17.h),
-                  ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: 5,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 10.w, vertical: 8.h),
-                        child: LowonganCardHorizontal(),
+                  StreamBuilder(
+                    stream: _lowongan.snapshots(),
+                    builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                      if(streamSnapshot.hasData) {
+                        return ListView.builder(
+                          physics: NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: streamSnapshot.data!.docs.length,
+                          itemBuilder: (context, index) {
+                            final DocumentSnapshot documnentSnapshot =
+                                streamSnapshot.data!.docs[index];
+                            return Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 10.w, vertical: 8.h),
+                              child: LowonganCardHorizontal(name: documnentSnapshot['name'],),);
+                          },
+                        );
+                      }
+                      return const Center(
+                        child: CircularProgressIndicator(),
                       );
                     },
                   )
@@ -220,147 +287,6 @@ class _HomePageState extends State<HomePage> {
           const Spacer(),
           const Icon(Icons.arrow_forward_ios, color: ColorApp.primaryColor),
         ],
-      ),
-    );
-  }
-
-  Widget lowonganCardVertical() {
-    return Container(
-      alignment: Alignment.centerLeft,
-      width: 250.w,
-      child: Card(
-        elevation: 2,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-          //set border radius more than 50% of height and width to make circle
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                        height: 35,
-                        child: CircleAvatar(
-                          child: ClipRRect(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(1000)),
-                              child: Image.network(
-                                'https://winaero.com/blog/wp-content/uploads/2018/08/Windows-10-user-icon-big.png',
-                                fit: BoxFit.fill,
-                              )),
-                        )),
-                    SizedBox(height: 10),
-                    Text(
-                      'Mobile Front End',
-                      style: GoogleFonts.poppins(
-                          color: ColorApp.accentColor,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16),
-                    ),
-                    SizedBox(height: 5),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Icon(Icons.location_city_sharp,
-                            size: 15, color: Colors.black),
-                        SizedBox(width: 10),
-                        Text(
-                          'PT. Nano Group',
-                          style: GoogleFonts.poppins(
-                              fontSize: 11,
-                              fontWeight: FontWeight.w500,
-                              color: ColorApp.primaryColor),
-                        )
-                      ],
-                    ),
-                    SizedBox(height: 5),
-                    Text(
-                      'Kab. Kudus, Jawa Tengah',
-                      style: GoogleFonts.poppins(
-                          fontSize: 11, color: Colors.black45),
-                    ),
-                    SizedBox(height: 5),
-                    Row(
-                      children: [
-                        Icon(Icons.school_outlined,
-                            size: 15, color: Colors.black),
-                        SizedBox(width: 10),
-                        Text(
-                          'SMA/SMK',
-                          style: GoogleFonts.poppins(
-                              fontSize: 11, color: Colors.black),
-                        )
-                      ],
-                    ),
-                    SizedBox(height: 5),
-                    Row(
-                      children: [
-                        Icon(Icons.work_outline,
-                            size: 15, color: ColorApp.primaryColor),
-                        SizedBox(width: 10),
-                        Text(
-                          'Full-Time,On-Site',
-                          style: GoogleFonts.poppins(
-                              fontSize: 11, color: ColorApp.primaryColor),
-                        )
-                      ],
-                    ),
-                    SizedBox(height: 5),
-                    Row(
-                      children: [
-                        Icon(Icons.money,
-                            size: 15, color: ColorApp.primaryColor),
-                        SizedBox(width: 10),
-                        Text(
-                          'Rp 3.000.000 - Rp 4.000.000',
-                          style: GoogleFonts.poppins(
-                              fontSize: 11, color: ColorApp.primaryColor),
-                        )
-                      ],
-                    ),
-                    SizedBox(height: 10),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Dibutuhkan Segera',
-                              style: GoogleFonts.poppins(
-                                  color: ColorApp.accentColor,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w600),
-                            ),
-                            Text(
-                              '5 orang dibutuhkan',
-                              style: GoogleFonts.poppins(
-                                  color: ColorApp.accentColor,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w400),
-                            )
-                          ],
-                        ),
-                        Text(
-                          '1 Hari yang lalu',
-                          style: GoogleFonts.poppins(
-                              color: Colors.black45, fontSize: 11),
-                        )
-                      ],
-                    )
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
       ),
     );
   }

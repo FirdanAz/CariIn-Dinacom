@@ -24,7 +24,7 @@ class WishlistPage extends StatelessWidget {
         itemBuilder: (context, index) {
           return Padding(
             padding: EdgeInsets.symmetric(vertical: 6.h),
-            child: LowonganCardHorizontal(),
+            child: LowonganCardHorizontal(name: "Mobile front End"),
           );
         },
       ),

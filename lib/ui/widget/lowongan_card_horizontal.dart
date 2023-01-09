@@ -4,7 +4,8 @@ import 'package:lowongan_pekerjaan/common/color_app.dart';
 import 'package:lowongan_pekerjaan/ui/detail/detail.dart';
 
 class LowonganCardHorizontal extends StatelessWidget {
-  const LowonganCardHorizontal({super.key});
+  const LowonganCardHorizontal({super.key, required this.name});
+  final String name;
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +43,7 @@ class LowonganCardHorizontal extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Mobile Front end',
+                          name,
                           style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 15.sp,

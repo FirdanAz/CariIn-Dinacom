@@ -23,6 +23,7 @@ class DetailPage extends StatelessWidget {
             backgroundColor: ColorApp.secondaryColor,
             floating: true,
             snap: true,
+            pinned: true,
           ),
           SliverToBoxAdapter(
             child: Column(

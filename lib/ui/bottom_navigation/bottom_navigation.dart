@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lowongan_pekerjaan/common/color_app.dart';
 import 'package:lowongan_pekerjaan/ui/home/home.dart';
+import 'package:lowongan_pekerjaan/ui/not_user/not_user_login.dart';
 import 'package:lowongan_pekerjaan/ui/kotak_masuk/kotak_masuk.dart';
 import 'package:lowongan_pekerjaan/ui/profil/profil.dart';
 import 'package:lowongan_pekerjaan/ui/widget/navbar_item.dart';
