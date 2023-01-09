@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lowongan_pekerjaan/common/color_app.dart';
+import 'package:lowongan_pekerjaan/ui/widget/wishlist_button.dart';
 
 class DetailPage extends StatelessWidget {
   const DetailPage({super.key});
@@ -47,12 +48,15 @@ class DetailPage extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            "Mobile Front End",
-                            style: TextStyle(
-                                fontSize: 13.sp,
-                                fontWeight: FontWeight.w600,
-                                color: ColorApp.accentColor),
+                          SizedBox(
+                            width: 170.w,
+                            child: Text(
+                              "Mobile Front End",
+                              style: TextStyle(
+                                  fontSize: 13.sp,
+                                  fontWeight: FontWeight.w600,
+                                  color: ColorApp.accentColor),
+                            ),
                           ),
                           SizedBox(height: 2.h),
                           Text(
@@ -75,6 +79,8 @@ class DetailPage extends StatelessWidget {
                         ],
                       ),
                       const Spacer(),
+                      const WishlistButton(),
+                      SizedBox(width: 7.w),
                       isNewJob
                           ? RotatedBox(
                               quarterTurns: 3,
