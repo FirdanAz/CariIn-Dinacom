@@ -150,7 +150,7 @@ class _NotLoginState extends State<NotUserLogin> {
               margin: EdgeInsets.only(right: 20),
               child: InkWell(
                 onTap: () {
-                  Navigator.push(context,
+                  Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (context) => RegisterPage()));
                 },
                 child: Text(

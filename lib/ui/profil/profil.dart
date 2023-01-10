@@ -19,6 +19,13 @@ class ProfilPage extends StatefulWidget {
 }
 
 class _ProfilPageState extends State<ProfilPage> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
@@ -123,10 +130,14 @@ class _ProfilPageState extends State<ProfilPage> {
                         children: [
                           ClipRRect(
                             borderRadius: BorderRadius.circular(100),
-                            child: Image.asset(
-                              "assets/foto_profil.jpg",
-                              fit: BoxFit.cover,
-                              filterQuality: FilterQuality.high,
+                            child: Container(
+                              height: double.maxFinite,
+                              width: double.maxFinite,
+                              child: Image.network(
+                                "https://mycipongkor.com/wp-content/uploads/2022/07/Gambar-Profil-WA-Hijab-min.jpg",
+                                fit: BoxFit.cover,
+                                filterQuality: FilterQuality.high,
+                              ),
                             ),
                           ),
                           Positioned(
