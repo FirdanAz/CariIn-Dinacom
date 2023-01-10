@@ -5,7 +5,10 @@ import 'package:lowongan_pekerjaan/common/color_app.dart';
 import 'package:lowongan_pekerjaan/login_page.dart';
 import 'package:lowongan_pekerjaan/ui/bottom_navigation/bottom_navigation.dart';
 import 'package:lowongan_pekerjaan/ui/not_user/not_user_login.dart';
-import 'package:lowongan_pekerjaan/ui/wishlist/wishlist.dart';
+import 'package:lowongan_pekerjaan/ui/profil/pages/akun.dart';
+import 'package:lowongan_pekerjaan/ui/profil/pages/tentang.dart';
+import 'package:lowongan_pekerjaan/ui/profil/pages/wishlist/wishlist.dart';
+import 'package:page_transition/page_transition.dart';
 
 class ProfilPage extends StatelessWidget {
   const ProfilPage({super.key});
@@ -62,28 +65,35 @@ class ProfilPage extends StatelessWidget {
                           ),
                         ),
                         SizedBox(height: 44.h),
-                        button(context, Icons.account_circle, "Account", () {}),
+                        button(context, Icons.account_circle, "Akun", () {
+                          Navigator.push(
+                              context,
+                              PageTransition(
+                                  child: AkunPage(),
+                                  type: PageTransitionType.leftToRight,
+                                  curve: Curves.easeOutQuart));
+                        }),
                         const SizedBox(height: 18),
                         button(context, Icons.bookmark, "Wishlist", () {
                           Navigator.push(
                               context,
-                              MaterialPageRoute(
-                                  builder: (context) => WishlistPage()));
+                              PageTransition(
+                                  child: WishlistPage(),
+                                  type: PageTransitionType.leftToRight,
+                                  curve: Curves.easeOutQuart));
                         }),
                         const SizedBox(height: 18),
-                        button(context, Icons.design_services, "Pusat Bantuan",
-                            () {}),
+                        button(context, Icons.create, "Buat Lowongan", () {}),
                         const SizedBox(height: 18),
-                        button(context, Icons.info, "About", () {}),
+                        button(context, Icons.message, "Pusat Bantuan", () {}),
                         const SizedBox(height: 18),
-                        button(context, Icons.logout, "Log Out", () {
-                          FirebaseAuth.instance.signOut();
-                          Navigator.pushReplacement(
+                        button(context, Icons.info, "Tentang", () {
+                          Navigator.push(
                               context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    CustomBottomNavBar(intPage: 3),
-                              ));
+                              PageTransition(
+                                  child: TentangPage(),
+                                  type: PageTransitionType.leftToRight,
+                                  curve: Curves.easeOutQuart));
                         }),
                       ],
                     ),
