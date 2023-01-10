@@ -105,7 +105,6 @@ packages:
       name: fake_async
       url: "https://pub.dartlang.org"
     source: hosted
-<<<<<<< HEAD
     version: "1.3.0"
   ffi:
     dependency: transitive
@@ -121,9 +120,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "6.1.4"
-=======
-    version: "1.3.1"
->>>>>>> 8fc976961e4075947798f0edbacf9ac9602c6f13
   firebase_auth:
     dependency: "direct main"
     description:
