@@ -53,7 +53,7 @@ class _NotLoginState extends State<NotUserLogin> {
 
     return user;
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,7 +64,7 @@ class _NotLoginState extends State<NotUserLogin> {
         title: Text(
           'Profil',
           style: GoogleFonts.poppins(
-            fontSize: 15
+              fontSize: 15
           ),
         ),
       ),
@@ -76,8 +76,8 @@ class _NotLoginState extends State<NotUserLogin> {
           ),
           Container(
             margin: EdgeInsets.only(
-              right: 10,
-              left: 10
+                right: 10,
+                left: 10
             ),
             child: Padding(
               padding: const EdgeInsets.all(10.0),
@@ -87,8 +87,8 @@ class _NotLoginState extends State<NotUserLogin> {
                   Text(
                     'Email',
                     style: GoogleFonts.poppins(
-                      color: ColorApp.accentColor,
-                      fontWeight: FontWeight.w500
+                        color: ColorApp.accentColor,
+                        fontWeight: FontWeight.w500
                     ),
                   ),
                   SizedBox(
@@ -100,18 +100,18 @@ class _NotLoginState extends State<NotUserLogin> {
                       controller: _usernameController,
                       textAlign: TextAlign.left,
                       style: GoogleFonts.poppins(
-                        color: Colors.black
+                          color: Colors.black
                       ),
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         hintStyle: GoogleFonts.poppins(
-                          color: Colors.black45
+                            color: Colors.black45
                         ),
                         enabledBorder: OutlineInputBorder(borderSide: BorderSide(
                           width: 2,
                           color: ColorApp.primaryColor,
                         ),
-                          borderRadius: BorderRadius.circular(10)
+                            borderRadius: BorderRadius.circular(10)
                         ),
                         hintText: 'Email Anda',
                       ),
@@ -121,8 +121,8 @@ class _NotLoginState extends State<NotUserLogin> {
                   Text(
                     'Kata Sandi',
                     style: GoogleFonts.poppins(
-                      color: ColorApp.accentColor,
-                      fontWeight: FontWeight.w500
+                        color: ColorApp.accentColor,
+                        fontWeight: FontWeight.w500
                     ),
                   ),
                   SizedBox(
@@ -159,7 +159,7 @@ class _NotLoginState extends State<NotUserLogin> {
           Container(
             alignment: Alignment.topRight,
             margin: EdgeInsets.only(
-              right: 20
+                right: 20
             ),
             child: InkWell(
               onTap: (){
@@ -168,8 +168,8 @@ class _NotLoginState extends State<NotUserLogin> {
               child: Text(
                 'Belum punya akun?',
                 style: GoogleFonts.poppins(
-                  color: ColorApp.accentColor,
-                  fontWeight: FontWeight.w500
+                    color: ColorApp.accentColor,
+                    fontWeight: FontWeight.w500
                 ),
               ),
             ),
@@ -219,7 +219,7 @@ class _NotLoginState extends State<NotUserLogin> {
                   height: 50,
                   child: Center(
                     child: Text(
-                      'Masuk'
+                        'Masuk'
                     ),
                   ),
                 ),
@@ -242,7 +242,7 @@ class _NotLoginState extends State<NotUserLogin> {
                   child: Text(
                     'atau',
                     style: GoogleFonts.poppins(
-                      color: Colors.black45
+                        color: Colors.black45
                     ),
                   ),
                   color: Colors.white,

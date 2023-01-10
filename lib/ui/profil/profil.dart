@@ -6,7 +6,6 @@ import 'package:lowongan_pekerjaan/login_page.dart';
 import 'package:lowongan_pekerjaan/model/getName.dart';
 import 'package:lowongan_pekerjaan/ui/bottom_navigation/bottom_navigation.dart';
 import 'package:lowongan_pekerjaan/ui/not_user/not_user_login.dart';
-import 'package:lowongan_pekerjaan/ui/wishlist/wishlist.dart';
 
 class ProfilPage extends StatefulWidget {
   const ProfilPage({super.key});
@@ -51,7 +50,7 @@ class _ProfilPageState extends State<ProfilPage> {
                   SizedBox(height: 13.h),
                   Container(
                     padding:
-                        EdgeInsets.symmetric(vertical: 6.2.h, horizontal: 17.w),
+                    EdgeInsets.symmetric(vertical: 6.2.h, horizontal: 17.w),
                     decoration: BoxDecoration(
                         border: Border.all(width: 2),
                         borderRadius: BorderRadius.circular(10)),
@@ -66,12 +65,7 @@ class _ProfilPageState extends State<ProfilPage> {
                   SizedBox(height: 44.h),
                   button(context, Icons.account_circle, "Account", () {}),
                   const SizedBox(height: 18),
-                  button(context, Icons.bookmark, "Wishlist", () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => WishlistPage()));
-                  }),
+                  button(context, Icons.bookmark, "Wishlist", () {}),
                   const SizedBox(height: 18),
                   button(context, Icons.design_services, "Pusat Bantuan", () {}),
                   const SizedBox(height: 18),

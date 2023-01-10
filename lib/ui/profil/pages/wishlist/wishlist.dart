@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lowongan_pekerjaan/common/color_app.dart';
 import 'package:lowongan_pekerjaan/ui/widget/lowongan_card_horizontal.dart';
-import 'package:lowongan_pekerjaan/ui/wishlist/not_login.dart';
+import 'package:lowongan_pekerjaan/ui/profil/pages/wishlist/not_login.dart';
 
 class WishlistPage extends StatelessWidget {
   const WishlistPage({super.key});
