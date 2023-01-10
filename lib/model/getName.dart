@@ -15,10 +15,10 @@ class GetName extends StatelessWidget {
     return FutureBuilder<DocumentSnapshot>(
       future: users.doc(documentID).get(),
       builder: ((context, snapshot) {
-        if(snapshot.connectionState == ConnectionState.done){
+        if (snapshot.connectionState == ConnectionState.done) {
           Map<String, dynamic> data =
-          snapshot.data!.data() as Map<String, dynamic>;
-          if(data["email"] == FirebaseAuth.instance.currentUser!.email){
+              snapshot.data!.data() as Map<String, dynamic>;
+          if (data["email"] == FirebaseAuth.instance.currentUser!.email) {
             return Text(
               data['name'],
               style: TextStyle(
