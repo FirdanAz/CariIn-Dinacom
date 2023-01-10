@@ -263,7 +263,7 @@ class _RegisterPageState extends State<RegisterPage> {
               child: InkWell(
                 onTap: () async {
                   signUp();
-                  Navigator.push(
+                  Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                         builder: (context) => CustomBottomNavBar(intPage: 0),

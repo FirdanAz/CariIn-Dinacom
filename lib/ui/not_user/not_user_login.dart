@@ -67,196 +67,198 @@ class _NotLoginState extends State<NotUserLogin> {
           style: TextStyle(fontSize: 15),
         ),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            height: 20,
-          ),
-          Container(
-            margin: EdgeInsets.only(right: 10, left: 10),
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: 20,
+            ),
+            Container(
+              margin: EdgeInsets.only(right: 10, left: 10),
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Email',
+                      style: TextStyle(
+                          color: ColorApp.accentColor,
+                          fontWeight: FontWeight.w500),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    SizedBox(
+                      height: 55,
+                      child: TextField(
+                        controller: _usernameController,
+                        textAlign: TextAlign.left,
+                        style: TextStyle(color: Colors.black),
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintStyle: TextStyle(color: Colors.black45),
+                          enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                width: 2,
+                                color: ColorApp.primaryColor,
+                              ),
+                              borderRadius: BorderRadius.circular(10)),
+                          hintText: 'Email Anda',
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      'Kata Sandi',
+                      style: TextStyle(
+                          color: ColorApp.accentColor,
+                          fontWeight: FontWeight.w500),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    SizedBox(
+                      height: 55,
+                      child: TextField(
+                        controller: _passwordController,
+                        obscureText: true,
+                        textAlign: TextAlign.left,
+                        style: TextStyle(color: Colors.black),
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintStyle: TextStyle(color: Colors.black45),
+                          enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                width: 2,
+                                color: ColorApp.primaryColor,
+                              ),
+                              borderRadius: BorderRadius.circular(10)),
+                          hintText: 'Kata Sandi Anda',
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Container(
+              alignment: Alignment.topRight,
+              margin: EdgeInsets.only(right: 20),
+              child: InkWell(
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => RegisterPage()));
+                },
+                child: Text(
+                  'Belum punya akun?',
+                  style: TextStyle(
+                      color: ColorApp.accentColor, fontWeight: FontWeight.w500),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 20, right: 20),
+              child: InkWell(
+                onTap: () async {
+                  User? user = await loginUsingEmailPaswword(
+                      email: _usernameController.text,
+                      password: _passwordController.text,
+                      context: context);
+                  if (user != null) {
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      builder: (context) => CustomBottomNavBar(intPage: 3),
+                    ));
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        backgroundColor: Color.fromARGB(255, 23, 23, 23),
+                        duration: Duration(seconds: 1),
+                        content: Row(
+                          children: [
+                            Icon(Icons.login, color: Colors.orange, size: 18),
+                            SizedBox(width: 15),
+                            Text("Login Success"),
+                          ],
+                        )));
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        backgroundColor: Color.fromARGB(255, 23, 23, 23),
+                        duration: Duration(seconds: 1),
+                        content: Row(
+                          children: [
+                            Icon(Icons.error,
+                                color: Color.fromARGB(255, 213, 70, 70),
+                                size: 18),
+                            SizedBox(width: 15),
+                            Text("Login Failed"),
+                          ],
+                        )));
+                  }
+                },
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(15),
+                  child: Container(
+                    color: ColorApp.accentColor,
+                    height: 50,
+                    child: Center(
+                      child: Text('Masuk'),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Stack(
+                alignment: Alignment.center,
                 children: [
-                  Text(
-                    'Email',
-                    style: TextStyle(
-                        color: ColorApp.accentColor,
-                        fontWeight: FontWeight.w500),
+                  Divider(
+                    thickness: 2,
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  SizedBox(
-                    height: 55,
-                    child: TextField(
-                      controller: _usernameController,
-                      textAlign: TextAlign.left,
-                      style: TextStyle(color: Colors.black),
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintStyle: TextStyle(color: Colors.black45),
-                        enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              width: 2,
-                              color: ColorApp.primaryColor,
-                            ),
-                            borderRadius: BorderRadius.circular(10)),
-                        hintText: 'Email Anda',
-                      ),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 5),
+                    child: Text(
+                      'atau',
+                      style: TextStyle(color: Colors.black45),
                     ),
+                    color: Colors.white,
                   ),
                   SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    'Kata Sandi',
-                    style: TextStyle(
-                        color: ColorApp.accentColor,
-                        fontWeight: FontWeight.w500),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  SizedBox(
-                    height: 55,
-                    child: TextField(
-                      controller: _passwordController,
-                      obscureText: true,
-                      textAlign: TextAlign.left,
-                      style: TextStyle(color: Colors.black),
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintStyle: TextStyle(color: Colors.black45),
-                        enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              width: 2,
-                              color: ColorApp.primaryColor,
-                            ),
-                            borderRadius: BorderRadius.circular(10)),
-                        hintText: 'Kata Sandi Anda',
-                      ),
-                    ),
+                    height: 20,
                   ),
                 ],
               ),
             ),
-          ),
-          Container(
-            alignment: Alignment.topRight,
-            margin: EdgeInsets.only(right: 20),
-            child: InkWell(
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => RegisterPage()));
-              },
-              child: Text(
-                'Belum punya akun?',
-                style: TextStyle(
-                    color: ColorApp.accentColor, fontWeight: FontWeight.w500),
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20),
-            child: InkWell(
-              onTap: () async {
-                User? user = await loginUsingEmailPaswword(
-                    email: _usernameController.text,
-                    password: _passwordController.text,
-                    context: context);
-                if (user != null) {
-                  Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => CustomBottomNavBar(intPage: 3),
-                  ));
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      backgroundColor: Color.fromARGB(255, 23, 23, 23),
-                      duration: Duration(seconds: 1),
-                      content: Row(
-                        children: [
-                          Icon(Icons.login, color: Colors.orange, size: 18),
-                          SizedBox(width: 15),
-                          Text("Login Success"),
-                        ],
-                      )));
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      backgroundColor: Color.fromARGB(255, 23, 23, 23),
-                      duration: Duration(seconds: 1),
-                      content: Row(
-                        children: [
-                          Icon(Icons.error,
-                              color: Color.fromARGB(255, 213, 70, 70),
-                              size: 18),
-                          SizedBox(width: 15),
-                          Text("Login Failed"),
-                        ],
-                      )));
-                }
-              },
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(15),
-                child: Container(
-                  color: ColorApp.accentColor,
-                  height: 50,
-                  child: Center(
-                    child: Text('Masuk'),
+            Center(
+              child: Column(
+                children: [
+                  SignInButton(
+                    Buttons.Google,
+                    onPressed: () async {
+                      currentUser();
+                    },
                   ),
-                ),
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                Divider(
-                  thickness: 2,
-                ),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 5),
-                  child: Text(
-                    'atau',
-                    style: TextStyle(color: Colors.black45),
+                  SignInButton(
+                    Buttons.Facebook,
+                    onPressed: () {},
                   ),
-                  color: Colors.white,
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-              ],
-            ),
-          ),
-          Center(
-            child: Column(
-              children: [
-                SignInButton(
-                  Buttons.Google,
-                  onPressed: () async {
-                    currentUser();
-                  },
-                ),
-                SignInButton(
-                  Buttons.Facebook,
-                  onPressed: () {},
-                ),
-                SignInButton(
-                  Buttons.LinkedIn,
-                  onPressed: () {},
-                )
-              ],
-            ),
-          )
-        ],
+                  SignInButton(
+                    Buttons.LinkedIn,
+                    onPressed: () {},
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
