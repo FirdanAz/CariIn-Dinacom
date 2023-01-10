@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:lowongan_pekerjaan/common/color_app.dart';
 import 'package:lowongan_pekerjaan/common/svg_assets.dart';
@@ -21,8 +20,10 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final cvCheck = 2;
-  final CollectionReference _lowongan = 
-      FirebaseFirestore.instance.collection('category').doc('dvPSUvsmmKov6aHRDbhf').collection('administrasi');
+  final CollectionReference _lowongan = FirebaseFirestore.instance
+      .collection('category')
+      .doc('dvPSUvsmmKov6aHRDbhf')
+      .collection('administrasi');
   List<LowonganModel> lowongan = [];
 
   var _numberToMonthMap = {
@@ -203,13 +204,13 @@ class _HomePageState extends State<HomePage> {
         children: [
           Text(
             text,
-            style: GoogleFonts.poppins(
+            style: TextStyle(
                 color: ColorApp.primaryColor, fontWeight: FontWeight.w600),
           ),
           isMore
               ? Text(
                   'Lihat semua',
-                  style: GoogleFonts.poppins(
+                  style: TextStyle(
                       color: ColorApp.accentColor,
                       fontWeight: FontWeight.w500,
                       fontSize: 13),
