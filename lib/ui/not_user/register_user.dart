@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_signin_button/button_list.dart';
 import 'package:flutter_signin_button/button_view.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:lowongan_pekerjaan/ui/bottom_navigation/bottom_navigation.dart';
 
 import '../../common/color_app.dart';
@@ -23,31 +22,29 @@ class _RegisterPageState extends State<RegisterPage> {
   final _nameController = TextEditingController();
   final _nomorController = TextEditingController();
 
-
   Future signUp() async {
-    if(passwordConfirmed()) {
+    if (passwordConfirmed()) {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: _usernameController.text.trim(),
         password: _passwordController.text.trim(),
-
       );
-      addDetailUser(_nameController.text.trim(), _nomorController.text.trim(), _usernameController.text.trim());
+      addDetailUser(_nameController.text.trim(), _nomorController.text.trim(),
+          _usernameController.text.trim());
     }
   }
 
   Future addDetailUser(String name, String nomor, String email) async {
-    DocumentReference documentReference = FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser!.uid);
-    documentReference.set({
-      'nomor' : nomor,
-      'name' : name,
-      'email' : email
-    });
+    DocumentReference documentReference = FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid);
+    documentReference.set({'nomor': nomor, 'name': name, 'email': email});
   }
 
   bool passwordConfirmed() {
-    if(_passwordController.text.trim() == _confirmPasswordController.text.trim()){
+    if (_passwordController.text.trim() ==
+        _confirmPasswordController.text.trim()) {
       return true;
-    }else{
+    } else {
       return false;
     }
   }
@@ -61,9 +58,7 @@ class _RegisterPageState extends State<RegisterPage> {
         backgroundColor: ColorApp.primaryColor,
         title: Text(
           'Daftar',
-          style: GoogleFonts.poppins(
-              fontSize: 15
-          ),
+          style: TextStyle(fontSize: 15),
         ),
       ),
       body: SingleChildScrollView(
@@ -74,10 +69,7 @@ class _RegisterPageState extends State<RegisterPage> {
               height: 20,
             ),
             Container(
-              margin: EdgeInsets.only(
-                  right: 10,
-                  left: 10
-              ),
+              margin: EdgeInsets.only(right: 10, left: 10),
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Column(
@@ -85,10 +77,9 @@ class _RegisterPageState extends State<RegisterPage> {
                   children: [
                     Text(
                       'Email',
-                      style: GoogleFonts.poppins(
+                      style: TextStyle(
                           color: ColorApp.accentColor,
-                          fontWeight: FontWeight.w500
-                      ),
+                          fontWeight: FontWeight.w500),
                     ),
                     SizedBox(
                       height: 10,
@@ -98,31 +89,28 @@ class _RegisterPageState extends State<RegisterPage> {
                       child: TextField(
                         controller: _usernameController,
                         textAlign: TextAlign.left,
-                        style: GoogleFonts.poppins(
-                            color: Colors.black
-                        ),
+                        style: TextStyle(color: Colors.black),
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
-                          hintStyle: GoogleFonts.poppins(
-                              color: Colors.black45
-                          ),
-                          enabledBorder: OutlineInputBorder(borderSide: BorderSide(
-                            width: 2,
-                            color: ColorApp.primaryColor,
-                          ),
-                              borderRadius: BorderRadius.circular(10)
-                          ),
+                          hintStyle: TextStyle(color: Colors.black45),
+                          enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                width: 2,
+                                color: ColorApp.primaryColor,
+                              ),
+                              borderRadius: BorderRadius.circular(10)),
                           hintText: 'Email Anda',
                         ),
                       ),
                     ),
-                    SizedBox(height: 10,),
+                    SizedBox(
+                      height: 10,
+                    ),
                     Text(
                       'Nama',
-                      style: GoogleFonts.poppins(
+                      style: TextStyle(
                           color: ColorApp.accentColor,
-                          fontWeight: FontWeight.w500
-                      ),
+                          fontWeight: FontWeight.w500),
                     ),
                     SizedBox(
                       height: 10,
@@ -132,31 +120,28 @@ class _RegisterPageState extends State<RegisterPage> {
                       child: TextField(
                         controller: _nameController,
                         textAlign: TextAlign.left,
-                        style: GoogleFonts.poppins(
-                            color: Colors.black
-                        ),
+                        style: TextStyle(color: Colors.black),
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
-                          hintStyle: GoogleFonts.poppins(
-                              color: Colors.black45
-                          ),
-                          enabledBorder: OutlineInputBorder(borderSide: BorderSide(
-                            width: 2,
-                            color: ColorApp.primaryColor,
-                          ),
-                              borderRadius: BorderRadius.circular(10)
-                          ),
+                          hintStyle: TextStyle(color: Colors.black45),
+                          enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                width: 2,
+                                color: ColorApp.primaryColor,
+                              ),
+                              borderRadius: BorderRadius.circular(10)),
                           hintText: 'Nama Anda',
                         ),
                       ),
                     ),
-                    SizedBox(height: 10,),
+                    SizedBox(
+                      height: 10,
+                    ),
                     Text(
                       'Nomor Telepon',
-                      style: GoogleFonts.poppins(
+                      style: TextStyle(
                           color: ColorApp.accentColor,
-                          fontWeight: FontWeight.w500
-                      ),
+                          fontWeight: FontWeight.w500),
                     ),
                     SizedBox(
                       height: 10,
@@ -166,24 +151,20 @@ class _RegisterPageState extends State<RegisterPage> {
                       child: TextField(
                         controller: _nomorController,
                         textAlign: TextAlign.left,
-                        style: GoogleFonts.poppins(
-                            color: Colors.black
-                        ),
+                        style: TextStyle(color: Colors.black),
                         keyboardType: TextInputType.number,
                         inputFormatters: <TextInputFormatter>[
                           FilteringTextInputFormatter.digitsOnly
                         ],
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
-                          hintStyle: GoogleFonts.poppins(
-                              color: Colors.black45
-                          ),
-                          enabledBorder: OutlineInputBorder(borderSide: BorderSide(
-                            width: 2,
-                            color: ColorApp.primaryColor,
-                          ),
-                              borderRadius: BorderRadius.circular(10)
-                          ),
+                          hintStyle: TextStyle(color: Colors.black45),
+                          enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                width: 2,
+                                color: ColorApp.primaryColor,
+                              ),
+                              borderRadius: BorderRadius.circular(10)),
                           hintText: 'Nomor Telepon Anda',
                         ),
                       ),
@@ -193,10 +174,9 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                     Text(
                       'Kata Sandi',
-                      style: GoogleFonts.poppins(
+                      style: TextStyle(
                           color: ColorApp.accentColor,
-                          fontWeight: FontWeight.w500
-                      ),
+                          fontWeight: FontWeight.w500),
                     ),
                     SizedBox(
                       height: 10,
@@ -207,20 +187,16 @@ class _RegisterPageState extends State<RegisterPage> {
                         controller: _passwordController,
                         obscureText: true,
                         textAlign: TextAlign.left,
-                        style: GoogleFonts.poppins(
-                            color: Colors.black
-                        ),
+                        style: TextStyle(color: Colors.black),
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
-                          hintStyle: GoogleFonts.poppins(
-                              color: Colors.black45
-                          ),
-                          enabledBorder: OutlineInputBorder(borderSide: BorderSide(
-                            width: 2,
-                            color: ColorApp.primaryColor,
-                          ),
-                              borderRadius: BorderRadius.circular(10)
-                          ),
+                          hintStyle: TextStyle(color: Colors.black45),
+                          enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                width: 2,
+                                color: ColorApp.primaryColor,
+                              ),
+                              borderRadius: BorderRadius.circular(10)),
                           hintText: 'Kata Sandi Anda',
                         ),
                       ),
@@ -230,10 +206,9 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                     Text(
                       'Konfirmasi Kata Sandi',
-                      style: GoogleFonts.poppins(
+                      style: TextStyle(
                           color: ColorApp.accentColor,
-                          fontWeight: FontWeight.w500
-                      ),
+                          fontWeight: FontWeight.w500),
                     ),
                     SizedBox(
                       height: 10,
@@ -244,20 +219,16 @@ class _RegisterPageState extends State<RegisterPage> {
                         controller: _confirmPasswordController,
                         obscureText: true,
                         textAlign: TextAlign.left,
-                        style: GoogleFonts.poppins(
-                            color: Colors.black
-                        ),
+                        style: TextStyle(color: Colors.black),
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
-                          hintStyle: GoogleFonts.poppins(
-                              color: Colors.black45
-                          ),
-                          enabledBorder: OutlineInputBorder(borderSide: BorderSide(
-                            width: 2,
-                            color: ColorApp.primaryColor,
-                          ),
-                              borderRadius: BorderRadius.circular(10)
-                          ),
+                          hintStyle: TextStyle(color: Colors.black45),
+                          enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                width: 2,
+                                color: ColorApp.primaryColor,
+                              ),
+                              borderRadius: BorderRadius.circular(10)),
                           hintText: 'Konfirmasi Kata Sandi Anda',
                         ),
                       ),
@@ -268,19 +239,19 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
             Container(
               alignment: Alignment.topRight,
-              margin: EdgeInsets.only(
-                  right: 20
-              ),
+              margin: EdgeInsets.only(right: 20),
               child: InkWell(
-                onTap: (){
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => CustomBottomNavBar(intPage: 3),));
+                onTap: () {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => CustomBottomNavBar(intPage: 3),
+                      ));
                 },
                 child: Text(
                   'Sudah Punya Akun?',
-                  style: GoogleFonts.poppins(
-                      color: ColorApp.accentColor,
-                      fontWeight: FontWeight.w500
-                  ),
+                  style: TextStyle(
+                      color: ColorApp.accentColor, fontWeight: FontWeight.w500),
                 ),
               ),
             ),
@@ -288,21 +259,22 @@ class _RegisterPageState extends State<RegisterPage> {
               height: 20,
             ),
             Padding(
-              padding: const EdgeInsets.only(
-                  left:20,
-                  right: 20
-              ),
+              padding: const EdgeInsets.only(left: 20, right: 20),
               child: InkWell(
                 onTap: () async {
                   signUp();
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => CustomBottomNavBar(intPage: 0),));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => CustomBottomNavBar(intPage: 0),
+                      ));
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                       backgroundColor: Color.fromARGB(255, 23, 23, 23),
                       duration: Duration(seconds: 1),
                       content: Row(
                         children: [
                           Icon(Icons.login,
-                              color: ColorApp.accentColor,size: 18),
+                              color: ColorApp.accentColor, size: 18),
                           SizedBox(width: 15),
                           Text("Login Success"),
                         ],
@@ -314,9 +286,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     color: ColorApp.accentColor,
                     height: 50,
                     child: Center(
-                      child: Text(
-                          'Daftar'
-                      ),
+                      child: Text('Daftar'),
                     ),
                   ),
                 ),
@@ -337,16 +307,13 @@ class _RegisterPageState extends State<RegisterPage> {
                     padding: EdgeInsets.symmetric(horizontal: 5),
                     child: Text(
                       'atau',
-                      style: GoogleFonts.poppins(
-                          color: Colors.black45
-                      ),
+                      style: TextStyle(color: Colors.black45),
                     ),
                     color: Colors.white,
                   ),
                   SizedBox(
                     height: 20,
                   ),
-
                 ],
               ),
             ),
@@ -359,11 +326,11 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                   SignInButton(
                     Buttons.Facebook,
-                    onPressed: (){},
+                    onPressed: () {},
                   ),
                   SignInButton(
                     Buttons.LinkedIn,
-                    onPressed: (){},
+                    onPressed: () {},
                   )
                 ],
               ),
