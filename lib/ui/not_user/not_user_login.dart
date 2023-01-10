@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/button_list.dart';
 import 'package:flutter_signin_button/button_view.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:lowongan_pekerjaan/common/color_app.dart';
 import 'package:lowongan_pekerjaan/ui/bottom_navigation/bottom_navigation.dart';
@@ -63,7 +62,7 @@ class _NotLoginState extends State<NotUserLogin> {
         backgroundColor: ColorApp.primaryColor,
         title: Text(
           'Profil',
-          style: GoogleFonts.poppins(
+          style: TextStyle(
               fontSize: 15
           ),
         ),
@@ -86,7 +85,7 @@ class _NotLoginState extends State<NotUserLogin> {
                 children: [
                   Text(
                     'Email',
-                    style: GoogleFonts.poppins(
+                    style: TextStyle(
                         color: ColorApp.accentColor,
                         fontWeight: FontWeight.w500
                     ),
@@ -99,12 +98,12 @@ class _NotLoginState extends State<NotUserLogin> {
                     child: TextField(
                       controller: _usernameController,
                       textAlign: TextAlign.left,
-                      style: GoogleFonts.poppins(
+                      style: TextStyle(
                           color: Colors.black
                       ),
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        hintStyle: GoogleFonts.poppins(
+                        hintStyle: TextStyle(
                             color: Colors.black45
                         ),
                         enabledBorder: OutlineInputBorder(borderSide: BorderSide(
@@ -120,7 +119,7 @@ class _NotLoginState extends State<NotUserLogin> {
                   SizedBox(height: 10,),
                   Text(
                     'Kata Sandi',
-                    style: GoogleFonts.poppins(
+                    style: TextStyle(
                         color: ColorApp.accentColor,
                         fontWeight: FontWeight.w500
                     ),
@@ -134,12 +133,12 @@ class _NotLoginState extends State<NotUserLogin> {
                       controller: _passwordController,
                       obscureText: true,
                       textAlign: TextAlign.left,
-                      style: GoogleFonts.poppins(
+                      style: TextStyle(
                           color: Colors.black
                       ),
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        hintStyle: GoogleFonts.poppins(
+                        hintStyle: TextStyle(
                             color: Colors.black45
                         ),
                         enabledBorder: OutlineInputBorder(borderSide: BorderSide(
@@ -167,7 +166,7 @@ class _NotLoginState extends State<NotUserLogin> {
               },
               child: Text(
                 'Belum punya akun?',
-                style: GoogleFonts.poppins(
+                style: TextStyle(
                     color: ColorApp.accentColor,
                     fontWeight: FontWeight.w500
                 ),
@@ -241,7 +240,7 @@ class _NotLoginState extends State<NotUserLogin> {
                   padding: EdgeInsets.symmetric(horizontal: 5),
                   child: Text(
                     'atau',
-                    style: GoogleFonts.poppins(
+                    style: TextStyle(
                         color: Colors.black45
                     ),
                   ),

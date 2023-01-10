@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_signin_button/button_list.dart';
 import 'package:flutter_signin_button/button_view.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:lowongan_pekerjaan/ui/bottom_navigation/bottom_navigation.dart';
 
 import '../../common/color_app.dart';
@@ -61,7 +60,7 @@ class _RegisterPageState extends State<RegisterPage> {
         backgroundColor: ColorApp.primaryColor,
         title: Text(
           'Daftar',
-          style: GoogleFonts.poppins(
+          style: TextStyle(
               fontSize: 15
           ),
         ),
@@ -85,7 +84,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   children: [
                     Text(
                       'Email',
-                      style: GoogleFonts.poppins(
+                      style: TextStyle(
                           color: ColorApp.accentColor,
                           fontWeight: FontWeight.w500
                       ),
@@ -98,12 +97,12 @@ class _RegisterPageState extends State<RegisterPage> {
                       child: TextField(
                         controller: _usernameController,
                         textAlign: TextAlign.left,
-                        style: GoogleFonts.poppins(
+                        style: TextStyle(
                             color: Colors.black
                         ),
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
-                          hintStyle: GoogleFonts.poppins(
+                          hintStyle: TextStyle(
                               color: Colors.black45
                           ),
                           enabledBorder: OutlineInputBorder(borderSide: BorderSide(
@@ -119,7 +118,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     SizedBox(height: 10,),
                     Text(
                       'Nama',
-                      style: GoogleFonts.poppins(
+                      style: TextStyle(
                           color: ColorApp.accentColor,
                           fontWeight: FontWeight.w500
                       ),
@@ -132,12 +131,12 @@ class _RegisterPageState extends State<RegisterPage> {
                       child: TextField(
                         controller: _nameController,
                         textAlign: TextAlign.left,
-                        style: GoogleFonts.poppins(
+                        style: TextStyle(
                             color: Colors.black
                         ),
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
-                          hintStyle: GoogleFonts.poppins(
+                          hintStyle: TextStyle(
                               color: Colors.black45
                           ),
                           enabledBorder: OutlineInputBorder(borderSide: BorderSide(
@@ -153,7 +152,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     SizedBox(height: 10,),
                     Text(
                       'Nomor Telepon',
-                      style: GoogleFonts.poppins(
+                      style: TextStyle(
                           color: ColorApp.accentColor,
                           fontWeight: FontWeight.w500
                       ),
@@ -166,7 +165,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       child: TextField(
                         controller: _nomorController,
                         textAlign: TextAlign.left,
-                        style: GoogleFonts.poppins(
+                        style: TextStyle(
                             color: Colors.black
                         ),
                         keyboardType: TextInputType.number,
@@ -175,7 +174,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         ],
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
-                          hintStyle: GoogleFonts.poppins(
+                          hintStyle: TextStyle(
                               color: Colors.black45
                           ),
                           enabledBorder: OutlineInputBorder(borderSide: BorderSide(
@@ -193,7 +192,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                     Text(
                       'Kata Sandi',
-                      style: GoogleFonts.poppins(
+                      style: TextStyle(
                           color: ColorApp.accentColor,
                           fontWeight: FontWeight.w500
                       ),
@@ -207,12 +206,12 @@ class _RegisterPageState extends State<RegisterPage> {
                         controller: _passwordController,
                         obscureText: true,
                         textAlign: TextAlign.left,
-                        style: GoogleFonts.poppins(
+                        style: TextStyle(
                             color: Colors.black
                         ),
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
-                          hintStyle: GoogleFonts.poppins(
+                          hintStyle: TextStyle(
                               color: Colors.black45
                           ),
                           enabledBorder: OutlineInputBorder(borderSide: BorderSide(
@@ -230,7 +229,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                     Text(
                       'Konfirmasi Kata Sandi',
-                      style: GoogleFonts.poppins(
+                      style: TextStyle(
                           color: ColorApp.accentColor,
                           fontWeight: FontWeight.w500
                       ),
@@ -244,12 +243,12 @@ class _RegisterPageState extends State<RegisterPage> {
                         controller: _confirmPasswordController,
                         obscureText: true,
                         textAlign: TextAlign.left,
-                        style: GoogleFonts.poppins(
+                        style: TextStyle(
                             color: Colors.black
                         ),
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
-                          hintStyle: GoogleFonts.poppins(
+                          hintStyle: TextStyle(
                               color: Colors.black45
                           ),
                           enabledBorder: OutlineInputBorder(borderSide: BorderSide(
@@ -277,7 +276,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 },
                 child: Text(
                   'Sudah Punya Akun?',
-                  style: GoogleFonts.poppins(
+                  style: TextStyle(
                       color: ColorApp.accentColor,
                       fontWeight: FontWeight.w500
                   ),
@@ -337,7 +336,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     padding: EdgeInsets.symmetric(horizontal: 5),
                     child: Text(
                       'atau',
-                      style: GoogleFonts.poppins(
+                      style: TextStyle(
                           color: Colors.black45
                       ),
                     ),
