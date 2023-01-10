@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/button_list.dart';
 import 'package:flutter_signin_button/button_view.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:lowongan_pekerjaan/common/color_app.dart';
 import 'package:lowongan_pekerjaan/ui/bottom_navigation/bottom_navigation.dart';
 
@@ -16,6 +17,25 @@ class NotUserLogin extends StatefulWidget {
 class _NotLoginState extends State<NotUserLogin> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
+  FirebaseAuth _auth = FirebaseAuth.instance;
+  GoogleSignIn googleSignIn = GoogleSignIn();
+
+  Future<User?> currentUser() async {
+    final GoogleSignInAccount? account = await googleSignIn.signIn();
+    final GoogleSignInAuthentication authentication =
+    await account!.authentication;
+
+    final OAuthCredential credential = GoogleAuthProvider.credential(
+        idToken: authentication.idToken,
+        accessToken: authentication.accessToken);
+
+    final UserCredential authResult =
+    await _auth.signInWithCredential(credential);
+    final User? user = authResult.user;
+
+    return user;
+  }
+
 
   static Future<User?> loginUsingEmailPaswword(
       {required String email,
@@ -210,11 +230,33 @@ class _NotLoginState extends State<NotUserLogin> {
                     ),
                     color: Colors.white,
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                ],
-              ),
+                  color: Colors.white,
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+
+              ],
+            ),
+          ),
+          Center(
+            child: Column(
+              children: [
+                SignInButton(
+                  Buttons.Google,
+                  onPressed: () async {
+                    currentUser();
+                  },
+                ),
+                SignInButton(
+                  Buttons.Facebook,
+                  onPressed: (){},
+                ),
+                SignInButton(
+                  Buttons.LinkedIn,
+                  onPressed: (){},
+                )
+              ],
             ),
             Center(
               child: Column(
