@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lowongan_pekerjaan/common/color_app.dart';
 import 'package:lowongan_pekerjaan/ui/widget/lowongan_card_horizontal.dart';
+import 'package:lowongan_pekerjaan/ui/wishlist/not_login.dart';
 
 class WishlistPage extends StatelessWidget {
   const WishlistPage({super.key});
+  static const isLogin = true;
 
   @override
   Widget build(BuildContext context) {
@@ -18,16 +20,23 @@ class WishlistPage extends StatelessWidget {
         toolbarHeight: 70.h,
         backgroundColor: ColorApp.secondaryColor,
       ),
-      body: ListView.builder(
-        itemCount: 5,
-        padding: EdgeInsets.symmetric(vertical: 19.h, horizontal: 10.w),
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: EdgeInsets.symmetric(vertical: 6.h),
-            child: LowonganCardHorizontal(name: "Mobile front End"),
-          );
-        },
-      ),
+      body: isLogin
+          ? ListView.separated(
+              itemCount: 5,
+              padding: EdgeInsets.symmetric(vertical: 25.h, horizontal: 10.w),
+              separatorBuilder: (context, index) => Divider(
+                height: 15.h,
+                color: Colors.transparent,
+              ),
+              itemBuilder: (context, index) {
+                return LowonganCardHorizontal(
+                  isWishlistPage: true,
+                  isNew: false,
+                  name: "Mobile front End",
+                );
+              },
+            )
+          : WishlistNotLoginPage(),
     );
   }
 }
