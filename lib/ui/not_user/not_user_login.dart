@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/button_list.dart';
 import 'package:flutter_signin_button/button_view.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:lowongan_pekerjaan/common/color_app.dart';
 import 'package:lowongan_pekerjaan/ui/bottom_navigation/bottom_navigation.dart';
@@ -24,29 +23,31 @@ class _NotLoginState extends State<NotUserLogin> {
   Future<User?> currentUser() async {
     final GoogleSignInAccount? account = await googleSignIn.signIn();
     final GoogleSignInAuthentication authentication =
-    await account!.authentication;
+        await account!.authentication;
 
     final OAuthCredential credential = GoogleAuthProvider.credential(
         idToken: authentication.idToken,
         accessToken: authentication.accessToken);
 
     final UserCredential authResult =
-    await _auth.signInWithCredential(credential);
+        await _auth.signInWithCredential(credential);
     final User? user = authResult.user;
 
     return user;
   }
 
-
-  static Future<User?> loginUsingEmailPaswword({required String email, required String password, required BuildContext context}) async {
+  static Future<User?> loginUsingEmailPaswword(
+      {required String email,
+      required String password,
+      required BuildContext context}) async {
     FirebaseAuth auth = FirebaseAuth.instance;
     User? user;
     try {
-      UserCredential userCredential = await auth.signInWithEmailAndPassword(email: email, password: password);
+      UserCredential userCredential = await auth.signInWithEmailAndPassword(
+          email: email, password: password);
       user = userCredential.user;
-    } on FirebaseAuthException catch (e){
-      if
-      (e.code == "user-not-found"){
+    } on FirebaseAuthException catch (e) {
+      if (e.code == "user-not-found") {
         print('No user found for that email');
       }
     }
@@ -63,9 +64,7 @@ class _NotLoginState extends State<NotUserLogin> {
         backgroundColor: ColorApp.primaryColor,
         title: Text(
           'Profil',
-          style: GoogleFonts.poppins(
-              fontSize: 15
-          ),
+          style: TextStyle(fontSize: 15),
         ),
       ),
       body: Column(
@@ -75,10 +74,7 @@ class _NotLoginState extends State<NotUserLogin> {
             height: 20,
           ),
           Container(
-            margin: EdgeInsets.only(
-                right: 10,
-                left: 10
-            ),
+            margin: EdgeInsets.only(right: 10, left: 10),
             child: Padding(
               padding: const EdgeInsets.all(10.0),
               child: Column(
@@ -86,10 +82,9 @@ class _NotLoginState extends State<NotUserLogin> {
                 children: [
                   Text(
                     'Email',
-                    style: GoogleFonts.poppins(
+                    style: TextStyle(
                         color: ColorApp.accentColor,
-                        fontWeight: FontWeight.w500
-                    ),
+                        fontWeight: FontWeight.w500),
                   ),
                   SizedBox(
                     height: 10,
@@ -99,31 +94,28 @@ class _NotLoginState extends State<NotUserLogin> {
                     child: TextField(
                       controller: _usernameController,
                       textAlign: TextAlign.left,
-                      style: GoogleFonts.poppins(
-                          color: Colors.black
-                      ),
+                      style: TextStyle(color: Colors.black),
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        hintStyle: GoogleFonts.poppins(
-                            color: Colors.black45
-                        ),
-                        enabledBorder: OutlineInputBorder(borderSide: BorderSide(
-                          width: 2,
-                          color: ColorApp.primaryColor,
-                        ),
-                            borderRadius: BorderRadius.circular(10)
-                        ),
+                        hintStyle: TextStyle(color: Colors.black45),
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              width: 2,
+                              color: ColorApp.primaryColor,
+                            ),
+                            borderRadius: BorderRadius.circular(10)),
                         hintText: 'Email Anda',
                       ),
                     ),
                   ),
-                  SizedBox(height: 10,),
+                  SizedBox(
+                    height: 10,
+                  ),
                   Text(
                     'Kata Sandi',
-                    style: GoogleFonts.poppins(
+                    style: TextStyle(
                         color: ColorApp.accentColor,
-                        fontWeight: FontWeight.w500
-                    ),
+                        fontWeight: FontWeight.w500),
                   ),
                   SizedBox(
                     height: 10,
@@ -134,20 +126,16 @@ class _NotLoginState extends State<NotUserLogin> {
                       controller: _passwordController,
                       obscureText: true,
                       textAlign: TextAlign.left,
-                      style: GoogleFonts.poppins(
-                          color: Colors.black
-                      ),
+                      style: TextStyle(color: Colors.black),
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        hintStyle: GoogleFonts.poppins(
-                            color: Colors.black45
-                        ),
-                        enabledBorder: OutlineInputBorder(borderSide: BorderSide(
-                          width: 2,
-                          color: ColorApp.primaryColor,
-                        ),
-                            borderRadius: BorderRadius.circular(10)
-                        ),
+                        hintStyle: TextStyle(color: Colors.black45),
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              width: 2,
+                              color: ColorApp.primaryColor,
+                            ),
+                            borderRadius: BorderRadius.circular(10)),
                         hintText: 'Kata Sandi Anda',
                       ),
                     ),
@@ -158,19 +146,16 @@ class _NotLoginState extends State<NotUserLogin> {
           ),
           Container(
             alignment: Alignment.topRight,
-            margin: EdgeInsets.only(
-                right: 20
-            ),
+            margin: EdgeInsets.only(right: 20),
             child: InkWell(
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) =>  RegisterPage()));
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => RegisterPage()));
               },
               child: Text(
                 'Belum punya akun?',
-                style: GoogleFonts.poppins(
-                    color: ColorApp.accentColor,
-                    fontWeight: FontWeight.w500
-                ),
+                style: TextStyle(
+                    color: ColorApp.accentColor, fontWeight: FontWeight.w500),
               ),
             ),
           ),
@@ -178,34 +163,36 @@ class _NotLoginState extends State<NotUserLogin> {
             height: 20,
           ),
           Padding(
-            padding: const EdgeInsets.only(
-                left:20,
-                right: 20
-            ),
+            padding: const EdgeInsets.only(left: 20, right: 20),
             child: InkWell(
               onTap: () async {
-                User? user = await loginUsingEmailPaswword(email: _usernameController.text, password: _passwordController.text, context: context);
-                if(user != null){
-                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => CustomBottomNavBar(intPage: 3),));
+                User? user = await loginUsingEmailPaswword(
+                    email: _usernameController.text,
+                    password: _passwordController.text,
+                    context: context);
+                if (user != null) {
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) => CustomBottomNavBar(intPage: 3),
+                  ));
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                       backgroundColor: Color.fromARGB(255, 23, 23, 23),
                       duration: Duration(seconds: 1),
                       content: Row(
                         children: [
-                          Icon(Icons.login,
-                              color: Colors.orange,size: 18),
+                          Icon(Icons.login, color: Colors.orange, size: 18),
                           SizedBox(width: 15),
                           Text("Login Success"),
                         ],
                       )));
-                } else{
+                } else {
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                       backgroundColor: Color.fromARGB(255, 23, 23, 23),
                       duration: Duration(seconds: 1),
                       content: Row(
                         children: [
                           Icon(Icons.error,
-                              color: Color.fromARGB(255, 213, 70, 70), size: 18),
+                              color: Color.fromARGB(255, 213, 70, 70),
+                              size: 18),
                           SizedBox(width: 15),
                           Text("Login Failed"),
                         ],
@@ -218,9 +205,7 @@ class _NotLoginState extends State<NotUserLogin> {
                   color: ColorApp.accentColor,
                   height: 50,
                   child: Center(
-                    child: Text(
-                        'Masuk'
-                    ),
+                    child: Text('Masuk'),
                   ),
                 ),
               ),
@@ -241,16 +226,13 @@ class _NotLoginState extends State<NotUserLogin> {
                   padding: EdgeInsets.symmetric(horizontal: 5),
                   child: Text(
                     'atau',
-                    style: GoogleFonts.poppins(
-                        color: Colors.black45
-                    ),
+                    style: TextStyle(color: Colors.black45),
                   ),
                   color: Colors.white,
                 ),
                 SizedBox(
                   height: 20,
                 ),
-
               ],
             ),
           ),
@@ -265,11 +247,11 @@ class _NotLoginState extends State<NotUserLogin> {
                 ),
                 SignInButton(
                   Buttons.Facebook,
-                  onPressed: (){},
+                  onPressed: () {},
                 ),
                 SignInButton(
                   Buttons.LinkedIn,
-                  onPressed: (){},
+                  onPressed: () {},
                 )
               ],
             ),
