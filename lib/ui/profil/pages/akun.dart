@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lowongan_pekerjaan/common/color_app.dart';
 import 'package:lowongan_pekerjaan/ui/bottom_navigation/bottom_navigation.dart';
+import 'package:lowongan_pekerjaan/ui/profil/pages/get_akun_data.dart';
 
 class AkunPage extends StatefulWidget {
   const AkunPage({super.key});
@@ -69,16 +70,17 @@ class _AkunPageState extends State<AkunPage> {
                 StreamBuilder(
                   stream: _lowongan.snapshots(),
                   builder: (context,  AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                    String documentID = FirebaseAuth.instance.currentUser!.uid;
                     if(streamSnapshot.hasData){
                       return Column(
                         children: [
-                          card('User Name', streamSnapshot.data!.docs[index]['name']),
-                          card('Email', streamSnapshot.data!.docs[index]['email']),
-                          card('Nomor Hp', streamSnapshot.data!.docs[index]['nomor']),
-                          card('Tanggal Lahir', streamSnapshot.data!.docs[index]['date']),
-                          card('Alamat', streamSnapshot.data!.docs[index]['alamat']),
-                          card('Setatus Pekerjaan', streamSnapshot.data!.docs[index]['status_kerja']),
-                          card('Pendidikan Terakhir', streamSnapshot.data!.docs[index]['pendidikan']),
+                          CardData(documentID: documentID, title: 'Nama Pengguna', value: 'name'),
+                          CardData(documentID: documentID, title: 'Email', value: 'email'),
+                          CardData(documentID: documentID, title: 'Nomor Telepon', value: 'nomor'),
+                          CardData(documentID: documentID, title: 'Tanggal Lahir', value: 'date'),
+                          CardData(documentID: documentID, title: 'Alamat', value: 'alamat'),
+                          CardData(documentID: documentID, title: 'Status Pekerjaan', value: 'status_kerja'),
+                          CardData(documentID: documentID, title: 'Pendidikan Terakhir', value: 'pendidikan'),
                         ],
                       );
                     }
@@ -130,47 +132,6 @@ class _AkunPageState extends State<AkunPage> {
             ),
           ),
         ),
-      ),
-    );
-  }
-
-  Widget card(String name, String value) {
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            name,
-            style: TextStyle(
-                color: ColorApp.accentColor,
-                fontWeight: FontWeight.w500),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          SizedBox(
-            height: 55,
-            child: TextField(
-              readOnly: true,
-              textAlign: TextAlign.left,
-              style: TextStyle(color: Colors.black),
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                hintStyle: TextStyle(color: Colors.black),
-                hintText: value,
-                enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      width: 2,
-                      color: ColorApp.primaryColor,
-                    ),
-                    borderRadius: BorderRadius.circular(10)),
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-        ],
       ),
     );
   }
