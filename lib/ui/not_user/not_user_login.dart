@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:lowongan_pekerjaan/common/color_app.dart';
 import 'package:lowongan_pekerjaan/ui/bottom_navigation/bottom_navigation.dart';
+import 'package:lowongan_pekerjaan/ui/not_user/register_user.dart';
 
 class NotUserLogin extends StatefulWidget {
   const NotUserLogin({Key? key}) : super(key: key);
@@ -161,9 +162,11 @@ class _NotLoginState extends State<NotUserLogin> {
               right: 20
             ),
             child: InkWell(
-              onTap: (){},
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context) =>  RegisterPage()));
+              },
               child: Text(
-                'Lupa Kata Sandi?',
+                'Belum punya akun?',
                 style: GoogleFonts.poppins(
                   color: ColorApp.accentColor,
                   fontWeight: FontWeight.w500

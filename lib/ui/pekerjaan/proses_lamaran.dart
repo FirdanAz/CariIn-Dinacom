@@ -51,7 +51,7 @@ class ProsesLamaranTab extends StatelessWidget {
                         builder: (context) => const SearchPage()));
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: ColorApp.accentColor,
+                primary: ColorApp.accentColor,
               ),
               child: Text(
                 "Cari Lowongan Kerja",

@@ -3,13 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lowongan_pekerjaan/common/color_app.dart';
 import 'package:lowongan_pekerjaan/login_page.dart';
+import 'package:lowongan_pekerjaan/model/getName.dart';
 import 'package:lowongan_pekerjaan/ui/bottom_navigation/bottom_navigation.dart';
 import 'package:lowongan_pekerjaan/ui/not_user/not_user_login.dart';
 import 'package:lowongan_pekerjaan/ui/wishlist/wishlist.dart';
 
-class ProfilPage extends StatelessWidget {
+class ProfilPage extends StatefulWidget {
   const ProfilPage({super.key});
 
+  @override
+  State<ProfilPage> createState() => _ProfilPageState();
+}
+
+class _ProfilPageState extends State<ProfilPage> {
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
@@ -37,12 +43,10 @@ class ProfilPage extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  Text(
-                    "PROJEK 2M",
-                    style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: ColorApp.primaryColor),
+                  StreamBuilder(
+                    builder: (context, snapshot) {
+                      return GetName(documentID: FirebaseAuth.instance.currentUser!.uid);
+                    },
                   ),
                   SizedBox(height: 13.h),
                   Container(
@@ -52,7 +56,7 @@ class ProfilPage extends StatelessWidget {
                         border: Border.all(width: 2),
                         borderRadius: BorderRadius.circular(10)),
                     child: Text(
-                      "DinacomFest@gmail.com",
+                      FirebaseAuth.instance.currentUser!.email.toString(),
                       style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w500,
