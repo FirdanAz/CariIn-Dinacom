@@ -10,6 +10,7 @@ import 'package:lowongan_pekerjaan/ui/profil/pages/akun.dart';
 import 'package:lowongan_pekerjaan/ui/profil/pages/tentang.dart';
 import 'package:lowongan_pekerjaan/ui/profil/pages/wishlist/wishlist.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProfilPage extends StatefulWidget {
   const ProfilPage({super.key});
@@ -19,11 +20,21 @@ class ProfilPage extends StatefulWidget {
 }
 
 class _ProfilPageState extends State<ProfilPage> {
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+  Future<void> _launchLink(Uri url) async {
+    final bool nativeAppLaunchSucceeded = await launchUrl(
+      url,
+      mode: LaunchMode.externalNonBrowserApplication,
+    );
+    if (!nativeAppLaunchSucceeded) {
+      await launchUrl(
+        url,
+        mode: LaunchMode.inAppWebView,
+      );
+    }
   }
 
   @override
@@ -100,7 +111,9 @@ class _ProfilPageState extends State<ProfilPage> {
                         const SizedBox(height: 18),
                         button(context, Icons.create, "Buat Lowongan", () {}),
                         const SizedBox(height: 18),
-                        button(context, Icons.message, "Pusat Bantuan", () {}),
+                        button(context, Icons.message, "Pusat Bantuan", () {
+                          _launchLink(Uri.parse("https://wa.me/6285803426476"));
+                        }),
                         const SizedBox(height: 18),
                         button(context, Icons.info, "About", () {
                           Navigator.push(
