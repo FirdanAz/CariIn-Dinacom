@@ -1,9 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lowongan_pekerjaan/common/color_app.dart';
+import 'package:lowongan_pekerjaan/ui/kotak_masuk/not_login.dart';
 
 class KotakMasukPage extends StatelessWidget {
   const KotakMasukPage({super.key});
+
+  static const isLogin = true;
 
   @override
   Widget build(BuildContext context) {
@@ -17,17 +21,19 @@ class KotakMasukPage extends StatelessWidget {
         toolbarHeight: 70.h,
         backgroundColor: ColorApp.primaryColor,
       ),
-      body: ListView.separated(
-        itemCount: 5,
-        padding: EdgeInsets.all(25.w),
-        separatorBuilder: (context, index) => Divider(
-          height: 15.h,
-          color: Colors.transparent,
-        ),
-        itemBuilder: (context, index) {
-          return _notifCard();
-        },
-      ),
+      body: FirebaseAuth.instance.currentUser == null
+          ? const KotakMasukNotLoginPage()
+          : ListView.separated(
+              itemCount: 5,
+              padding: EdgeInsets.all(25.w),
+              separatorBuilder: (context, index) => Divider(
+                height: 15.h,
+                color: Colors.transparent,
+              ),
+              itemBuilder: (context, index) {
+                return _notifCard();
+              },
+            ),
     );
   }
 
@@ -42,7 +48,7 @@ class KotakMasukPage extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.25),
-            offset: Offset(0, 4),
+            offset: const Offset(0, 4),
             blurRadius: 4,
           )
         ],
