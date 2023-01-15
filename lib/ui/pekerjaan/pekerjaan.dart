@@ -32,7 +32,7 @@ class _PekerjaanPageState extends State<PekerjaanPage>
         backgroundColor: ColorApp.primaryColor,
         title: Container(
           padding: const EdgeInsets.only(left: 8),
-          child: SvgPicture.asset(appbar_logo, height: 30, width: 63),
+          child: SvgPicture.asset(appbarLogo, height: 30, width: 63),
         ),
         bottom: PreferredSize(
           preferredSize: Size(screenSize.width, 70.h),

@@ -64,7 +64,7 @@ class _SpashScreenState extends State<SpashScreen> {
         child: AnimatedOpacity(
           duration: const Duration(milliseconds: 360),
           opacity: _logoOpacity,
-          child: SvgPicture.asset(appbar_logo),
+          child: SvgPicture.asset(appbarLogo),
         ),
       ),
     );
