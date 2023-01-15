@@ -13,6 +13,7 @@ class LowonganCardHorizontal extends StatelessWidget {
   });
   final String name;
   double? _heightBetween;
+  bool isWishlistOn = false;
   final bool isNew;
 
   // TODO: ubah 'True' hanya jika berada di halaman Wishlist
@@ -41,7 +42,12 @@ class LowonganCardHorizontal extends StatelessWidget {
       _heightBetween = 60.h;
       return Padding(
         padding: EdgeInsets.only(right: 13.w),
-        child: WishlistButton(),
+        child: GestureDetector(
+          onTap: () => isWishlistOn = !isWishlistOn,
+          child: const WishlistButton(
+            isDetailPage: false,
+          ),
+        ),
       );
     } else {
       _heightBetween = 82.h;
