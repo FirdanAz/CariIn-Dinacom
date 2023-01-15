@@ -178,7 +178,7 @@ class _NotLoginState extends State<NotUserLogin> {
                       builder: (context) => CustomBottomNavBar(intPage: 3),
                     ));
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        backgroundColor: Color.fromARGB(255, 23, 23, 23),
+                        backgroundColor: ColorApp.secondaryColor,
                         duration: Duration(seconds: 1),
                         content: Row(
                           children: [
@@ -189,7 +189,7 @@ class _NotLoginState extends State<NotUserLogin> {
                         )));
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        backgroundColor: Color.fromARGB(255, 23, 23, 23),
+                        backgroundColor: ColorApp.secondaryColor,
                         duration: Duration(seconds: 1),
                         content: Row(
                           children: [
