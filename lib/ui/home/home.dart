@@ -7,7 +7,6 @@ import 'package:lowongan_pekerjaan/common/color_app.dart';
 import 'package:lowongan_pekerjaan/common/svg_assets.dart';
 import 'package:lowongan_pekerjaan/model/lowongan_model.dart';
 import 'package:lowongan_pekerjaan/ui/widget/home_header.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:lowongan_pekerjaan/ui/widget/lowongan_card_horizontal.dart';
 import 'package:lowongan_pekerjaan/ui/widget/lowongan_card_vertikal.dart';
 
@@ -23,8 +22,11 @@ class _HomePageState extends State<HomePage> {
   final CollectionReference _lowongan = FirebaseFirestore.instance
       .collection('category')
       .doc('dvPSUvsmmKov6aHRDbhf')
+      .collection('programmer');
+  final CollectionReference _lowonganAdminstrasi = FirebaseFirestore.instance
+      .collection('category')
+      .doc('dvPSUvsmmKov6aHRDbhf')
       .collection('administrasi');
-  List<LowonganModel> lowongan = [];
 
   var _numberToMonthMap = {
     1: 'Jan',
@@ -108,43 +110,21 @@ class _HomePageState extends State<HomePage> {
                         builder: (context,
                             AsyncSnapshot<QuerySnapshot> streamSnapshot) {
                           if (streamSnapshot.hasData) {
-                            return ListView.separated(
+                            return ListView.builder(
                               scrollDirection: Axis.horizontal,
                               shrinkWrap: true,
                               itemCount: streamSnapshot.data!.docs.length,
                               padding: EdgeInsets.symmetric(horizontal: 23.w),
-                              separatorBuilder: (context, index) => Divider(
-                                indent: 30.h,
-                                color: Colors.transparent,
-                              ),
                               itemBuilder: (context, index) {
                                 final DocumentSnapshot documnentSnapshot =
-                                    streamSnapshot.data!.docs[index];
-
-                                //waktu
-                                Timestamp t =
-                                    documnentSnapshot['date'] as Timestamp;
-                                DateTime date = t.toDate();
-
+                                streamSnapshot.data!.docs[index];
                                 //rupiah
                                 final formartter = NumberFormat.simpleCurrency(
                                     locale: 'id_ID');
-                                var nilai = documnentSnapshot['wages'];
+                                var nilai = documnentSnapshot['gaji'];
                                 var rupiah = formartter.format(nilai);
 
-                                return LowonganCardVertikal(
-                                  id: streamSnapshot.data!.docs.toString(),
-                                  name: documnentSnapshot['name'],
-                                  ptName: documnentSnapshot['ptName'],
-                                  ptLocation: documnentSnapshot['ptLocation'],
-                                  profession: documnentSnapshot['profession'],
-                                  division: documnentSnapshot['division'],
-                                  experience: documnentSnapshot['experience'],
-                                  times:
-                                      '${_numberToMonthMap[date.month]} ${date.day} ${date.year}',
-                                  people: documnentSnapshot['people'],
-                                  wages: rupiah.toString(),
-                                );
+                                return LowonganCardVertikal(id: streamSnapshot.data!.docs.toString(), name: documnentSnapshot['namaLowongan'], ptName: documnentSnapshot['namaPerusahaan'], ptLocation: documnentSnapshot['alamat'], profession: documnentSnapshot['profesi'], division: documnentSnapshot['devisi'], experience: documnentSnapshot['pengalaman'], times: documnentSnapshot['date'], people: documnentSnapshot['people'], wages: rupiah);
                               },
                             );
                           }
@@ -159,7 +139,7 @@ class _HomePageState extends State<HomePage> {
                   textData('Pekerjaan Baru', false),
                   SizedBox(height: 17.h),
                   StreamBuilder(
-                    stream: _lowongan.snapshots(),
+                    stream: _lowonganAdminstrasi.snapshots(),
                     builder:
                         (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
                       if (streamSnapshot.hasData) {
@@ -169,7 +149,7 @@ class _HomePageState extends State<HomePage> {
                           itemCount: streamSnapshot.data!.docs.length,
                           itemBuilder: (context, index) {
                             final DocumentSnapshot documnentSnapshot =
-                                streamSnapshot.data!.docs[index];
+                            streamSnapshot.data!.docs[index];
                             return Padding(
                               padding: EdgeInsets.symmetric(
                                   horizontal: 10.w, vertical: 8.h),
@@ -209,12 +189,12 @@ class _HomePageState extends State<HomePage> {
           ),
           isMore
               ? Text(
-                  'Lihat semua',
-                  style: TextStyle(
-                      color: ColorApp.accentColor,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 13),
-                )
+            'Lihat semua',
+            style: TextStyle(
+                color: ColorApp.accentColor,
+                fontWeight: FontWeight.w500,
+                fontSize: 13),
+          )
               : Container()
         ],
       ),
@@ -256,7 +236,7 @@ class _HomePageState extends State<HomePage> {
                 child: Text(
                   "Dapatkan rekomendasi pekerjaan sesuai Kartu CV mu!",
                   style:
-                      TextStyle(fontSize: 10.sp, fontWeight: FontWeight.w500),
+                  TextStyle(fontSize: 10.sp, fontWeight: FontWeight.w500),
                 ),
               ),
               SizedBox(height: 3.h),
@@ -277,7 +257,7 @@ class _HomePageState extends State<HomePage> {
                   Text(
                     "$cvCheck Dari 6",
                     style:
-                        TextStyle(fontSize: 10.sp, fontWeight: FontWeight.w500),
+                    TextStyle(fontSize: 10.sp, fontWeight: FontWeight.w500),
                   ),
                 ],
               ),

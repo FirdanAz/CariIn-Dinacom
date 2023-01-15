@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:lowongan_pekerjaan/login_page.dart';
-import 'package:lowongan_pekerjaan/ui/bottom_navigation/bottom_navigation.dart';
-import 'package:lowongan_pekerjaan/ui/home/home.dart';
 import 'package:lowongan_pekerjaan/ui/splash_screen/splash_screen.dart';
 import 'firebase_options.dart';
 

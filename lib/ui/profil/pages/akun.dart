@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lowongan_pekerjaan/common/color_app.dart';
 import 'package:lowongan_pekerjaan/ui/bottom_navigation/bottom_navigation.dart';
 import 'package:lowongan_pekerjaan/ui/profil/pages/get_akun_data.dart';
+import 'package:lowongan_pekerjaan/ui/splash_screen/splash_screen.dart';
 
 class AkunPage extends StatefulWidget {
   const AkunPage({super.key});
@@ -92,11 +93,15 @@ class _AkunPageState extends State<AkunPage> {
                 InkWell(
                   onTap: () {
                     FirebaseAuth.instance.signOut();
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => CustomBottomNavBar(intPage: 0),
-                        ));
+                    if(FirebaseAuth.instance.currentUser == null) {
+                      setState(() {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>SpashScreen(),
+                            ));
+                      });
+                    }
                   },
                   child: Container(
                     height: 50.h,

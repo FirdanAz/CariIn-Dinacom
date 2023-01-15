@@ -5,6 +5,7 @@ import 'package:lowongan_pekerjaan/common/color_app.dart';
 import 'package:lowongan_pekerjaan/login_page.dart';
 import 'package:lowongan_pekerjaan/model/getName.dart';
 import 'package:lowongan_pekerjaan/ui/bottom_navigation/bottom_navigation.dart';
+import 'package:lowongan_pekerjaan/ui/create_lowongan/create_lowongan.dart';
 import 'package:lowongan_pekerjaan/ui/not_user/not_user_login.dart';
 import 'package:lowongan_pekerjaan/ui/profil/pages/akun.dart';
 import 'package:lowongan_pekerjaan/ui/profil/pages/tentang.dart';
@@ -105,7 +106,9 @@ class _ProfilPageState extends State<ProfilPage> {
                         ));
                   }),
                   const SizedBox(height: 18),
-                  button(context, Icons.create, "Buat Lowongan", () {}),
+                  button(context, Icons.create, "Buat Lowongan", () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => CreateLowongan(),));
+                  }),
                   const SizedBox(height: 18),
                   button(context, Icons.message, "Pusat Bantuan", () {
                     _launchLink(Uri.parse("https://wa.me/6285803426476"));
