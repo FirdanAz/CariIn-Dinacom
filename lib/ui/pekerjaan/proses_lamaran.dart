@@ -14,7 +14,7 @@ class ProsesLamaranTab extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         SvgPicture.asset(
-          proses_lamaran_logo,
+          prosesLamaranLogo,
           height: 100.h,
           width: 100.w,
           fit: BoxFit.cover,

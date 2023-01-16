@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/button_list.dart';
 import 'package:flutter_signin_button/button_view.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:lowongan_pekerjaan/common/color_app.dart';
 import 'package:lowongan_pekerjaan/ui/bottom_navigation/bottom_navigation.dart';
@@ -23,14 +24,14 @@ class _NotLoginState extends State<NotUserLogin> {
   Future<User?> currentUser() async {
     final GoogleSignInAccount? account = await googleSignIn.signIn();
     final GoogleSignInAuthentication authentication =
-    await account!.authentication;
+        await account!.authentication;
 
     final OAuthCredential credential = GoogleAuthProvider.credential(
         idToken: authentication.idToken,
         accessToken: authentication.accessToken);
 
     final UserCredential authResult =
-    await _auth.signInWithCredential(credential);
+        await _auth.signInWithCredential(credential);
     final User? user = authResult.user;
 
     return user;
@@ -38,8 +39,8 @@ class _NotLoginState extends State<NotUserLogin> {
 
   static Future<User?> loginUsingEmailPaswword(
       {required String email,
-        required String password,
-        required BuildContext context}) async {
+      required String password,
+      required BuildContext context}) async {
     FirebaseAuth auth = FirebaseAuth.instance;
     User? user;
     try {
@@ -60,12 +61,13 @@ class _NotLoginState extends State<NotUserLogin> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        toolbarHeight: 75,
-        backgroundColor: ColorApp.primaryColor,
         title: Text(
-          'Profil',
-          style: TextStyle(fontSize: 15),
+          "Profil",
+          style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500),
         ),
+        titleSpacing: 25,
+        toolbarHeight: 70.h,
+        backgroundColor: ColorApp.primaryColor,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -150,7 +152,7 @@ class _NotLoginState extends State<NotUserLogin> {
               margin: EdgeInsets.only(right: 20),
               child: InkWell(
                 onTap: () {
-                  Navigator.pushReplacement(context,
+                  Navigator.push(context,
                       MaterialPageRoute(builder: (context) => RegisterPage()));
                 },
                 child: Text(
@@ -176,7 +178,7 @@ class _NotLoginState extends State<NotUserLogin> {
                       builder: (context) => CustomBottomNavBar(intPage: 3),
                     ));
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        backgroundColor: Color.fromARGB(255, 23, 23, 23),
+                        backgroundColor: ColorApp.secondaryColor,
                         duration: Duration(seconds: 1),
                         content: Row(
                           children: [
@@ -187,7 +189,7 @@ class _NotLoginState extends State<NotUserLogin> {
                         )));
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        backgroundColor: Color.fromARGB(255, 23, 23, 23),
+                        backgroundColor: ColorApp.secondaryColor,
                         duration: Duration(seconds: 1),
                         content: Row(
                           children: [

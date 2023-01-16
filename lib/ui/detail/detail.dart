@@ -24,7 +24,6 @@ class DetailPage extends StatelessWidget {
             backgroundColor: ColorApp.secondaryColor,
             floating: true,
             snap: true,
-            pinned: true,
           ),
           SliverToBoxAdapter(
             child: Column(
@@ -79,8 +78,6 @@ class DetailPage extends StatelessWidget {
                         ],
                       ),
                       const Spacer(),
-                      const WishlistButton(),
-                      SizedBox(width: 7.w),
                       isNewJob
                           ? RotatedBox(
                               quarterTurns: 3,
@@ -191,6 +188,41 @@ class DetailPage extends StatelessWidget {
             ),
           ),
         ],
+      ),
+      bottomNavigationBar: BottomAppBar(
+        child: Container(
+          padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 25.w),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(blurRadius: 4, color: Colors.black.withOpacity(0.25)),
+            ],
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: SizedBox(
+                  height: 40.h,
+                  width: 268.w,
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: ColorApp.accentColor),
+                    child: Text(
+                      "LAMAR",
+                      style: TextStyle(
+                          fontSize: 12.sp, fontWeight: FontWeight.w600),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(width: 2.w),
+              const WishlistButton(isDetailPage: true),
+            ],
+          ),
+        ),
       ),
     );
   }

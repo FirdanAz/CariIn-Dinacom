@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_signin_button/button_list.dart';
 import 'package:flutter_signin_button/button_view.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lowongan_pekerjaan/ui/bottom_navigation/bottom_navigation.dart';
 
 import '../../common/color_app.dart';
@@ -34,16 +35,31 @@ class _RegisterPageState extends State<RegisterPage> {
         email: _usernameController.text.trim(),
         password: _passwordController.text.trim(),
       );
-      addDetailUser(_nameController.text.trim(), _nomorController.text.trim(),
-          _usernameController.text.trim(), _dateController.text.trim(), _alamatController.text.trim(), _statusKerjaController.text.trim(), selectedValue.trim());
+      addDetailUser(
+          _nameController.text.trim(),
+          _nomorController.text.trim(),
+          _usernameController.text.trim(),
+          _dateController.text.trim(),
+          _alamatController.text.trim(),
+          _statusKerjaController.text.trim(),
+          selectedValue.trim());
     }
   }
 
-  Future addDetailUser(String name, String nomor, String email, String date, String alamat, String statusKerja, String pendidikanTerakhir) async {
+  Future addDetailUser(String name, String nomor, String email, String date,
+      String alamat, String statusKerja, String pendidikanTerakhir) async {
     DocumentReference documentReference = FirebaseFirestore.instance
         .collection('users')
         .doc(FirebaseAuth.instance.currentUser!.uid);
-    documentReference.set({'nomor': nomor, 'name': name, 'email': email, 'date':date, 'alamat' : alamat, 'status_kerja' : statusKerja, 'pendidikan' : pendidikanTerakhir});
+    documentReference.set({
+      'nomor': nomor,
+      'name': name,
+      'email': email,
+      'date': date,
+      'alamat': alamat,
+      'status_kerja': statusKerja,
+      'pendidikan': pendidikanTerakhir
+    });
   }
 
   bool passwordConfirmed() {
@@ -70,12 +86,12 @@ class _RegisterPageState extends State<RegisterPage> {
     12: 'Des'
   };
 
-  List<DropdownMenuItem<String>> get dropdownItems{
+  List<DropdownMenuItem<String>> get dropdownItems {
     List<DropdownMenuItem<String>> menuItems = [
-      DropdownMenuItem(child: Text("SMK"),value: "SMK"),
-      DropdownMenuItem(child: Text("SMP"),value: "SMP"),
-      DropdownMenuItem(child: Text("SD"),value: "SD"),
-      DropdownMenuItem(child: Text("Tidak Sekolah"),value: "Tidak Sekolah"),
+      DropdownMenuItem(child: Text("SMK"), value: "SMK"),
+      DropdownMenuItem(child: Text("SMP"), value: "SMP"),
+      DropdownMenuItem(child: Text("SD"), value: "SD"),
+      DropdownMenuItem(child: Text("Tidak Sekolah"), value: "Tidak Sekolah"),
     ];
     return menuItems;
   }
@@ -85,12 +101,13 @@ class _RegisterPageState extends State<RegisterPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        toolbarHeight: 75,
-        backgroundColor: ColorApp.primaryColor,
         title: Text(
-          'Daftar',
-          style: TextStyle(fontSize: 15),
+          "Daftar",
+          style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500),
         ),
+        titleSpacing: 10,
+        toolbarHeight: 70.h,
+        backgroundColor: ColorApp.primaryColor,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -221,17 +238,19 @@ class _RegisterPageState extends State<RegisterPage> {
                         readOnly: true,
                         onTap: () async {
                           DateTime? pickedDate = await showDatePicker(
-                              context: context,
-                              initialDate: DateTime.now(), //get today's date
-                              firstDate:DateTime(2000), //DateTime.now() - not to allow to choose before today.
-                              lastDate: DateTime(2101)
-                          ).then((value) {
+                                  context: context,
+                                  initialDate:
+                                      DateTime.now(), //get today's date
+                                  firstDate: DateTime(
+                                      2000), //DateTime.now() - not to allow to choose before today.
+                                  lastDate: DateTime(2101))
+                              .then((value) {
                             setState(() {
                               dateTime = value!;
-                              _dateController.text = '${_numberToMonthMap[dateTime.month]} ${dateTime.day} ${dateTime.year}';
+                              _dateController.text =
+                                  '${_numberToMonthMap[dateTime.month]} ${dateTime.day} ${dateTime.year}';
                             });
                           });
-
                         },
                         style: TextStyle(color: Colors.black),
                         decoration: InputDecoration(
@@ -323,26 +342,27 @@ class _RegisterPageState extends State<RegisterPage> {
                       height: 10,
                     ),
                     SizedBox(
-                      height: 55,
-                      width: double.maxFinite,
-                      child: DropdownButton<String>(
-                        value: selectedValue,
-                        icon: Container(alignment: Alignment.centerRight,child: const Icon(Icons.arrow_downward)),
-                        elevation: 18,
-                        style: const TextStyle(color: ColorApp.primaryColor),
-                        underline: Container(
-                          height: 2,
-                          color: ColorApp.primaryColor,
-                        ),
-                        onChanged: (String? value) {
-                          // This is called when the user selects an item.
-                          setState(() {
-                            selectedValue = value!;
-                          });
-                        },
-                        items: dropdownItems
-                      )
-                    ),
+                        height: 55,
+                        width: double.maxFinite,
+                        child: DropdownButton<String>(
+                            value: selectedValue,
+                            icon: Container(
+                                alignment: Alignment.centerRight,
+                                child: const Icon(Icons.arrow_downward)),
+                            elevation: 18,
+                            style:
+                                const TextStyle(color: ColorApp.primaryColor),
+                            underline: Container(
+                              height: 2,
+                              color: ColorApp.primaryColor,
+                            ),
+                            onChanged: (String? value) {
+                              // This is called when the user selects an item.
+                              setState(() {
+                                selectedValue = value!;
+                              });
+                            },
+                            items: dropdownItems)),
                     SizedBox(
                       height: 10,
                     ),
@@ -437,11 +457,12 @@ class _RegisterPageState extends State<RegisterPage> {
               child: InkWell(
                 onTap: () async {
                   signUp();
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => CustomBottomNavBar(intPage: 0),
-                      ));
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => CustomBottomNavBar(intPage: 0)),
+                    (Route<dynamic> route) => false,
+                  );
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                       backgroundColor: Color.fromARGB(255, 23, 23, 23),
                       duration: Duration(seconds: 1),
