@@ -60,10 +60,9 @@ class _SearchResultState extends State<SearchResult> {
               itemBuilder: (context, index) {
                 final DocumentSnapshot documnentSnapshot =
                     streamSnapshot.data!.docs[index];
-                return LowonganCardHorizontal(
-                  isWishlistPage: false,
-                  isNew: false,
-                  name: documnentSnapshot['name'],
+                return Text(
+                  "data $index",
+                  style: TextStyle(color: Colors.black),
                 );
               },
             );
