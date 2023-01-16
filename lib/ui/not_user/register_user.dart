@@ -69,9 +69,7 @@ class _RegisterPageState extends State<RegisterPage> {
     } else {
       return false;
     }
-  }
-
-  var _numberToMonthMap = {
+  }var _numberToMonthMap = {
     1: 'Jan',
     2: 'Feb',
     3: 'Mar',
@@ -85,6 +83,8 @@ class _RegisterPageState extends State<RegisterPage> {
     11: 'Nov',
     12: 'Des'
   };
+
+
 
   List<DropdownMenuItem<String>> get dropdownItems {
     List<DropdownMenuItem<String>> menuItems = [
