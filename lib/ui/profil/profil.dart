@@ -6,6 +6,7 @@ import 'package:lowongan_pekerjaan/common/my_function.dart';
 import 'package:lowongan_pekerjaan/login_page.dart';
 import 'package:lowongan_pekerjaan/model/getName.dart';
 import 'package:lowongan_pekerjaan/ui/bottom_navigation/bottom_navigation.dart';
+import 'package:lowongan_pekerjaan/ui/create_lowongan/create_lowongan.dart';
 import 'package:lowongan_pekerjaan/ui/not_user/not_user_login.dart';
 import 'package:lowongan_pekerjaan/ui/profil/pages/akun.dart';
 import 'package:lowongan_pekerjaan/ui/profil/pages/tentang.dart';
@@ -40,6 +41,68 @@ class _ProfilPageState extends State<ProfilPage> {
                       top: 72.h,
                       bottom: 75,
                     ),
+                  ),
+                  SizedBox(height: 44.h),
+                  button(context, Icons.account_circle, "Account", () {
+                    Navigator.push(
+                        context,
+                        PageTransition(
+                          child: AkunPage(),
+                          type: PageTransitionType.leftToRight,
+                          curve: Curves.easeOutQuart,
+                        ));
+                  }),
+                  const SizedBox(height: 18),
+                  button(context, Icons.bookmark, "Wishlist", () {
+                    Navigator.push(
+                        context,
+                        PageTransition(
+                          child: WishlistPage(),
+                          type: PageTransitionType.leftToRight,
+                          curve: Curves.easeOutQuart,
+                        ));
+                  }),
+                  const SizedBox(height: 18),
+                  button(context, Icons.create, "Buat Lowongan", () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => CreateLowongan(),));
+                  }),
+                  const SizedBox(height: 18),
+                  button(context, Icons.message, "Pusat Bantuan", () {
+                    _launchLink(Uri.parse("https://wa.me/6285803426476"));
+                  }),
+                  const SizedBox(height: 18),
+                  button(context, Icons.info, "About", () {
+                    Navigator.push(
+                        context,
+                        PageTransition(
+                          child: TentangPage(),
+                          type: PageTransitionType.leftToRight,
+                          curve: Curves.easeOutQuart,
+                        ));
+                  }),
+                ],
+              ),
+            ),
+            Positioned(
+              top: 96,
+              left: (screenSize.width - 130.h) / 2,
+              child: Container(
+                width: 130.h,
+                height: 130.h,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                      color: ColorApp.primaryColor, width: 5.w),
+                ),
+                child: Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(100),
+                      child: Image.asset(
+                        "assets/foto_profil.jpg",
+                        fit: BoxFit.cover,
+                        filterQuality: FilterQuality.high,
                     width: screenSize.width,
                     decoration: const BoxDecoration(
                       color: Colors.white,
