@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lowongan_pekerjaan/model/city_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:lowongan_pekerjaan/ui/bottom_navigation/bottom_navigation.dart';
 import '../../common/color_app.dart';
 
 class CreateLowongan extends StatefulWidget {
@@ -36,7 +37,7 @@ class _CreateLowonganState extends State<CreateLowongan> {
   String _varCity = "Kabupaten Bogor";
   CityModel? cityModel;
   String selectedValuePendidikan = "SMK";
-  String? selectedValueKota;
+  String? _selectedValueKota;
   DateTime dateTime = DateTime.now();
 
   bool isConfirm = false;
@@ -173,7 +174,39 @@ class _CreateLowonganState extends State<CreateLowongan> {
                     SizedBox(height: 15.h),
                     _textFieldCard('Nama Perusahaan / Group', _companyName),
                     SizedBox(height: 15.h),
-                    _textFieldCard('Daerah', _locationCompany),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Kabupaten / Kota',
+                          style: TextStyle(
+                              color: ColorApp.accentColor,
+                              fontWeight: FontWeight.w500),
+                        ),
+                        SizedBox(height: 5.h),
+                        SizedBox(
+                          height: 55.h,
+                          child: DropdownButton<String>(
+                            value: _selectedValueKota,
+                            isExpanded: true,
+                            icon: const Icon(Icons.arrow_downward),
+                            elevation: 18,
+                            style:
+                            const TextStyle(color: ColorApp.primaryColor),
+                            underline: Container(
+                              height: 2,
+                              color: ColorApp.primaryColor,
+                            ),
+                            items: dropdownItemsKota,
+                            onChanged: (String? value) {
+                              setState(() {
+                                _selectedValueKota = value!;
+                              });
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
                     SizedBox(height: 15.h),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -229,39 +262,6 @@ class _CreateLowonganState extends State<CreateLowongan> {
                     SizedBox(height: 15.h),
                     _textFieldCard('Deskripsi pekerjaan', _descriptionJob),
                     SizedBox(height: 15.h),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'Kabupaten / Kota',
-                          style: TextStyle(
-                              color: ColorApp.accentColor,
-                              fontWeight: FontWeight.w500),
-                        ),
-                        SizedBox(height: 5.h),
-                        SizedBox(
-                          height: 55.h,
-                          child: DropdownButton<String>(
-                            value: selectedValueKota,
-                            isExpanded: true,
-                            icon: const Icon(Icons.arrow_downward),
-                            elevation: 18,
-                            style:
-                                const TextStyle(color: ColorApp.primaryColor),
-                            underline: Container(
-                              height: 2,
-                              color: ColorApp.primaryColor,
-                            ),
-                            items: dropdownItemsKota,
-                            onChanged: (String? value) {
-                              setState(() {
-                                selectedValueKota = value!;
-                              });
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
                     SizedBox(height: 35.h),
                     ClipRRect(
                       borderRadius: BorderRadius.circular(10),
@@ -273,7 +273,7 @@ class _CreateLowonganState extends State<CreateLowongan> {
                             createJobs(
                                 _lowonganName.text,
                                 _companyName.text,
-                                _locationCompany.text,
+                                _selectedValueKota!.trim().toString(),
                                 selectedValuePendidikan.trim().toString(),
                                 _profiessionCompany.text,
                                 int.parse(_wagesCompany.text),
@@ -284,6 +284,19 @@ class _CreateLowonganState extends State<CreateLowongan> {
                                 _aboutCompany.text,
                                 _conditionCompany.text,
                                 _descriptionJob.text);
+                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => CustomBottomNavBar(intPage: 3),));
+                            showDialog<String>(
+                                context: context,
+                                builder: (BuildContext context) => AlertDialog(
+                              title: const Text('Lowongan Telah Ditambahkan', style: TextStyle(color: ColorApp.accentColor),),
+                              content: const Text('Menunggu konfirmasi dari Admin', style: TextStyle(color: Colors.black87),),
+                              actions: <Widget>[
+                                TextButton(
+                                  onPressed: () => Navigator.pop(context, 'Iya'),
+                                  child: const Text('Iya'),
+                                ),
+                              ],
+                            ));
                           },
                           style: ElevatedButton.styleFrom(
                               primary: ColorApp.accentColor),

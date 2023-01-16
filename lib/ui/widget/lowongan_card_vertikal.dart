@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:lowongan_pekerjaan/ui/detail/detail.dart';
 
 import '../../common/color_app.dart';
@@ -12,7 +13,7 @@ class LowonganCardVertikal extends StatelessWidget {
   String? locationCompany;
   String? minimalEducationCompany;
   String? professionCompany;
-  String? wagesCompany;
+  int? wagesCompany;
   int? ageRequiredCompany;
   int? peopleRequired;
   String? experienceRequiredCompany;
@@ -21,6 +22,7 @@ class LowonganCardVertikal extends StatelessWidget {
   String? conditionCompany;
   String? descriptionJob;
   String? date;
+  bool? isConfirm;
   LowonganCardVertikal(
       {Key? key,
         required this.lowonganName,
@@ -37,11 +39,16 @@ class LowonganCardVertikal extends StatelessWidget {
         required this.conditionCompany,
         required this.descriptionJob,
         required this.date,
+        required this.isConfirm
       })
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final formartter = NumberFormat.simpleCurrency(
+        locale: 'id_ID');
+    var nilai = wagesCompany;
+    var rupiah = formartter.format(nilai);
     return Card(
       elevation: 2,
       shape: RoundedRectangleBorder(
@@ -50,7 +57,7 @@ class LowonganCardVertikal extends StatelessWidget {
       ),
       child: InkWell(
         onTap: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => DetailPage(lowonganName: lowonganName, companyName: companyName, locationCompany: locationCompany, minimalEducationCompany: minimalEducationCompany, professionCompany: professionCompany, wagesCompany: wagesCompany, ageRequiredCompany: ageRequiredCompany, peopleRequired: peopleRequired, experienceRequiredCompany: experienceRequiredCompany, descriptionCompany: descriptionCompany, aboutCompany: aboutCompany, conditionCompany: conditionCompany, descriptionJob: descriptionJob, date: date),));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => DetailPage(lowonganName: lowonganName, companyName: companyName, locationCompany: locationCompany, minimalEducationCompany: minimalEducationCompany, professionCompany: professionCompany, wagesCompany: wagesCompany, ageRequiredCompany: ageRequiredCompany, peopleRequired: peopleRequired, experienceRequiredCompany: experienceRequiredCompany, descriptionCompany: descriptionCompany, aboutCompany: aboutCompany, conditionCompany: conditionCompany, descriptionJob: descriptionJob, date: date, isConfirm: isConfirm),));
         },
         child: Ink(
           width: 250.w,
@@ -135,7 +142,7 @@ class LowonganCardVertikal extends StatelessWidget {
                   Icon(Icons.money, size: 15.w, color: ColorApp.primaryColor),
                   SizedBox(width: 10.w),
                   Text(
-                    wagesCompany.toString(),
+                    rupiah,
                     style: TextStyle(
                         fontSize: 10.sp, color: ColorApp.primaryColor),
                   )

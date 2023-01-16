@@ -5,8 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lowongan_pekerjaan/common/color_app.dart';
 import 'package:lowongan_pekerjaan/ui/bottom_navigation/bottom_navigation.dart';
 import 'package:lowongan_pekerjaan/ui/profil/pages/get_akun_data.dart';
-import 'package:lowongan_pekerjaan/ui/profil/profil.dart';
-import 'package:lowongan_pekerjaan/ui/splash_screen/splash_screen.dart';
 
 class AkunPage extends StatefulWidget {
   const AkunPage({super.key});
@@ -17,9 +15,6 @@ class AkunPage extends StatefulWidget {
 
 class _AkunPageState extends State<AkunPage> {
   final CollectionReference _lowongan =
-      FirebaseFirestore.instance.collection('users');
-
-  final CollectionReference _lowonganLength =
       FirebaseFirestore.instance.collection('users');
 
   int index = 0;
@@ -35,7 +30,7 @@ class _AkunPageState extends State<AkunPage> {
             index = i;
           });
         }
-        return CircularProgressIndicator();
+        return const CircularProgressIndicator();
       },
     );
   }
@@ -107,8 +102,9 @@ class _AkunPageState extends State<AkunPage> {
                             value: 'pendidikan'),
                         SizedBox(height: 40.h),
                         InkWell(
-                          onTap: () {
-                            FirebaseAuth.instance.signOut();
+                          onTap: () async {
+                            await FirebaseAuth.instance.signOut();
+                            // ignore: use_build_context_synchronously
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(

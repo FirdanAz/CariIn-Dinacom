@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:lowongan_pekerjaan/common/color_app.dart';
 import 'package:lowongan_pekerjaan/ui/detail/lamar.dart';
 import 'package:lowongan_pekerjaan/ui/widget/wishlist_button.dart';
@@ -23,13 +24,14 @@ class DetailPage extends StatefulWidget {
     required this.conditionCompany,
     required this.descriptionJob,
     required this.date,
+    required this.isConfirm
 });
     String? lowonganName;
     String? companyName;
     String? locationCompany;
     String? minimalEducationCompany;
     String? professionCompany;
-    String? wagesCompany;
+    int? wagesCompany;
     int? ageRequiredCompany;
     int? peopleRequired;
     String? experienceRequiredCompany;
@@ -38,6 +40,7 @@ class DetailPage extends StatefulWidget {
     String? conditionCompany;
     String? descriptionJob;
     String? date;
+    bool? isConfirm;
     static const bool isNewJob = true;
 
   @override
@@ -49,6 +52,10 @@ class _DetailPageState extends State<DetailPage> {
   
   @override
   Widget build(BuildContext context) {
+    final formartter = NumberFormat.simpleCurrency(
+        locale: 'id_ID');
+    var nilai = widget.wagesCompany;
+    var rupiah = formartter.format(nilai);
     final screenSize = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: ColorApp.accentColor,
@@ -152,7 +159,7 @@ class _DetailPageState extends State<DetailPage> {
                       _summaryCard(Icons.workspace_premium, widget.experienceRequiredCompany.toString()),
                       _summaryCard(Icons.location_city, widget.locationCompany.toString()),
                       _summaryCard(Icons.date_range, widget.date.toString()),
-                      _summaryCard(Icons.money, widget.wagesCompany.toString()),
+                      _summaryCard(Icons.money, rupiah),
                     ],
                   ),
                 ),
@@ -253,7 +260,7 @@ class _DetailPageState extends State<DetailPage> {
                 ),
               ),
               SizedBox(width: 2.w),
-              const WishlistButton(isDetailPage: true),
+              WishlistButton(isDetailPage: true, lowonganName: widget.lowonganName, companyName: widget.companyName, locationCompany: widget.locationCompany, minimalEducationCompany: widget.minimalEducationCompany, professionCompany: widget.professionCompany, wagesCompany: widget.wagesCompany, ageRequiredCompany: widget.ageRequiredCompany, peopleRequired: widget.peopleRequired, experienceRequiredCompany: widget.experienceRequiredCompany, descriptionCompany: widget.descriptionCompany, aboutCompany: widget.aboutCompany, conditionCompany: widget.conditionCompany, descriptionJob: widget.descriptionJob, date: widget.date, isConfirm: widget.isConfirm)
             ],
           ),
         ),
