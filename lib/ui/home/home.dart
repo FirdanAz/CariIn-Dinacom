@@ -106,7 +106,9 @@ class _HomePageState extends State<HomePage> {
                       behavior: const MaterialScrollBehavior()
                           .copyWith(overscroll: false),
                       child: StreamBuilder(
-                        stream: _lowongan.where("isConfirm", isEqualTo: true).snapshots(),
+                        stream: _lowongan
+                            .where("isConfirm", isEqualTo: true)
+                            .snapshots(),
                         builder: (context,
                             AsyncSnapshot<QuerySnapshot> streamSnapshot) {
                           if (streamSnapshot.hasData) {
@@ -117,14 +119,28 @@ class _HomePageState extends State<HomePage> {
                               padding: EdgeInsets.symmetric(horizontal: 23.w),
                               itemBuilder: (context, index) {
                                 final DocumentSnapshot documnentSnapshot =
-                                streamSnapshot.data!.docs[index];
+                                    streamSnapshot.data!.docs[index];
                                 //rupiah
                                 final formartter = NumberFormat.simpleCurrency(
                                     locale: 'id_ID');
                                 var nilai = documnentSnapshot['wagesCompany'];
                                 var rupiah = formartter.format(nilai);
 
-                                return LowonganCardVertikal(id: streamSnapshot.data!.docs.toString(), name: documnentSnapshot['lowonganName'], ptName: documnentSnapshot['companyName'], ptLocation: documnentSnapshot['locationCompany'], profession: documnentSnapshot['professionCompany'], division: documnentSnapshot['professionCompany'], experience: documnentSnapshot['experienceRequiredCompany'], times: documnentSnapshot['date'], people: documnentSnapshot['peopleRequired'], wages: rupiah);
+                                return LowonganCardVertikal(
+                                    id: streamSnapshot.data!.docs.toString(),
+                                    name: documnentSnapshot['lowonganName'],
+                                    ptName: documnentSnapshot['companyName'],
+                                    ptLocation:
+                                        documnentSnapshot['locationCompany'],
+                                    profession:
+                                        documnentSnapshot['professionCompany'],
+                                    division:
+                                        documnentSnapshot['professionCompany'],
+                                    experience: documnentSnapshot[
+                                        'experienceRequiredCompany'],
+                                    times: documnentSnapshot['date'],
+                                    people: documnentSnapshot['peopleRequired'],
+                                    wages: rupiah);
                               },
                             );
                           }
@@ -143,21 +159,22 @@ class _HomePageState extends State<HomePage> {
                     builder:
                         (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
                       if (streamSnapshot.hasData) {
-                        return ListView.builder(
-                          physics: NeverScrollableScrollPhysics(),
+                        return ListView.separated(
+                          padding: EdgeInsets.symmetric(horizontal: 10.w),
+                          physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
                           itemCount: streamSnapshot.data!.docs.length,
+                          separatorBuilder: (context, index) => Divider(
+                            height: 8.h,
+                            color: Colors.transparent,
+                          ),
                           itemBuilder: (context, index) {
                             final DocumentSnapshot documnentSnapshot =
-                            streamSnapshot.data!.docs[index];
-                            return Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 10.w, vertical: 8.h),
-                              child: LowonganCardHorizontal(
-                                isWishlistPage: false,
-                                isNew: true,
-                                name: documnentSnapshot['name'],
-                              ),
+                                streamSnapshot.data!.docs[index];
+                            return LowonganCardHorizontal(
+                              isWishlistPage: false,
+                              isNew: true,
+                              name: documnentSnapshot['name'],
                             );
                           },
                         );
@@ -189,12 +206,12 @@ class _HomePageState extends State<HomePage> {
           ),
           isMore
               ? Text(
-            'Lihat semua',
-            style: TextStyle(
-                color: ColorApp.accentColor,
-                fontWeight: FontWeight.w500,
-                fontSize: 13),
-          )
+                  'Lihat semua',
+                  style: TextStyle(
+                      color: ColorApp.accentColor,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 13),
+                )
               : Container()
         ],
       ),
@@ -236,7 +253,7 @@ class _HomePageState extends State<HomePage> {
                 child: Text(
                   "Dapatkan rekomendasi pekerjaan sesuai Kartu CV mu!",
                   style:
-                  TextStyle(fontSize: 10.sp, fontWeight: FontWeight.w500),
+                      TextStyle(fontSize: 10.sp, fontWeight: FontWeight.w500),
                 ),
               ),
               SizedBox(height: 3.h),
@@ -257,7 +274,7 @@ class _HomePageState extends State<HomePage> {
                   Text(
                     "$cvCheck Dari 6",
                     style:
-                    TextStyle(fontSize: 10.sp, fontWeight: FontWeight.w500),
+                        TextStyle(fontSize: 10.sp, fontWeight: FontWeight.w500),
                   ),
                 ],
               ),
