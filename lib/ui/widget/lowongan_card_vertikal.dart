@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lowongan_pekerjaan/ui/detail/detail.dart';
 
 import '../../common/color_app.dart';
 
@@ -39,7 +40,10 @@ class LowonganCardVertikal extends StatelessWidget {
         //set border radius more than 50% of height and width to make circle
       ),
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => DetailPage()));
+        },
         child: Ink(
           width: 250.w,
           // height: 400,
