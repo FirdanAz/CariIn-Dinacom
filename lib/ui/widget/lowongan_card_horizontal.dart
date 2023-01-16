@@ -9,12 +9,38 @@ class LowonganCardHorizontal extends StatelessWidget {
     super.key,
     required this.isWishlistPage,
     required this.isNew,
-    required this.name,
+    required this.lowonganName,
+    required this.companyName,
+    required this.locationCompany,
+    required this.minimalEducationCompany,
+    required this.professionCompany,
+    required this.wagesCompany,
+    required this.ageRequiredCompany,
+    required this.peopleRequired,
+    required this.experienceRequiredCompany,
+    required this.descriptionCompany,
+    required this.aboutCompany,
+    required this.conditionCompany,
+    required this.descriptionJob,
+    required this.date,
   });
-  final String name;
   double? _heightBetween;
   bool isWishlistOn = false;
   final bool isNew;
+  String? lowonganName;
+  String? companyName;
+  String? locationCompany;
+  String? minimalEducationCompany;
+  String? professionCompany;
+  String? wagesCompany;
+  int? ageRequiredCompany;
+  int? peopleRequired;
+  String? experienceRequiredCompany;
+  String? descriptionCompany;
+  String? aboutCompany;
+  String? conditionCompany;
+  String? descriptionJob;
+  String? date;
 
   // TODO: ubah 'True' hanya jika berada di halaman Wishlist
   final bool isWishlistPage;
@@ -60,8 +86,7 @@ class LowonganCardHorizontal extends StatelessWidget {
     return Card(
       child: InkWell(
         onTap: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => DetailPage()));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => DetailPage(lowonganName: lowonganName, companyName: companyName, locationCompany: locationCompany, minimalEducationCompany: minimalEducationCompany, professionCompany: professionCompany, wagesCompany: wagesCompany, ageRequiredCompany: ageRequiredCompany, peopleRequired: peopleRequired, experienceRequiredCompany: experienceRequiredCompany, descriptionCompany: descriptionCompany, aboutCompany: aboutCompany, conditionCompany: conditionCompany, descriptionJob: descriptionJob, date: date),));
         },
         child: Ink(
           color: Colors.white,
@@ -85,21 +110,21 @@ class LowonganCardHorizontal extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    name,
+                    lowonganName.toString(),
                     style: TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 15.sp,
                         color: ColorApp.accentColor),
                   ),
                   Text(
-                    'PT. Nano Group',
+                    companyName.toString(),
                     style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 10.sp,
                         color: ColorApp.primaryColor),
                   ),
                   Text(
-                    'Kab. Kudus, Jawa Tengah',
+                    locationCompany.toString(),
                     style: TextStyle(
                         fontSize: 10.sp,
                         color: ColorApp.secondaryColor.withOpacity(0.5),
@@ -107,7 +132,7 @@ class LowonganCardHorizontal extends StatelessWidget {
                   ),
                   SizedBox(height: 2.h),
                   Text(
-                    'SMA/SMK',
+                    minimalEducationCompany.toString(),
                     style: TextStyle(
                         fontSize: 9.sp,
                         color: ColorApp.primaryColor,
@@ -115,7 +140,7 @@ class LowonganCardHorizontal extends StatelessWidget {
                   ),
                   SizedBox(height: 2.h),
                   Text(
-                    'Full-time, On-site',
+                    professionCompany.toString(),
                     style: TextStyle(
                         fontSize: 9.sp,
                         color: ColorApp.primaryColor,
@@ -133,7 +158,7 @@ class LowonganCardHorizontal extends StatelessWidget {
                             fontWeight: FontWeight.w600),
                       ),
                       Text(
-                        '5 orang dibutuhkan',
+                        '${peopleRequired} orang dibutuhkan',
                         style: TextStyle(
                             color: ColorApp.accentColor, fontSize: 10.sp),
                       )
@@ -151,7 +176,7 @@ class LowonganCardHorizontal extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.only(right: 13.w),
                     child: Text(
-                      '1 Hari yang lalu',
+                      date.toString(),
                       style: TextStyle(
                           color: ColorApp.secondaryColor.withOpacity(0.5),
                           fontSize: 8.sp),

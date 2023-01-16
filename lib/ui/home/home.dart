@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:lowongan_pekerjaan/common/color_app.dart';
 import 'package:lowongan_pekerjaan/common/svg_assets.dart';
-import 'package:lowongan_pekerjaan/model/lowongan_model.dart';
 import 'package:lowongan_pekerjaan/ui/widget/home_header.dart';
 import 'package:lowongan_pekerjaan/ui/widget/lowongan_card_horizontal.dart';
 import 'package:lowongan_pekerjaan/ui/widget/lowongan_card_vertikal.dart';
@@ -23,25 +22,6 @@ class _HomePageState extends State<HomePage> {
       .collection('admin')
       .doc('Z1u1IE4vrZpjXGCPsGJs')
       .collection('allData');
-  final CollectionReference _lowonganAdminstrasi = FirebaseFirestore.instance
-      .collection('category')
-      .doc('dvPSUvsmmKov6aHRDbhf')
-      .collection('administrasi');
-
-  var _numberToMonthMap = {
-    1: 'Jan',
-    2: 'Feb',
-    3: 'Mar',
-    4: 'Apr',
-    5: 'Mei',
-    6: 'Jun',
-    7: 'Jul',
-    8: 'Agu',
-    9: 'Sep',
-    10: 'Oct',
-    11: 'Nov',
-    12: 'Des'
-  };
 
   @override
   Widget build(BuildContext context) {
@@ -119,30 +99,28 @@ class _HomePageState extends State<HomePage> {
                               padding: EdgeInsets.symmetric(horizontal: 23.w),
                               itemBuilder: (context, index) {
                                 final DocumentSnapshot documnentSnapshot =
-                                    streamSnapshot.data!.docs[index];
+                                streamSnapshot.data!.docs[index];
                                 //rupiah
                                 final formartter = NumberFormat.simpleCurrency(
                                     locale: 'id_ID');
                                 var nilai = documnentSnapshot['wagesCompany'];
                                 var rupiah = formartter.format(nilai);
-
                                 return LowonganCardVertikal(
-                                    id: streamSnapshot.data!.docs.toString(),
-                                    name: documnentSnapshot['lowonganName'],
-                                    ptName: documnentSnapshot['companyName'],
-                                    ptLocation:
-                                        documnentSnapshot['locationCompany'],
-                                    profession:
-                                        documnentSnapshot['professionCompany'],
-                                    division:
-                                        documnentSnapshot['professionCompany'],
-                                    experience: documnentSnapshot[
-                                        'experienceRequiredCompany'],
-                                    times: documnentSnapshot['date'],
-                                    people: documnentSnapshot['peopleRequired'],
-                                    wages: rupiah);
-                              },
-                            );
+                                    lowonganName: documnentSnapshot['lowonganName'],
+                                    companyName: documnentSnapshot['companyName'],
+                                    locationCompany: documnentSnapshot['locationCompany'],
+                                    minimalEducationCompany: documnentSnapshot['minimalEducationCompany'],
+                                    professionCompany: documnentSnapshot['professionCompany'],
+                                    wagesCompany: rupiah,
+                                    ageRequiredCompany: documnentSnapshot['ageRequiredCompany'],
+                                    peopleRequired: documnentSnapshot['peopleRequired'],
+                                    experienceRequiredCompany: documnentSnapshot['experienceRequiredCompany'],
+                                    descriptionCompany: documnentSnapshot['descriptionCompany'],
+                                    aboutCompany: documnentSnapshot['aboutCompany'],
+                                    conditionCompany: documnentSnapshot['conditionCompany'],
+                                    descriptionJob: documnentSnapshot['descriptionJob'],
+                                    date: documnentSnapshot['date']);
+                              });
                           }
                           return const Center(
                             child: CircularProgressIndicator(),
@@ -155,7 +133,7 @@ class _HomePageState extends State<HomePage> {
                   textData('Pekerjaan Baru', false),
                   SizedBox(height: 17.h),
                   StreamBuilder(
-                    stream: _lowonganAdminstrasi.snapshots(),
+                    stream: _lowongan.where('isConfirm' , isEqualTo: true).snapshots(),
                     builder:
                         (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
                       if (streamSnapshot.hasData) {
@@ -171,11 +149,25 @@ class _HomePageState extends State<HomePage> {
                           itemBuilder: (context, index) {
                             final DocumentSnapshot documnentSnapshot =
                                 streamSnapshot.data!.docs[index];
-                            return LowonganCardHorizontal(
-                              isWishlistPage: false,
-                              isNew: true,
-                              name: documnentSnapshot['name'],
-                            );
+                            final formartter = NumberFormat.simpleCurrency(
+                                locale: 'id_ID');
+                            var nilai = documnentSnapshot['wagesCompany'];
+                            var rupiah = formartter.format(nilai);
+                            return LowonganCardHorizontal(isWishlistPage: false,
+                                isNew: true,lowonganName: documnentSnapshot['lowonganName'],
+                                companyName: documnentSnapshot['companyName'],
+                                locationCompany: documnentSnapshot['locationCompany'],
+                                minimalEducationCompany: documnentSnapshot['minimalEducationCompany'],
+                                professionCompany: documnentSnapshot['professionCompany'],
+                                wagesCompany: rupiah,
+                                ageRequiredCompany: documnentSnapshot['ageRequiredCompany'],
+                                peopleRequired: documnentSnapshot['peopleRequired'],
+                                experienceRequiredCompany: documnentSnapshot['experienceRequiredCompany'],
+                                descriptionCompany: documnentSnapshot['descriptionCompany'],
+                                aboutCompany: documnentSnapshot['aboutCompany'],
+                                conditionCompany: documnentSnapshot['conditionCompany'],
+                                descriptionJob: documnentSnapshot['descriptionJob'],
+                                date: documnentSnapshot['date']);
                           },
                         );
                       }
@@ -201,11 +193,11 @@ class _HomePageState extends State<HomePage> {
         children: [
           Text(
             text,
-            style: TextStyle(
+            style: const TextStyle(
                 color: ColorApp.primaryColor, fontWeight: FontWeight.w600),
           ),
           isMore
-              ? Text(
+              ? const Text(
                   'Lihat semua',
                   style: TextStyle(
                       color: ColorApp.accentColor,

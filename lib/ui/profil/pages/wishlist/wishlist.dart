@@ -29,11 +29,7 @@ class WishlistPage extends StatelessWidget {
                 color: Colors.transparent,
               ),
               itemBuilder: (context, index) {
-                return LowonganCardHorizontal(
-                  isWishlistPage: true,
-                  isNew: false,
-                  name: "Mobile front End",
-                );
+                return Text('data');
               },
             )
           : WishlistNotLoginPage(),

@@ -7,28 +7,37 @@ import 'package:lowongan_pekerjaan/ui/detail/detail.dart';
 import '../../common/color_app.dart';
 
 class LowonganCardVertikal extends StatelessWidget {
-  String? id;
-  String? name;
-  String? ptName;
-  String? ptLocation;
-  String? profession;
-  String? division;
-  String? experience;
-  String? times;
-  int? people;
-  String? wages;
+  String? lowonganName;
+  String? companyName;
+  String? locationCompany;
+  String? minimalEducationCompany;
+  String? professionCompany;
+  String? wagesCompany;
+  int? ageRequiredCompany;
+  int? peopleRequired;
+  String? experienceRequiredCompany;
+  String? descriptionCompany;
+  String? aboutCompany;
+  String? conditionCompany;
+  String? descriptionJob;
+  String? date;
   LowonganCardVertikal(
       {Key? key,
-      required this.id,
-      required this.name,
-      required this.ptName,
-      required this.ptLocation,
-      required this.profession,
-      required this.division,
-      required this.experience,
-      required this.times,
-      required this.people,
-      required this.wages})
+        required this.lowonganName,
+        required this.companyName,
+        required this.locationCompany,
+        required this.minimalEducationCompany,
+        required this.professionCompany,
+        required this.wagesCompany,
+        required this.ageRequiredCompany,
+        required this.peopleRequired,
+        required this.experienceRequiredCompany,
+        required this.descriptionCompany,
+        required this.aboutCompany,
+        required this.conditionCompany,
+        required this.descriptionJob,
+        required this.date,
+      })
       : super(key: key);
 
   @override
@@ -41,8 +50,7 @@ class LowonganCardVertikal extends StatelessWidget {
       ),
       child: InkWell(
         onTap: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => DetailPage()));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => DetailPage(lowonganName: lowonganName, companyName: companyName, locationCompany: locationCompany, minimalEducationCompany: minimalEducationCompany, professionCompany: professionCompany, wagesCompany: wagesCompany, ageRequiredCompany: ageRequiredCompany, peopleRequired: peopleRequired, experienceRequiredCompany: experienceRequiredCompany, descriptionCompany: descriptionCompany, aboutCompany: aboutCompany, conditionCompany: conditionCompany, descriptionJob: descriptionJob, date: date),));
         },
         child: Ink(
           width: 250.w,
@@ -64,7 +72,7 @@ class LowonganCardVertikal extends StatelessWidget {
                   )),
               SizedBox(height: 10.h),
               Text(
-                name.toString(),
+                lowonganName.toString(),
                 style: TextStyle(
                     color: ColorApp.accentColor,
                     fontWeight: FontWeight.w600,
@@ -79,7 +87,7 @@ class LowonganCardVertikal extends StatelessWidget {
                       size: 15.w, color: ColorApp.primaryColor),
                   SizedBox(width: 10.w),
                   Text(
-                    ptName.toString(),
+                    companyName.toString(),
                     style: TextStyle(
                         fontSize: 10.sp,
                         fontWeight: FontWeight.w500,
@@ -89,7 +97,7 @@ class LowonganCardVertikal extends StatelessWidget {
               ),
               SizedBox(height: 5.h),
               Text(
-                ptLocation.toString(),
+                locationCompany.toString(),
                 style: TextStyle(
                     fontSize: 10.sp,
                     color: ColorApp.secondaryColor.withOpacity(0.5),
@@ -102,7 +110,7 @@ class LowonganCardVertikal extends StatelessWidget {
                       size: 15.w, color: ColorApp.primaryColor),
                   SizedBox(width: 10.w),
                   Text(
-                    experience.toString(),
+                    experienceRequiredCompany.toString(),
                     style: TextStyle(
                         fontSize: 10.sp, color: ColorApp.primaryColor),
                   )
@@ -115,7 +123,7 @@ class LowonganCardVertikal extends StatelessWidget {
                       size: 15.w, color: ColorApp.primaryColor),
                   SizedBox(width: 10.w),
                   Text(
-                    profession.toString(),
+                    professionCompany.toString(),
                     style: TextStyle(
                         fontSize: 10.sp, color: ColorApp.primaryColor),
                   )
@@ -127,7 +135,7 @@ class LowonganCardVertikal extends StatelessWidget {
                   Icon(Icons.money, size: 15.w, color: ColorApp.primaryColor),
                   SizedBox(width: 10.w),
                   Text(
-                    wages.toString(),
+                    wagesCompany.toString(),
                     style: TextStyle(
                         fontSize: 10.sp, color: ColorApp.primaryColor),
                   )
@@ -148,14 +156,14 @@ class LowonganCardVertikal extends StatelessWidget {
                             fontWeight: FontWeight.w600),
                       ),
                       Text(
-                        '${people} orang dibutuhkan',
+                        '${peopleRequired} orang dibutuhkan',
                         style: TextStyle(
                             color: ColorApp.accentColor, fontSize: 11.sp),
                       )
                     ],
                   ),
                   Text(
-                    times.toString(),
+                    date.toString(),
                     style: TextStyle(
                         color: ColorApp.secondaryColor.withOpacity(0.5),
                         fontSize: 10.sp),

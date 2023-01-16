@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lowongan_pekerjaan/common/color_app.dart';
@@ -5,10 +6,47 @@ import 'package:lowongan_pekerjaan/ui/detail/lamar.dart';
 import 'package:lowongan_pekerjaan/ui/widget/wishlist_button.dart';
 import 'package:page_transition/page_transition.dart';
 
-class DetailPage extends StatelessWidget {
-  const DetailPage({super.key});
-  static const bool isNewJob = true;
+// ignore: must_be_immutable
+class DetailPage extends StatefulWidget {
+  DetailPage({
+    required this.lowonganName,
+    required this.companyName,
+    required this.locationCompany,
+    required this.minimalEducationCompany,
+    required this.professionCompany,
+    required this.wagesCompany,
+    required this.ageRequiredCompany,
+    required this.peopleRequired,
+    required this.experienceRequiredCompany,
+    required this.descriptionCompany,
+    required this.aboutCompany,
+    required this.conditionCompany,
+    required this.descriptionJob,
+    required this.date,
+});
+    String? lowonganName;
+    String? companyName;
+    String? locationCompany;
+    String? minimalEducationCompany;
+    String? professionCompany;
+    String? wagesCompany;
+    int? ageRequiredCompany;
+    int? peopleRequired;
+    String? experienceRequiredCompany;
+    String? descriptionCompany;
+    String? aboutCompany;
+    String? conditionCompany;
+    String? descriptionJob;
+    String? date;
+    static const bool isNewJob = true;
 
+  @override
+  State<DetailPage> createState() => _DetailPageState();
+}
+
+class _DetailPageState extends State<DetailPage> {
+  final CollectionReference _lowongan = FirebaseFirestore.instance.collection('admin').doc('Z1u1IE4vrZpjXGCPsGJs').collection('allData');
+  
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
@@ -17,6 +55,7 @@ class DetailPage extends StatelessWidget {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
+            pinned: true,
             title: Text(
               "Detail Lowongan",
               style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500),
@@ -52,7 +91,7 @@ class DetailPage extends StatelessWidget {
                           SizedBox(
                             width: 170.w,
                             child: Text(
-                              "Mobile Front End",
+                              widget.lowonganName.toString(),
                               style: TextStyle(
                                   fontSize: 13.sp,
                                   fontWeight: FontWeight.w600,
@@ -61,39 +100,39 @@ class DetailPage extends StatelessWidget {
                           ),
                           SizedBox(height: 2.h),
                           Text(
-                            "PT. Nano Group",
+                            widget.companyName.toString(),
                             style: TextStyle(
                                 fontSize: 10.sp,
                                 fontWeight: FontWeight.w500,
                                 color:
-                                    ColorApp.secondaryColor.withOpacity(0.5)),
+                                ColorApp.secondaryColor.withOpacity(0.5)),
                           ),
                           SizedBox(height: 2.h),
                           Text(
-                            "Kab. Kudus, Jawa Tengah",
+                            widget.locationCompany.toString(),
                             style: TextStyle(
                                 fontSize: 10.sp,
                                 fontWeight: FontWeight.w500,
                                 color:
-                                    ColorApp.secondaryColor.withOpacity(0.5)),
+                                ColorApp.secondaryColor.withOpacity(0.5)),
                           ),
                         ],
                       ),
                       const Spacer(),
-                      isNewJob
+                      DetailPage.isNewJob
                           ? RotatedBox(
-                              quarterTurns: 3,
-                              child: Container(
-                                height: 20.h,
-                                width: 103.w,
-                                color: ColorApp.primaryColor,
-                                alignment: Alignment.center,
-                                child: Text(
-                                  "Pekerjaan Terbaru",
-                                  style: TextStyle(fontSize: 9.sp),
-                                ),
-                              ),
-                            )
+                        quarterTurns: 3,
+                        child: Container(
+                          height: 20.h,
+                          width: 103.w,
+                          color: ColorApp.primaryColor,
+                          alignment: Alignment.center,
+                          child: Text(
+                            "Pekerjaan Terbaru",
+                            style: TextStyle(fontSize: 9.sp),
+                          ),
+                        ),
+                      )
                           : SizedBox(height: 103.w),
                     ],
                   ),
@@ -105,27 +144,15 @@ class DetailPage extends StatelessWidget {
                   width: screenSize.width,
                   color: Colors.white,
                   padding:
-                      EdgeInsets.symmetric(vertical: 20.h, horizontal: 25.w),
+                  EdgeInsets.symmetric(vertical: 20.h, horizontal: 25.w),
                   child: Column(
                     children: [
-                      for (int i = 0; i < 5; i++)
-                        Container(
-                          margin: EdgeInsets.symmetric(vertical: 5.h),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Icon(Icons.history,
-                                  size: 18.w, color: ColorApp.primaryColor),
-                              SizedBox(width: 5.w),
-                              Text(
-                                "Full-time, On-site",
-                                style: TextStyle(
-                                    fontSize: 12.sp,
-                                    color: ColorApp.primaryColor),
-                              )
-                            ],
-                          ),
-                        ),
+                      _summaryCard(Icons.school_outlined, widget.minimalEducationCompany.toString()),
+                      _summaryCard(Icons.work_outline, widget.professionCompany.toString()),
+                      _summaryCard(Icons.workspace_premium, widget.experienceRequiredCompany.toString()),
+                      _summaryCard(Icons.location_city, widget.locationCompany.toString()),
+                      _summaryCard(Icons.date_range, widget.date.toString()),
+                      _summaryCard(Icons.money, widget.wagesCompany.toString()),
                     ],
                   ),
                 ),
@@ -141,23 +168,19 @@ class DetailPage extends StatelessWidget {
                     children: [
                       _titleText("Deskripsi Lowongan"),
                       SizedBox(height: 10.h),
-                      _contentText(
-                          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim."),
+                      _contentText(widget.descriptionCompany.toString()),
                       SizedBox(height: 10.h),
                       _titleText("Tentang Kami"),
                       SizedBox(height: 10.h),
-                      _contentText(
-                          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim."),
+                      _contentText(widget.aboutCompany.toString()),
                       SizedBox(height: 10.h),
                       _titleText("Syarat Pekerjaan"),
                       SizedBox(height: 10.h),
-                      _contentText(
-                          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim."),
+                      _contentText(widget.conditionCompany.toString()),
                       SizedBox(height: 10.h),
                       _titleText("Deskripsi Pekerjaan"),
                       SizedBox(height: 10.h),
-                      _contentText(
-                          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim."),
+                      _contentText(widget.descriptionJob.toString()),
                     ],
                   ),
                 ),
@@ -270,6 +293,26 @@ class DetailPage extends StatelessWidget {
       child: Text(
         skilName,
         style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500),
+      ),
+    );
+  }
+
+  Widget _summaryCard(IconData icons, String title) {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 5.h),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Icon(icons,
+              size: 18.w, color: ColorApp.primaryColor),
+          SizedBox(width: 5.w),
+          Text(
+            title,
+            style: TextStyle(
+                fontSize: 12.sp,
+                color: ColorApp.primaryColor),
+          )
+        ],
       ),
     );
   }

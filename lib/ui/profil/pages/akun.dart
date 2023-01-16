@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lowongan_pekerjaan/common/color_app.dart';
 import 'package:lowongan_pekerjaan/ui/bottom_navigation/bottom_navigation.dart';
 import 'package:lowongan_pekerjaan/ui/profil/pages/get_akun_data.dart';
+import 'package:lowongan_pekerjaan/ui/profil/profil.dart';
 import 'package:lowongan_pekerjaan/ui/splash_screen/splash_screen.dart';
 
 class AkunPage extends StatefulWidget {
@@ -108,15 +109,11 @@ class _AkunPageState extends State<AkunPage> {
                         InkWell(
                           onTap: () {
                             FirebaseAuth.instance.signOut();
-                            if (FirebaseAuth.instance.currentUser == null) {
-                              setState(() {
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => SpashScreen(),
-                                    ));
-                              });
-                            }
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => CustomBottomNavBar(intPage: 3),
+                                ));
                           },
                           child: Container(
                             height: 50.h,
@@ -124,7 +121,7 @@ class _AkunPageState extends State<AkunPage> {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 10, vertical: 12),
                             decoration: BoxDecoration(
-                              color: const Color(0xffFF0000),
+                              color: ColorApp.accentColor,
                               borderRadius: BorderRadius.circular(10),
                               boxShadow: const [
                                 BoxShadow(
@@ -138,7 +135,7 @@ class _AkunPageState extends State<AkunPage> {
                                 Icon(Icons.logout, size: 25.r),
                                 const SizedBox(width: 18),
                                 const Text(
-                                  "Log Out",
+                                  "Keluar",
                                   style: TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.w600,
