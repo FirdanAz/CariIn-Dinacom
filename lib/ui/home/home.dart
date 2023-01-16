@@ -20,9 +20,9 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final cvCheck = 2;
   final CollectionReference _lowongan = FirebaseFirestore.instance
-      .collection('category')
-      .doc('dvPSUvsmmKov6aHRDbhf')
-      .collection('programmer');
+      .collection('admin')
+      .doc('Z1u1IE4vrZpjXGCPsGJs')
+      .collection('allData');
   final CollectionReference _lowonganAdminstrasi = FirebaseFirestore.instance
       .collection('category')
       .doc('dvPSUvsmmKov6aHRDbhf')
@@ -106,7 +106,7 @@ class _HomePageState extends State<HomePage> {
                       behavior: const MaterialScrollBehavior()
                           .copyWith(overscroll: false),
                       child: StreamBuilder(
-                        stream: _lowongan.snapshots(),
+                        stream: _lowongan.where("isConfirm", isEqualTo: true).snapshots(),
                         builder: (context,
                             AsyncSnapshot<QuerySnapshot> streamSnapshot) {
                           if (streamSnapshot.hasData) {
@@ -121,10 +121,10 @@ class _HomePageState extends State<HomePage> {
                                 //rupiah
                                 final formartter = NumberFormat.simpleCurrency(
                                     locale: 'id_ID');
-                                var nilai = documnentSnapshot['gaji'];
+                                var nilai = documnentSnapshot['wagesCompany'];
                                 var rupiah = formartter.format(nilai);
 
-                                return LowonganCardVertikal(id: streamSnapshot.data!.docs.toString(), name: documnentSnapshot['namaLowongan'], ptName: documnentSnapshot['namaPerusahaan'], ptLocation: documnentSnapshot['alamat'], profession: documnentSnapshot['profesi'], division: documnentSnapshot['devisi'], experience: documnentSnapshot['pengalaman'], times: documnentSnapshot['date'], people: documnentSnapshot['people'], wages: rupiah);
+                                return LowonganCardVertikal(id: streamSnapshot.data!.docs.toString(), name: documnentSnapshot['lowonganName'], ptName: documnentSnapshot['companyName'], ptLocation: documnentSnapshot['locationCompany'], profession: documnentSnapshot['professionCompany'], division: documnentSnapshot['professionCompany'], experience: documnentSnapshot['experienceRequiredCompany'], times: documnentSnapshot['date'], people: documnentSnapshot['peopleRequired'], wages: rupiah);
                               },
                             );
                           }

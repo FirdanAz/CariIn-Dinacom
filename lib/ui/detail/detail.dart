@@ -209,7 +209,7 @@ class DetailPage extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: ColorApp.accentColor),
+                        primary: ColorApp.accentColor),
                     child: Text(
                       "LAMAR",
                       style: TextStyle(
