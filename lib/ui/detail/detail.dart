@@ -2,7 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lowongan_pekerjaan/common/color_app.dart';
+import 'package:lowongan_pekerjaan/ui/detail/lamar.dart';
 import 'package:lowongan_pekerjaan/ui/widget/wishlist_button.dart';
+import 'package:page_transition/page_transition.dart';
 
 // ignore: must_be_immutable
 class DetailPage extends StatefulWidget {
@@ -230,9 +232,18 @@ class _DetailPageState extends State<DetailPage> {
                   height: 40.h,
                   width: 268.w,
                   child: ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                        primary: ColorApp.accentColor),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        PageTransition(
+                          duration: const Duration(milliseconds: 380),
+                          child: LamarPage(),
+                          type: PageTransitionType.bottomToTop,
+                        ),
+                      );
+                    },
+                    style:
+                        ElevatedButton.styleFrom(primary: ColorApp.accentColor),
                     child: Text(
                       "LAMAR",
                       style: TextStyle(
