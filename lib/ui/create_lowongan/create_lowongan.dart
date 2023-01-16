@@ -19,7 +19,7 @@ class _CreateLowonganState extends State<CreateLowongan> {
   final _lowonganName = TextEditingController();
   final _companyName = TextEditingController();
   final _locationCompany = TextEditingController();
-  final _minimalEducationCompany = TextEditingController();
+  final _peopleRequired = TextEditingController();
   final _profiessionCompany = TextEditingController();
   final _wagesCompany = TextEditingController();
   final _ageRequiredCompany = TextEditingController();
@@ -35,6 +35,9 @@ class _CreateLowonganState extends State<CreateLowongan> {
   String _varCity = "Kabupaten Bogor";
 
   String selectedValue = "SMK";
+  DateTime dateTime = DateTime.now();
+
+  bool isConfirm = false;
 
   void getApi() async {
     final resPopular = await http.get(Uri.parse(
@@ -47,6 +50,21 @@ class _CreateLowonganState extends State<CreateLowongan> {
       _dataCity.add(cityModel);
     });
   }
+
+  var _numberToMonthMap = {
+    1: 'Jan',
+    2: 'Feb',
+    3: 'Mar',
+    4: 'Apr',
+    5: 'Mei',
+    6: 'Jun',
+    7: 'Jul',
+    8: 'Agu',
+    9: 'Sep',
+    10: 'Oct',
+    11: 'Nov',
+    12: 'Des'
+  };
 
   List<DropdownMenuItem<String>> get dropdownItems{
     List<DropdownMenuItem<String>> menuItems = [
@@ -66,6 +84,7 @@ class _CreateLowonganState extends State<CreateLowongan> {
     String professionCompany,
     int wagesCompany,
     int ageRequiredCompany,
+    int peopleRequired,
     String experienceRequiredCompany,
     String descriptionCompany,
     String aboutCompany,
@@ -74,8 +93,26 @@ class _CreateLowonganState extends State<CreateLowongan> {
   ) async {
     DocumentReference documentReference = FirebaseFirestore.instance
         .collection('admin')
-        .doc().collection("userJobData").doc();
+        .doc('Z1u1IE4vrZpjXGCPsGJs').collection("allData").doc(lowonganName);
     documentReference.set({
+      'isConfirm' : isConfirm,
+      'lowonganName' : lowonganName,
+      'companyName' : companyName,
+      'locationCompany' : locationCompany,
+      'minimalEducationCompany' : minimalEducationCompany,
+      'professionCompany' : professionCompany,
+      'wagesCompany' : wagesCompany,
+      'ageRequiredCompany' : ageRequiredCompany,
+      'peopleRequired' : peopleRequired,
+      'experienceRequiredCompany' : experienceRequiredCompany,
+      'descriptionCompany' : descriptionCompany,
+      'aboutCompany' : aboutCompany,
+      'conditionCompany' : conditionCompany,
+      'descriptionJob' : descriptionJob,
+      'date' : '${_numberToMonthMap[dateTime.month]} ${dateTime.day} ${dateTime.year}'
+    });
+    documentReference.update({
+      'isConfirm' : isConfirm,
       'lowonganName' : lowonganName,
       'companyName' : companyName,
       'locationCompany' : locationCompany,
@@ -88,6 +125,7 @@ class _CreateLowonganState extends State<CreateLowongan> {
       'aboutCompany' : aboutCompany,
       'conditionCompany' : conditionCompany,
       'descriptionJob' : descriptionJob,
+      'date' : '${_numberToMonthMap[dateTime.month]} ${dateTime.day} ${dateTime.year}'
     });
   }
 
@@ -166,6 +204,7 @@ class _CreateLowonganState extends State<CreateLowongan> {
               _textFieldCard('Profesi dibuhkan', _profiessionCompany),
               _numberFieldCard('Gaji Lowongan', _wagesCompany),
               _numberFieldCard('Umur Minimal', _ageRequiredCompany),
+              _numberFieldCard('Orang Dibuthkan', _peopleRequired),
               _textFieldCard('Pengalaman dibutuhkan', _experienceRequiredCompany),
               _textFieldCard('Deskripsi Lowongan', _descriptionCompany),
               _textFieldCard('Tentang Perusahaan', _aboutCompany),
@@ -182,11 +221,13 @@ class _CreateLowonganState extends State<CreateLowongan> {
                         _profiessionCompany.text,
                         int.parse(_wagesCompany.text),
                         int.parse(_ageRequiredCompany.text),
+                        int.parse(_peopleRequired.text),
                         _experienceRequiredCompany.text,
                         _descriptionCompany.text,
                         _aboutCompany.text,
                         _conditionCompany.text,
-                        _descriptionJob.text);
+                        _descriptionJob.text
+                    );
                   },
                   child: Container(
                     padding: EdgeInsets.all(10),

@@ -62,8 +62,7 @@ class _WishlistButtonState extends State<WishlistButton> {
                   });
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: ColorApp.accentColor,
-                  foregroundColor: Colors.white,
+                  primary: ColorApp.accentColor,
                   alignment: Alignment.center,
                   padding: EdgeInsets.all(0.w),
                 ),

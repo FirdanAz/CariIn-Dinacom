@@ -5,6 +5,7 @@ import 'package:flutter_signin_button/button_view.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:lowongan_pekerjaan/common/color_app.dart';
+import 'package:lowongan_pekerjaan/ui/admin_page/admin.dart';
 import 'package:lowongan_pekerjaan/ui/bottom_navigation/bottom_navigation.dart';
 import 'package:lowongan_pekerjaan/ui/not_user/register_user.dart';
 
@@ -169,37 +170,8 @@ class _NotLoginState extends State<NotUserLogin> {
               padding: const EdgeInsets.only(left: 20, right: 20),
               child: InkWell(
                 onTap: () async {
-                  User? user = await loginUsingEmailPaswword(
-                      email: _usernameController.text,
-                      password: _passwordController.text,
-                      context: context);
-                  if (user != null) {
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (context) => CustomBottomNavBar(intPage: 3),
-                    ));
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        backgroundColor: ColorApp.secondaryColor,
-                        duration: Duration(seconds: 1),
-                        content: Row(
-                          children: [
-                            Icon(Icons.login, color: Colors.orange, size: 18),
-                            SizedBox(width: 15),
-                            Text("Login Success"),
-                          ],
-                        )));
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        backgroundColor: ColorApp.secondaryColor,
-                        duration: Duration(seconds: 1),
-                        content: Row(
-                          children: [
-                            Icon(Icons.error,
-                                color: Color.fromARGB(255, 213, 70, 70),
-                                size: 18),
-                            SizedBox(width: 15),
-                            Text("Login Failed"),
-                          ],
-                        )));
+                  if(_usernameController.text == 'admin' && _passwordController.text == 'admin123'){
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AdminPage(),));
                   }
                 },
                 child: ClipRRect(

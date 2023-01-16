@@ -52,7 +52,7 @@ class TentangPage extends StatelessWidget {
                         'https://www.youtube.com/watch?v=xvFZjo5PgG0'));
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: ColorApp.accentColor,
+                    primary: ColorApp.accentColor,
                   ),
                   child: Text(
                     "Lisensi",
