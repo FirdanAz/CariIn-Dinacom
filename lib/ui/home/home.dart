@@ -106,20 +106,22 @@ class _HomePageState extends State<HomePage> {
                                 var nilai = documnentSnapshot['wagesCompany'];
                                 var rupiah = formartter.format(nilai);
                                 return LowonganCardVertikal(
-                                    lowonganName: documnentSnapshot['lowonganName'],
-                                    companyName: documnentSnapshot['companyName'],
-                                    locationCompany: documnentSnapshot['locationCompany'],
-                                    minimalEducationCompany: documnentSnapshot['minimalEducationCompany'],
-                                    professionCompany: documnentSnapshot['professionCompany'],
-                                    wagesCompany: rupiah,
-                                    ageRequiredCompany: documnentSnapshot['ageRequiredCompany'],
-                                    peopleRequired: documnentSnapshot['peopleRequired'],
-                                    experienceRequiredCompany: documnentSnapshot['experienceRequiredCompany'],
-                                    descriptionCompany: documnentSnapshot['descriptionCompany'],
-                                    aboutCompany: documnentSnapshot['aboutCompany'],
-                                    conditionCompany: documnentSnapshot['conditionCompany'],
-                                    descriptionJob: documnentSnapshot['descriptionJob'],
-                                    date: documnentSnapshot['date']);
+                                  lowonganName: documnentSnapshot['lowonganName'],
+                                  companyName: documnentSnapshot['companyName'],
+                                  locationCompany: documnentSnapshot['locationCompany'],
+                                  minimalEducationCompany: documnentSnapshot['minimalEducationCompany'],
+                                  professionCompany: documnentSnapshot['professionCompany'],
+                                  wagesCompany: documnentSnapshot['wagesCompany'],
+                                  ageRequiredCompany: documnentSnapshot['ageRequiredCompany'],
+                                  peopleRequired: documnentSnapshot['peopleRequired'],
+                                  experienceRequiredCompany: documnentSnapshot['experienceRequiredCompany'],
+                                  descriptionCompany: documnentSnapshot['descriptionCompany'],
+                                  aboutCompany: documnentSnapshot['aboutCompany'],
+                                  conditionCompany: documnentSnapshot['conditionCompany'],
+                                  descriptionJob: documnentSnapshot['descriptionJob'],
+                                  date: documnentSnapshot['date'],
+                                  isConfirm: documnentSnapshot['isConfirm'],
+                                );
                               });
                           }
                           return const Center(
@@ -149,25 +151,25 @@ class _HomePageState extends State<HomePage> {
                           itemBuilder: (context, index) {
                             final DocumentSnapshot documnentSnapshot =
                                 streamSnapshot.data!.docs[index];
-                            final formartter = NumberFormat.simpleCurrency(
-                                locale: 'id_ID');
-                            var nilai = documnentSnapshot['wagesCompany'];
-                            var rupiah = formartter.format(nilai);
-                            return LowonganCardHorizontal(isWishlistPage: false,
-                                isNew: true,lowonganName: documnentSnapshot['lowonganName'],
-                                companyName: documnentSnapshot['companyName'],
-                                locationCompany: documnentSnapshot['locationCompany'],
-                                minimalEducationCompany: documnentSnapshot['minimalEducationCompany'],
-                                professionCompany: documnentSnapshot['professionCompany'],
-                                wagesCompany: rupiah,
-                                ageRequiredCompany: documnentSnapshot['ageRequiredCompany'],
-                                peopleRequired: documnentSnapshot['peopleRequired'],
-                                experienceRequiredCompany: documnentSnapshot['experienceRequiredCompany'],
-                                descriptionCompany: documnentSnapshot['descriptionCompany'],
-                                aboutCompany: documnentSnapshot['aboutCompany'],
-                                conditionCompany: documnentSnapshot['conditionCompany'],
-                                descriptionJob: documnentSnapshot['descriptionJob'],
-                                date: documnentSnapshot['date']);
+                            return LowonganCardHorizontal(
+                              isWishlistPage: false,
+                              isNew: true,
+                              lowonganName: documnentSnapshot['lowonganName'],
+                              companyName: documnentSnapshot['companyName'],
+                              locationCompany: documnentSnapshot['locationCompany'],
+                              minimalEducationCompany: documnentSnapshot['minimalEducationCompany'],
+                              professionCompany: documnentSnapshot['professionCompany'],
+                              wagesCompany: documnentSnapshot['wagesCompany'],
+                              ageRequiredCompany: documnentSnapshot['ageRequiredCompany'],
+                              peopleRequired: documnentSnapshot['peopleRequired'],
+                              experienceRequiredCompany: documnentSnapshot['experienceRequiredCompany'],
+                              descriptionCompany: documnentSnapshot['descriptionCompany'],
+                              aboutCompany: documnentSnapshot['aboutCompany'],
+                              conditionCompany: documnentSnapshot['conditionCompany'],
+                              descriptionJob: documnentSnapshot['descriptionJob'],
+                              date: documnentSnapshot['date'],
+                              isConfirm: documnentSnapshot['isConfirm'],
+                            );
                           },
                         );
                       }

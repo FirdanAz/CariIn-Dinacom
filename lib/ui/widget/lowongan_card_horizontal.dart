@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:lowongan_pekerjaan/common/color_app.dart';
 import 'package:lowongan_pekerjaan/ui/detail/detail.dart';
 import 'package:lowongan_pekerjaan/ui/widget/wishlist_button.dart';
@@ -23,6 +24,7 @@ class LowonganCardHorizontal extends StatelessWidget {
     required this.conditionCompany,
     required this.descriptionJob,
     required this.date,
+    required this.isConfirm
   });
   double? _heightBetween;
   bool isWishlistOn = false;
@@ -32,7 +34,7 @@ class LowonganCardHorizontal extends StatelessWidget {
   String? locationCompany;
   String? minimalEducationCompany;
   String? professionCompany;
-  String? wagesCompany;
+  int? wagesCompany;
   int? ageRequiredCompany;
   int? peopleRequired;
   String? experienceRequiredCompany;
@@ -41,6 +43,7 @@ class LowonganCardHorizontal extends StatelessWidget {
   String? conditionCompany;
   String? descriptionJob;
   String? date;
+  bool? isConfirm;
 
   // TODO: ubah 'True' hanya jika berada di halaman Wishlist
   final bool isWishlistPage;
@@ -70,9 +73,8 @@ class LowonganCardHorizontal extends StatelessWidget {
         padding: EdgeInsets.only(right: 13.w),
         child: GestureDetector(
           onTap: () => isWishlistOn = !isWishlistOn,
-          child: const WishlistButton(
-            isDetailPage: false,
-          ),
+          child: WishlistButton(isDetailPage: false, lowonganName: lowonganName, companyName: companyName, locationCompany: locationCompany, minimalEducationCompany: minimalEducationCompany, professionCompany: professionCompany, wagesCompany: wagesCompany, ageRequiredCompany: ageRequiredCompany, peopleRequired: peopleRequired, experienceRequiredCompany: experienceRequiredCompany, descriptionCompany: descriptionCompany, aboutCompany: aboutCompany, conditionCompany: conditionCompany, descriptionJob: descriptionJob, date: date, isConfirm: isConfirm
+          )
         ),
       );
     } else {
@@ -83,10 +85,14 @@ class LowonganCardHorizontal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final formartter = NumberFormat.simpleCurrency(
+        locale: 'id_ID');
+    var nilai = wagesCompany;
+    var rupiah = formartter.format(nilai);
     return Card(
       child: InkWell(
         onTap: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => DetailPage(lowonganName: lowonganName, companyName: companyName, locationCompany: locationCompany, minimalEducationCompany: minimalEducationCompany, professionCompany: professionCompany, wagesCompany: wagesCompany, ageRequiredCompany: ageRequiredCompany, peopleRequired: peopleRequired, experienceRequiredCompany: experienceRequiredCompany, descriptionCompany: descriptionCompany, aboutCompany: aboutCompany, conditionCompany: conditionCompany, descriptionJob: descriptionJob, date: date),));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => DetailPage(lowonganName: lowonganName, companyName: companyName, locationCompany: locationCompany, minimalEducationCompany: minimalEducationCompany, professionCompany: professionCompany, wagesCompany: wagesCompany, ageRequiredCompany: ageRequiredCompany, peopleRequired: peopleRequired, experienceRequiredCompany: experienceRequiredCompany, descriptionCompany: descriptionCompany, aboutCompany: aboutCompany, conditionCompany: conditionCompany, descriptionJob: descriptionJob, date: date, isConfirm: isConfirm),));
         },
         child: Ink(
           color: Colors.white,
