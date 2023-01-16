@@ -13,9 +13,9 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   ScrollController? _scrollController;
+  final TextEditingController _searchTextController = TextEditingController();
   final double _height = 149;
   bool _lastStatus = true;
-  bool isSearch = false;
 
   bool get _isShrink {
     return _scrollController != null &&
@@ -59,10 +59,10 @@ class _SearchPageState extends State<SearchPage> {
             expandedHeight: 149,
             backgroundColor: Colors.white,
             title: _isShrink
-                ? const Text(
+                ? Text(
                     "Search",
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 16.sp,
                       fontWeight: FontWeight.w600,
                       color: ColorApp.primaryColor,
                     ),
@@ -71,58 +71,72 @@ class _SearchPageState extends State<SearchPage> {
             flexibleSpace: FlexibleSpaceBar(
               collapseMode: CollapseMode.pin,
               background: Padding(
-                padding: const EdgeInsets.only(top: 45, bottom: 20),
+                padding: EdgeInsets.only(top: 45.h, bottom: 20.h),
                 child: Column(
                   children: [
-                    const Text(
+                    Text(
                       "Search",
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: 16.sp,
                         fontWeight: FontWeight.w600,
                         color: ColorApp.primaryColor,
                       ),
                     ),
-                    const SizedBox(height: 45),
+                    SizedBox(height: 45.h),
                     Container(
-                      height: 40,
+                      height: 46.h,
                       width: screenSize.width,
                       alignment: Alignment.centerLeft,
-                      margin: const EdgeInsets.symmetric(horizontal: 20),
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      margin: EdgeInsets.symmetric(horizontal: 20.w),
+                      padding: EdgeInsets.symmetric(horizontal: 10.w),
                       decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(15),
-                          boxShadow: const [
-                            BoxShadow(
-                                color: Color(0x40AAAACC),
-                                offset: Offset(5, 5),
-                                blurRadius: 10),
-                            BoxShadow(
-                                color: Color(0x80AAAACC),
-                                offset: Offset(10, 10),
-                                blurRadius: 20),
-                            BoxShadow(
-                                color: Color(0xffFFFFFF),
-                                offset: Offset(-10, -10),
-                                blurRadius: 20),
-                          ]),
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.search,
-                            size: 16.w,
-                            color: Color(0x803A4750),
-                          ),
-                          SizedBox(width: 9.w),
-                          Text(
-                            "Search Food",
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w500,
-                              color: Color(0x803A4750),
-                            ),
-                          ),
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(15),
+                        boxShadow: const [
+                          BoxShadow(
+                              color: Color(0x40AAAACC),
+                              offset: Offset(5, 5),
+                              blurRadius: 10),
+                          BoxShadow(
+                              color: Color(0x80AAAACC),
+                              offset: Offset(10, 10),
+                              blurRadius: 20),
+                          BoxShadow(
+                              color: Color(0xffFFFFFF),
+                              offset: Offset(-10, -10),
+                              blurRadius: 20),
                         ],
+                      ),
+                      child: TextField(
+                        controller: _searchTextController,
+                        autofocus: true,
+                        style: TextStyle(
+                            color: ColorApp.secondaryColor, fontSize: 14.sp),
+                        decoration: InputDecoration(
+                          enabledBorder: InputBorder.none,
+                          focusedBorder: InputBorder.none,
+                          suffix: SizedBox(width: 10.w),
+                          prefixIcon: Icon(Icons.search, size: 20.w),
+                          prefixIconColor:
+                              ColorApp.secondaryColor.withOpacity(0.5),
+                          hintText: "Cari loker atau perusahaan",
+                          hintStyle: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 14.sp,
+                              color: ColorApp.secondaryColor.withOpacity(0.5)),
+                        ),
+                        onEditingComplete: () {
+                          if (_searchTextController.text.isNotEmpty) {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SearchResult(
+                                  searchText: _searchTextController.text,
+                                ),
+                              ),
+                            );
+                          }
+                        },
                       ),
                     )
                   ],
@@ -130,7 +144,7 @@ class _SearchPageState extends State<SearchPage> {
               ),
             ),
           ),
-          isSearch ? const SearchResult() : const BeforeSearch(),
+          const BeforeSearch(),
         ],
       ),
     );

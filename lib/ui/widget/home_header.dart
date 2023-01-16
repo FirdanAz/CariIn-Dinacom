@@ -31,7 +31,6 @@ class HomeHeader extends SliverPersistentHeaderDelegate {
         children: [
           GestureDetector(
             onTap: () {
-              print("Klik");
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => const SearchPage()));
             },
