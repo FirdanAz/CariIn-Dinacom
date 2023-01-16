@@ -262,34 +262,39 @@ class _CreateLowonganState extends State<CreateLowongan> {
                         ),
                       ],
                     ),
-                    Center(
-                      child: InkWell(
-                        onTap: () {
-                          createJobs(
-                              _lowonganName.text,
-                              _companyName.text,
-                              _locationCompany.text,
-                              selectedValuePendidikan.trim().toString(),
-                              _profiessionCompany.text,
-                              int.parse(_wagesCompany.text),
-                              int.parse(_ageRequiredCompany.text),
-                              int.parse(_peopleRequired.text),
-                              _experienceRequiredCompany.text,
-                              _descriptionCompany.text,
-                              _aboutCompany.text,
-                              _conditionCompany.text,
-                              _descriptionJob.text);
-                        },
-                        child: Container(
-                          padding: EdgeInsets.all(10),
-                          color: ColorApp.accentColor,
+                    SizedBox(height: 35.h),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: SizedBox(
+                        height: 40.h,
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            createJobs(
+                                _lowonganName.text,
+                                _companyName.text,
+                                _locationCompany.text,
+                                selectedValuePendidikan.trim().toString(),
+                                _profiessionCompany.text,
+                                int.parse(_wagesCompany.text),
+                                int.parse(_ageRequiredCompany.text),
+                                int.parse(_peopleRequired.text),
+                                _experienceRequiredCompany.text,
+                                _descriptionCompany.text,
+                                _aboutCompany.text,
+                                _conditionCompany.text,
+                                _descriptionJob.text);
+                          },
+                          style: ElevatedButton.styleFrom(
+                              primary: ColorApp.accentColor),
                           child: Text(
-                            'Buat Lowongan',
-                            style: TextStyle(color: Colors.white),
+                            "Buat Lowongan",
+                            style: TextStyle(
+                                fontSize: 12.sp, fontWeight: FontWeight.w600),
                           ),
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
