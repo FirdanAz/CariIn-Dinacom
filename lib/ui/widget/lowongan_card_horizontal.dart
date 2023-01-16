@@ -16,7 +16,6 @@ class LowonganCardHorizontal extends StatelessWidget {
   bool isWishlistOn = false;
   final bool isNew;
 
-
   // TODO: ubah 'True' hanya jika berada di halaman Wishlist
   final bool isWishlistPage;
 
@@ -61,7 +60,8 @@ class LowonganCardHorizontal extends StatelessWidget {
     return Card(
       child: InkWell(
         onTap: () {
-
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => DetailPage()));
         },
         child: Ink(
           color: Colors.white,
