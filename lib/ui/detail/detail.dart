@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
@@ -48,7 +49,39 @@ class DetailPage extends StatefulWidget {
 }
 
 class _DetailPageState extends State<DetailPage> {
-  final CollectionReference _lowongan = FirebaseFirestore.instance.collection('admin').doc('Z1u1IE4vrZpjXGCPsGJs').collection('allData');
+  bool isOn = false;
+  final CollectionReference _wishList = FirebaseFirestore.instance
+      .collection('user_wistlist')
+      .doc('FRtSiXkc7gu7EH1yQvy1')
+      .collection(FirebaseAuth.instance.currentUser!.uid);
+
+  readWishList() async {
+
+    return StreamBuilder(
+      stream: _wishList.snapshots(),
+      builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+        return ListView.builder(
+          itemBuilder: (context, index) {
+            final DocumentSnapshot documnentSnapshot =
+            streamSnapshot.data!.docs[index];
+            if(documnentSnapshot['lowonganName'] == widget.lowonganName){
+              setState(() {
+                isOn = true;
+              });
+            }
+            return Text('data');
+          },
+        );
+      },
+    );
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    readWishList();
+    super.initState();
+  }
   
   @override
   Widget build(BuildContext context) {
@@ -240,6 +273,7 @@ class _DetailPageState extends State<DetailPage> {
                   width: 268.w,
                   child: ElevatedButton(
                     onPressed: () {
+                      print(isOn);
                       Navigator.push(
                         context,
                         PageTransition(
@@ -260,7 +294,7 @@ class _DetailPageState extends State<DetailPage> {
                 ),
               ),
               SizedBox(width: 2.w),
-              WishlistButton(isDetailPage: true, lowonganName: widget.lowonganName, companyName: widget.companyName, locationCompany: widget.locationCompany, minimalEducationCompany: widget.minimalEducationCompany, professionCompany: widget.professionCompany, wagesCompany: widget.wagesCompany, ageRequiredCompany: widget.ageRequiredCompany, peopleRequired: widget.peopleRequired, experienceRequiredCompany: widget.experienceRequiredCompany, descriptionCompany: widget.descriptionCompany, aboutCompany: widget.aboutCompany, conditionCompany: widget.conditionCompany, descriptionJob: widget.descriptionJob, date: widget.date, isConfirm: widget.isConfirm)
+              WishlistButton(isDetailPage: true, lowonganName: widget.lowonganName, companyName: widget.companyName, locationCompany: widget.locationCompany, minimalEducationCompany: widget.minimalEducationCompany, professionCompany: widget.professionCompany, wagesCompany: widget.wagesCompany, ageRequiredCompany: widget.ageRequiredCompany, peopleRequired: widget.peopleRequired, experienceRequiredCompany: widget.experienceRequiredCompany, descriptionCompany: widget.descriptionCompany, aboutCompany: widget.aboutCompany, conditionCompany: widget.conditionCompany, descriptionJob: widget.descriptionJob, date: widget.date, isConfirm: widget.isConfirm, isOn: isOn,)
             ],
           ),
         ),

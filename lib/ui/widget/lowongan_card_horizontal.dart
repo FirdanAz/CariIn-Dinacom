@@ -73,7 +73,7 @@ class LowonganCardHorizontal extends StatelessWidget {
         padding: EdgeInsets.only(right: 13.w),
         child: GestureDetector(
           onTap: () => isWishlistOn = !isWishlistOn,
-          child: WishlistButton(isDetailPage: false, lowonganName: lowonganName, companyName: companyName, locationCompany: locationCompany, minimalEducationCompany: minimalEducationCompany, professionCompany: professionCompany, wagesCompany: wagesCompany, ageRequiredCompany: ageRequiredCompany, peopleRequired: peopleRequired, experienceRequiredCompany: experienceRequiredCompany, descriptionCompany: descriptionCompany, aboutCompany: aboutCompany, conditionCompany: conditionCompany, descriptionJob: descriptionJob, date: date, isConfirm: isConfirm
+          child: WishlistButton(isDetailPage: false, lowonganName: lowonganName, companyName: companyName, locationCompany: locationCompany, minimalEducationCompany: minimalEducationCompany, professionCompany: professionCompany, wagesCompany: wagesCompany, ageRequiredCompany: ageRequiredCompany, peopleRequired: peopleRequired, experienceRequiredCompany: experienceRequiredCompany, descriptionCompany: descriptionCompany, aboutCompany: aboutCompany, conditionCompany: conditionCompany, descriptionJob: descriptionJob, date: date, isConfirm: isConfirm, isOn: true,
           )
         ),
       );

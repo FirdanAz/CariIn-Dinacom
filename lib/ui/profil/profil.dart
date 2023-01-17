@@ -96,16 +96,7 @@ class _ProfilPageState extends State<ProfilPage> {
                   }),
                   const SizedBox(height: 18),
                   FirebaseAuth.instance.currentUser!.email == 'admin@gmail.com' ? button(context, Icons.admin_panel_settings, "Admin", () {
-                    Navigator.push(
-                        context,
-                        PageTransition(
-                          child: const AdminPage(),
-                          duration: const Duration(milliseconds: 140),
-                          reverseDuration:
-                          const Duration(milliseconds: 140),
-                          type: PageTransitionType.leftToRight,
-                          curve: Curves.easeOutQuart,
-                        ));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => AdminPage(),));
                   }): button(context, Icons.create, "Buat Lowongan", () {
                     Navigator.push(context, MaterialPageRoute(builder: (context) => CreateLowongan(),));
                   }),
