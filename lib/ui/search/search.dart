@@ -223,60 +223,74 @@ class _SearchPageState extends State<SearchPage> {
                                         _allDataHistorySearchDatabase!.length -
                                             1 -
                                             index;
-                                    return Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Icon(
-                                          Icons.history,
-                                          size: 20.w,
-                                          color: ColorApp.primaryColor,
-                                        ),
-                                        SizedBox(width: 10.w),
-                                        Text(
-                                          _allDataHistorySearchDatabase![
-                                                  reverseIndex]["text"]
-                                              .toString(),
-                                          style: TextStyle(
-                                            fontSize: 13.sp,
-                                            fontWeight: FontWeight.w500,
-                                            color: const Color(0x803A4750),
+                                    return InkWell(
+                                      onTap: () => Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (_) => SearchResult(
+                                            searchText:
+                                                _allDataHistorySearchDatabase![
+                                                    reverseIndex]["text"],
                                           ),
-                                        )
-                                      ],
+                                        ),
+                                      ),
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Icon(
+                                            Icons.history,
+                                            size: 20.w,
+                                            color: ColorApp.primaryColor,
+                                          ),
+                                          SizedBox(width: 10.w),
+                                          Text(
+                                            _allDataHistorySearchDatabase![
+                                                reverseIndex]["text"],
+                                            style: TextStyle(
+                                              fontSize: 13.sp,
+                                              fontWeight: FontWeight.w500,
+                                              color: const Color(0x803A4750),
+                                            ),
+                                          )
+                                        ],
+                                      ),
                                     );
                                   },
                                 ),
                                 SizedBox(height: 20.h),
                               ],
                             ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Kategori",
-                        style: TextStyle(
-                            fontSize: 13.sp,
-                            fontWeight: FontWeight.w500,
-                            color: const Color(0x803A4750)),
-                      ),
-                      SizedBox(height: 10.h),
-                      Wrap(
-                        spacing: 10.w,
-                        runSpacing: 10.h,
-                        children: [
-                          _categoryButton("Akutansi dan Keuangan"),
-                          _categoryButton("Customer Service"),
-                          _categoryButton("Penjualan"),
-                          _categoryButton("Logistik dan Kurir"),
-                          _categoryButton("Pemasaran"),
-                          _categoryButton("kesehatan, Salon, Kecantikan"),
-                          _categoryButton("It dan Teknisi"),
-                          _categoryButton("Tenaga Administrasi"),
-                          _categoryButton("OB, Kebersihan dan Keamanan"),
-                        ],
-                      ),
-                    ],
+                  SizedBox(
+                    width: double.infinity,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Kategori",
+                          style: TextStyle(
+                              fontSize: 13.sp,
+                              fontWeight: FontWeight.w500,
+                              color: const Color(0x803A4750)),
+                        ),
+                        SizedBox(height: 10.h),
+                        Wrap(
+                          spacing: 10.w,
+                          runSpacing: 10.h,
+                          children: [
+                            _categoryButton("Akutansi dan Keuangan"),
+                            _categoryButton("Customer Service"),
+                            _categoryButton("Penjualan"),
+                            _categoryButton("Logistik dan Kurir"),
+                            _categoryButton("Pemasaran"),
+                            _categoryButton("kesehatan, Salon, Kecantikan"),
+                            _categoryButton("It dan Teknisi"),
+                            _categoryButton("Tenaga Administrasi"),
+                            _categoryButton("OB, Kebersihan dan Keamanan"),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -292,7 +306,16 @@ class _SearchPageState extends State<SearchPage> {
       padding: EdgeInsets.symmetric(horizontal: 17.w, vertical: 11.h),
       backgroundColor: ColorApp.accentColor,
       labelPadding: EdgeInsets.zero,
-      onPressed: () {},
+      onPressed: () {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (_) => SearchResult(
+              searchText: text,
+            ),
+          ),
+        );
+      },
       elevation: 10,
       pressElevation: 16,
       shadowColor: const Color(0x80AAAACC),
