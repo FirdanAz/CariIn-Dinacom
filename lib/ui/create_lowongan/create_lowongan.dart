@@ -88,20 +88,20 @@ class _CreateLowonganState extends State<CreateLowongan> {
   }
 
   Future createJobs(
-    String lowonganName,
-    String companyName,
-    String locationCompany,
-    String minimalEducationCompany,
-    String professionCompany,
-    int wagesCompany,
-    int ageRequiredCompany,
-    int peopleRequired,
-    String experienceRequiredCompany,
-    String descriptionCompany,
-    String aboutCompany,
-    String conditionCompany,
-    String descriptionJob,
-  ) async {
+      String lowonganName,
+      String companyName,
+      String locationCompany,
+      String minimalEducationCompany,
+      String professionCompany,
+      int wagesCompany,
+      int ageRequiredCompany,
+      int peopleRequired,
+      String experienceRequiredCompany,
+      String descriptionCompany,
+      String aboutCompany,
+      String conditionCompany,
+      String descriptionJob,
+      ) async {
     DocumentReference documentReference = FirebaseFirestore.instance
         .collection('admin')
         .doc('Z1u1IE4vrZpjXGCPsGJs')
@@ -123,7 +123,7 @@ class _CreateLowonganState extends State<CreateLowongan> {
       'conditionCompany': conditionCompany,
       'descriptionJob': descriptionJob,
       'date':
-          '${_numberToMonthMap[dateTime.month]} ${dateTime.day} ${dateTime.year}'
+      '${_numberToMonthMap[dateTime.month]} ${dateTime.day} ${dateTime.year}'
     });
     documentReference.update({
       'isConfirm': isConfirm,
@@ -140,7 +140,7 @@ class _CreateLowonganState extends State<CreateLowongan> {
       'conditionCompany': conditionCompany,
       'descriptionJob': descriptionJob,
       'date':
-          '${_numberToMonthMap[dateTime.month]} ${dateTime.day} ${dateTime.year}'
+      '${_numberToMonthMap[dateTime.month]} ${dateTime.day} ${dateTime.year}'
     });
   }
 
@@ -165,156 +165,156 @@ class _CreateLowonganState extends State<CreateLowongan> {
       ),
       body: isLoadedApi
           ? SingleChildScrollView(
-              child: Padding(
-                padding: EdgeInsets.all(25.h),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _textFieldCard('Nama Lowongan', _lowonganName),
-                    SizedBox(height: 15.h),
-                    _textFieldCard('Nama Perusahaan / Group', _companyName),
-                    SizedBox(height: 15.h),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'Kabupaten / Kota',
-                          style: TextStyle(
-                              color: ColorApp.accentColor,
-                              fontWeight: FontWeight.w500),
-                        ),
-                        SizedBox(height: 5.h),
-                        SizedBox(
-                          height: 55.h,
-                          child: DropdownButton<String>(
-                            value: _selectedValueKota,
-                            isExpanded: true,
-                            icon: const Icon(Icons.arrow_downward),
-                            elevation: 18,
-                            style:
-                            const TextStyle(color: ColorApp.primaryColor),
-                            underline: Container(
-                              height: 2,
-                              color: ColorApp.primaryColor,
-                            ),
-                            items: dropdownItemsKota,
-                            onChanged: (String? value) {
-                              setState(() {
-                                _selectedValueKota = value!;
-                              });
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 15.h),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'Pendidikan Terakhir',
-                          style: TextStyle(
-                              color: ColorApp.accentColor,
-                              fontWeight: FontWeight.w500),
-                        ),
-                        SizedBox(height: 5.h),
-                        SizedBox(
-                          height: 55.h,
-                          child: DropdownButton<String>(
-                            value: selectedValuePendidikan,
-                            elevation: 18,
-                            isExpanded: true,
-                            icon: const Icon(Icons.arrow_downward),
-                            style:
-                                const TextStyle(color: ColorApp.primaryColor),
-                            underline: Container(
-                              height: 2,
-                              color: ColorApp.primaryColor,
-                            ),
-                            onChanged: (String? value) {
-                              // This is called when the user selects an item.
-                              setState(() {
-                                selectedValuePendidikan = value!;
-                              });
-                            },
-                            items: dropdownItemsPendidikan,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 15.h),
-                    _textFieldCard('Profesi dibuhkan', _profiessionCompany),
-                    SizedBox(height: 15.h),
-                    _numberFieldCard('Gaji Lowongan', _wagesCompany),
-                    SizedBox(height: 15.h),
-                    _numberFieldCard('Umur Minimal', _ageRequiredCompany),
-                    SizedBox(height: 15.h),
-                    _numberFieldCard('Orang Dibuthkan', _peopleRequired),
-                    SizedBox(height: 15.h),
-                    _textFieldCard(
-                        'Pengalaman dibutuhkan', _experienceRequiredCompany),
-                    SizedBox(height: 15.h),
-                    _textFieldCard('Deskripsi Lowongan', _descriptionCompany),
-                    SizedBox(height: 15.h),
-                    _textFieldCard('Tentang Perusahaan', _aboutCompany),
-                    SizedBox(height: 15.h),
-                    _textFieldCard('Syarat Pekerjaan', _conditionCompany),
-                    SizedBox(height: 15.h),
-                    _textFieldCard('Deskripsi pekerjaan', _descriptionJob),
-                    SizedBox(height: 15.h),
-                    SizedBox(height: 35.h),
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: SizedBox(
-                        height: 40.h,
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            createJobs(
-                                _lowonganName.text,
-                                _companyName.text,
-                                _selectedValueKota!.trim().toString(),
-                                selectedValuePendidikan.trim().toString(),
-                                _profiessionCompany.text,
-                                int.parse(_wagesCompany.text),
-                                int.parse(_ageRequiredCompany.text),
-                                int.parse(_peopleRequired.text),
-                                _experienceRequiredCompany.text,
-                                _descriptionCompany.text,
-                                _aboutCompany.text,
-                                _conditionCompany.text,
-                                _descriptionJob.text);
-                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => CustomBottomNavBar(intPage: 3),));
-                            showDialog<String>(
-                                context: context,
-                                builder: (BuildContext context) => AlertDialog(
-                              title: const Text('Lowongan Telah Ditambahkan', style: TextStyle(color: ColorApp.accentColor),),
-                              content: const Text('Menunggu konfirmasi dari Admin', style: TextStyle(color: Colors.black87),),
-                              actions: <Widget>[
-                                TextButton(
-                                  onPressed: () => Navigator.pop(context, 'Iya'),
-                                  child: const Text('Iya'),
-                                ),
-                              ],
-                            ));
-                          },
-                          style: ElevatedButton.styleFrom(
-                              primary: ColorApp.accentColor),
-                          child: Text(
-                            "Buat Lowongan",
-                            style: TextStyle(
-                                fontSize: 12.sp, fontWeight: FontWeight.w600),
-                          ),
-                        ),
+        child: Padding(
+          padding: EdgeInsets.all(25.h),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _textFieldCard('Nama Lowongan', _lowonganName),
+              SizedBox(height: 15.h),
+              _textFieldCard('Nama Perusahaan / Group', _companyName),
+              SizedBox(height: 15.h),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Kabupaten / Kota',
+                    style: TextStyle(
+                        color: ColorApp.accentColor,
+                        fontWeight: FontWeight.w500),
+                  ),
+                  SizedBox(height: 5.h),
+                  SizedBox(
+                    height: 55.h,
+                    child: DropdownButton<String>(
+                      value: _selectedValueKota,
+                      isExpanded: true,
+                      icon: const Icon(Icons.arrow_downward),
+                      elevation: 18,
+                      style:
+                      const TextStyle(color: ColorApp.primaryColor),
+                      underline: Container(
+                        height: 2,
+                        color: ColorApp.primaryColor,
                       ),
+                      items: dropdownItemsKota,
+                      onChanged: (String? value) {
+                        setState(() {
+                          _selectedValueKota = value!;
+                        });
+                      },
                     ),
-                  ],
+                  ),
+                ],
+              ),
+              SizedBox(height: 15.h),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Pendidikan Terakhir',
+                    style: TextStyle(
+                        color: ColorApp.accentColor,
+                        fontWeight: FontWeight.w500),
+                  ),
+                  SizedBox(height: 5.h),
+                  SizedBox(
+                    height: 55.h,
+                    child: DropdownButton<String>(
+                      value: selectedValuePendidikan,
+                      elevation: 18,
+                      isExpanded: true,
+                      icon: const Icon(Icons.arrow_downward),
+                      style:
+                      const TextStyle(color: ColorApp.primaryColor),
+                      underline: Container(
+                        height: 2,
+                        color: ColorApp.primaryColor,
+                      ),
+                      onChanged: (String? value) {
+                        // This is called when the user selects an item.
+                        setState(() {
+                          selectedValuePendidikan = value!;
+                        });
+                      },
+                      items: dropdownItemsPendidikan,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 15.h),
+              _textFieldCard('Profesi dibuhkan', _profiessionCompany),
+              SizedBox(height: 15.h),
+              _numberFieldCard('Gaji Lowongan', _wagesCompany),
+              SizedBox(height: 15.h),
+              _numberFieldCard('Umur Minimal', _ageRequiredCompany),
+              SizedBox(height: 15.h),
+              _numberFieldCard('Orang Dibuthkan', _peopleRequired),
+              SizedBox(height: 15.h),
+              _textFieldCard(
+                  'Pengalaman dibutuhkan', _experienceRequiredCompany),
+              SizedBox(height: 15.h),
+              _textFieldCard('Deskripsi Lowongan', _descriptionCompany),
+              SizedBox(height: 15.h),
+              _textFieldCard('Tentang Perusahaan', _aboutCompany),
+              SizedBox(height: 15.h),
+              _textFieldCard('Syarat Pekerjaan', _conditionCompany),
+              SizedBox(height: 15.h),
+              _textFieldCard('Deskripsi pekerjaan', _descriptionJob),
+              SizedBox(height: 15.h),
+              SizedBox(height: 35.h),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: SizedBox(
+                  height: 40.h,
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      createJobs(
+                          _lowonganName.text,
+                          _companyName.text,
+                          _selectedValueKota!.trim().toString(),
+                          selectedValuePendidikan.trim().toString(),
+                          _profiessionCompany.text,
+                          int.parse(_wagesCompany.text),
+                          int.parse(_ageRequiredCompany.text),
+                          int.parse(_peopleRequired.text),
+                          _experienceRequiredCompany.text,
+                          _descriptionCompany.text,
+                          _aboutCompany.text,
+                          _conditionCompany.text,
+                          _descriptionJob.text);
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => CustomBottomNavBar(intPage: 3),));
+                      showDialog<String>(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                            title: const Text('Lowongan Telah Ditambahkan', style: TextStyle(color: ColorApp.accentColor),),
+                            content: const Text('Menunggu konfirmasi dari Admin', style: TextStyle(color: Colors.black87),),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () => Navigator.pop(context, 'Iya'),
+                                child: const Text('Iya'),
+                              ),
+                            ],
+                          ));
+                    },
+                    style: ElevatedButton.styleFrom(
+                        primary: ColorApp.accentColor),
+                    child: Text(
+                      "Buat Lowongan",
+                      style: TextStyle(
+                          fontSize: 12.sp, fontWeight: FontWeight.w600),
+                    ),
+                  ),
                 ),
               ),
-            )
+            ],
+          ),
+        ),
+      )
           : const Center(
-              child: CircularProgressIndicator(),
-            ),
+        child: CircularProgressIndicator(),
+      ),
     );
   }
 
