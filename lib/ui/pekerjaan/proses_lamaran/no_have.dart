@@ -5,8 +5,8 @@ import 'package:lowongan_pekerjaan/common/color_app.dart';
 import 'package:lowongan_pekerjaan/common/svg_assets.dart';
 import 'package:lowongan_pekerjaan/ui/search/search.dart';
 
-class ProsesLamaranTab extends StatelessWidget {
-  const ProsesLamaranTab({super.key});
+class NoHaveProsesLamaran extends StatelessWidget {
+  const NoHaveProsesLamaran({super.key});
 
   @override
   Widget build(BuildContext context) {

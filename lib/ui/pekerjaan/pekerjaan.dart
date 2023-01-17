@@ -3,7 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lowongan_pekerjaan/common/color_app.dart';
 import 'package:lowongan_pekerjaan/common/svg_assets.dart';
-import 'package:lowongan_pekerjaan/ui/pekerjaan/proses_lamaran.dart';
+import 'package:lowongan_pekerjaan/ui/pekerjaan/hasil_lamaran/hasil_lamaran.dart';
+import 'package:lowongan_pekerjaan/ui/pekerjaan/proses_lamaran/proses_lamaran.dart';
 
 class PekerjaanPage extends StatefulWidget {
   const PekerjaanPage({super.key});
@@ -64,12 +65,7 @@ class _PekerjaanPageState extends State<PekerjaanPage>
         controller: _tabController,
         children: [
           ProsesLamaranTab(),
-          Center(
-            child: Text(
-              "Coming Soon",
-              style: TextStyle(color: ColorApp.primaryColor),
-            ),
-          ),
+          HasilLamaranTab(),
         ],
       ),
     );

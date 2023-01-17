@@ -105,11 +105,14 @@ class _AkunPageState extends State<AkunPage> {
                           onTap: () async {
                             await FirebaseAuth.instance.signOut();
                             // ignore: use_build_context_synchronously
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => CustomBottomNavBar(intPage: 3),
-                                ));
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    CustomBottomNavBar(intPage: 3),
+                              ),
+                              (Route<dynamic> route) => false,
+                            );
                           },
                           child: Container(
                             height: 50.h,
