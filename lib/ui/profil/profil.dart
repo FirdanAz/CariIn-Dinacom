@@ -5,6 +5,7 @@ import 'package:lowongan_pekerjaan/common/color_app.dart';
 import 'package:lowongan_pekerjaan/common/my_function.dart';
 import 'package:lowongan_pekerjaan/login_page.dart';
 import 'package:lowongan_pekerjaan/model/getName.dart';
+import 'package:lowongan_pekerjaan/ui/admin_page/admin.dart';
 import 'package:lowongan_pekerjaan/ui/bottom_navigation/bottom_navigation.dart';
 import 'package:lowongan_pekerjaan/ui/create_lowongan/create_lowongan.dart';
 import 'package:lowongan_pekerjaan/ui/not_user/not_user_login.dart';
@@ -94,7 +95,18 @@ class _ProfilPageState extends State<ProfilPage> {
                         ));
                   }),
                   const SizedBox(height: 18),
-                  button(context, Icons.create, "Buat Lowongan", () {
+                  FirebaseAuth.instance.currentUser!.email == 'admin@gmail.com' ? button(context, Icons.admin_panel_settings, "Admin", () {
+                    Navigator.push(
+                        context,
+                        PageTransition(
+                          child: const AdminPage(),
+                          duration: const Duration(milliseconds: 140),
+                          reverseDuration:
+                          const Duration(milliseconds: 140),
+                          type: PageTransitionType.leftToRight,
+                          curve: Curves.easeOutQuart,
+                        ));
+                  }): button(context, Icons.create, "Buat Lowongan", () {
                     Navigator.push(context, MaterialPageRoute(builder: (context) => CreateLowongan(),));
                   }),
                   const SizedBox(height: 18),

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lowongan_pekerjaan/common/color_app.dart';
+import 'package:lowongan_pekerjaan/ui/admin_page/detail.dart';
 
 import '../widget/lowongan_card_horizontal.dart';
 
@@ -68,22 +69,35 @@ class _AdminPageState extends State<AdminPage> {
                           itemBuilder: (context, index) {
                             final DocumentSnapshot documnentSnapshot =
                             streamSnapshot.data!.docs[index];
-                            return InkWell(
-                              onTap: () {
-                                confirm(isConfirm, documnentSnapshot['lowonganName']);
-                              },
-                              child: ListTile(
-                                leading: Icon(Icons.account_circle),
-                                subtitle: Text(documnentSnapshot['companyName']),
-                                title: Text(documnentSnapshot['lowonganName'], style: TextStyle(color: ColorApp.accentColor, fontWeight: FontWeight.w500),),
-                                trailing: ElevatedButton(
-                                  onPressed: () {
-                                    confirm(isConfirm, documnentSnapshot['lowonganName']);
-                                  },
-                                  child: Text('Konfirmasi', style: TextStyle(fontSize: 12),),
+                            if(streamSnapshot.data!.docs.length == 0) {
+                              return Center(
+                                child: Text(
+                                  'Belum Ada Lowongan Yang Belum Dikonfirmasi',
+                                  style: TextStyle(
+                                    color: Colors.black87
+                                  ),
                                 ),
-                              )
-                            );
+                              );
+                            } else {
+                              return InkWell(
+                                  onTap: () {
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) => DetailPageAdmin(lowonganName: documnentSnapshot['lowonganName'], companyName: documnentSnapshot['companyName'], locationCompany: documnentSnapshot['locationCompany'], minimalEducationCompany: documnentSnapshot['minimalEducationCompany'], professionCompany: documnentSnapshot['professionCompany'], wagesCompany: documnentSnapshot['wagesCompany'], ageRequiredCompany: documnentSnapshot['ageRequiredCompany'], peopleRequired: documnentSnapshot['peopleRequired'], experienceRequiredCompany: documnentSnapshot['experienceRequiredCompany'], descriptionCompany: documnentSnapshot['descriptionCompany'], aboutCompany: documnentSnapshot['aboutCompany'], conditionCompany: documnentSnapshot['conditionCompany'], descriptionJob: documnentSnapshot['descriptionJob'], date: documnentSnapshot['date'], isConfirm: documnentSnapshot['isConfirm']),));
+                                  },
+                                  child: ListTile(
+                                    leading: Icon(Icons.work, size: 40),
+                                    subtitle: Text(documnentSnapshot['companyName']),
+                                    title: Text(documnentSnapshot['lowonganName'], style: TextStyle(color: ColorApp.accentColor, fontWeight: FontWeight.w500),),
+                                    trailing: ClipRRect(
+                                      borderRadius: BorderRadius.circular(100),
+                                      child: Container(
+                                        height: 11,
+                                        width: 11,
+                                        color: ColorApp.accentColor,
+                                      ),
+                                    ),
+                                  )
+                              );
+                            }
                           },
                         );
                       }
