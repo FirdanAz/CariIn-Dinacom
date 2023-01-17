@@ -120,7 +120,7 @@ class _AkunPageState extends State<AkunPage> {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 10, vertical: 12),
                             decoration: BoxDecoration(
-                              color: ColorApp.accentColor,
+                              color: Colors.red,
                               borderRadius: BorderRadius.circular(10),
                               boxShadow: const [
                                 BoxShadow(

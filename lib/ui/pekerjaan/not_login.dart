@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lowongan_pekerjaan/common/color_app.dart';
 
-class KotakMasukNotLoginPage extends StatelessWidget {
-  const KotakMasukNotLoginPage({super.key});
+class PekerjaanNotLoginPage extends StatelessWidget {
+  const PekerjaanNotLoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +12,7 @@ class KotakMasukNotLoginPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            "Belum ada fitur kotak masuk. Masuk untuk lihat dan\nsinkronasi wishlist anda",
+            "Belum ada fitur lamaran. Masuk untuk lihat dan\nsinkronasi wishlist anda",
             textAlign: TextAlign.center,
             style: TextStyle(color: ColorApp.secondaryColor, fontSize: 11.sp),
           ),

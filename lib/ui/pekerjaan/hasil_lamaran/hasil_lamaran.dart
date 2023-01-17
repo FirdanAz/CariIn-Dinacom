@@ -1,6 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lowongan_pekerjaan/common/color_app.dart';
+import 'package:lowongan_pekerjaan/ui/pekerjaan/not_login.dart';
 import 'package:lowongan_pekerjaan/ui/pekerjaan/proses_lamaran/no_have.dart';
 import 'package:lowongan_pekerjaan/ui/widget/Pekerjaan_card.dart';
 
@@ -13,101 +15,105 @@ class HasilLamaranTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return isHaveHasilLamaran
-        ? SingleChildScrollView(
-            child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 25.h, horizontal: 10.w),
-              child: Column(
-                children: [
-                  Container(
-                    height: 40,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                        color: ColorApp.accentColor,
-                        borderRadius: BorderRadius.circular(10.r)),
-                    child: const Text(
-                      "Diterima",
-                      style: TextStyle(fontWeight: FontWeight.w500),
-                    ),
-                  ),
-                  isHaveDiterima
-                      ? ListView.separated(
-                          itemCount: 1,
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          padding: EdgeInsets.symmetric(vertical: 5.h),
-                          separatorBuilder: (context, index) => Divider(
-                            height: 10.h,
-                            color: Colors.transparent,
-                          ),
-                          itemBuilder: (context, index) {
-                            return PekerjaanCard(status: "Diterima");
-                          },
-                        )
-                      : _noHaveData(),
-                  SizedBox(height: 25.h),
+    return FirebaseAuth.instance.currentUser == null
+        ? const PekerjaanNotLoginPage()
+        : isHaveHasilLamaran
+            ? SingleChildScrollView(
+                child: Padding(
+                  padding:
+                      EdgeInsets.symmetric(vertical: 25.h, horizontal: 10.w),
+                  child: Column(
+                    children: [
+                      Container(
+                        height: 40,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                            color: ColorApp.accentColor,
+                            borderRadius: BorderRadius.circular(10.r)),
+                        child: const Text(
+                          "Diterima",
+                          style: TextStyle(fontWeight: FontWeight.w500),
+                        ),
+                      ),
+                      isHaveDiterima
+                          ? ListView.separated(
+                              itemCount: 1,
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              padding: EdgeInsets.symmetric(vertical: 5.h),
+                              separatorBuilder: (context, index) => Divider(
+                                height: 10.h,
+                                color: Colors.transparent,
+                              ),
+                              itemBuilder: (context, index) {
+                                return PekerjaanCard(status: "Diterima");
+                              },
+                            )
+                          : _noHaveData(),
+                      SizedBox(height: 25.h),
 
-                  // Ditolak
-                  Container(
-                    height: 40,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                        color: ColorApp.accentColor,
-                        borderRadius: BorderRadius.circular(10.r)),
-                    child: const Text(
-                      "Ditolak",
-                      style: TextStyle(fontWeight: FontWeight.w500),
-                    ),
-                  ),
-                  isHaveDitolak
-                      ? ListView.separated(
-                          itemCount: 2,
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          padding: EdgeInsets.symmetric(vertical: 5.h),
-                          separatorBuilder: (context, index) => Divider(
-                            height: 10.h,
-                            color: Colors.transparent,
-                          ),
-                          itemBuilder: (context, index) {
-                            return PekerjaanCard(status: "Ditolak");
-                          },
-                        )
-                      : _noHaveData(),
-                  SizedBox(height: 25.h),
+                      // Ditolak
+                      Container(
+                        height: 40,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                            color: ColorApp.accentColor,
+                            borderRadius: BorderRadius.circular(10.r)),
+                        child: const Text(
+                          "Ditolak",
+                          style: TextStyle(fontWeight: FontWeight.w500),
+                        ),
+                      ),
+                      isHaveDitolak
+                          ? ListView.separated(
+                              itemCount: 2,
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              padding: EdgeInsets.symmetric(vertical: 5.h),
+                              separatorBuilder: (context, index) => Divider(
+                                height: 10.h,
+                                color: Colors.transparent,
+                              ),
+                              itemBuilder: (context, index) {
+                                return PekerjaanCard(status: "Ditolak");
+                              },
+                            )
+                          : _noHaveData(),
+                      SizedBox(height: 25.h),
 
 // Wawancara
-                  Container(
-                    height: 40,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                        color: ColorApp.accentColor,
-                        borderRadius: BorderRadius.circular(10.r)),
-                    child: const Text(
-                      "Wawancara",
-                      style: TextStyle(fontWeight: FontWeight.w500),
-                    ),
+                      Container(
+                        height: 40,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                            color: ColorApp.accentColor,
+                            borderRadius: BorderRadius.circular(10.r)),
+                        child: const Text(
+                          "Wawancara",
+                          style: TextStyle(fontWeight: FontWeight.w500),
+                        ),
+                      ),
+                      isHaveWawancara
+                          ? ListView.separated(
+                              itemCount: 2,
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              padding: EdgeInsets.symmetric(vertical: 5.h),
+                              separatorBuilder: (context, index) => Divider(
+                                height: 10.h,
+                                color: Colors.transparent,
+                              ),
+                              itemBuilder: (context, index) {
+                                return PekerjaanCard(
+                                    status: "Undangan Wawancara");
+                              },
+                            )
+                          : _noHaveData(),
+                    ],
                   ),
-                  isHaveWawancara
-                      ? ListView.separated(
-                          itemCount: 2,
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          padding: EdgeInsets.symmetric(vertical: 5.h),
-                          separatorBuilder: (context, index) => Divider(
-                            height: 10.h,
-                            color: Colors.transparent,
-                          ),
-                          itemBuilder: (context, index) {
-                            return PekerjaanCard(status: "Undangan Wawancara");
-                          },
-                        )
-                      : _noHaveData(),
-                ],
-              ),
-            ),
-          )
-        : const NoHaveProsesLamaran();
+                ),
+              )
+            : const NoHaveProsesLamaran();
   }
 
   Widget _noHaveData() {
