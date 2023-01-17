@@ -81,6 +81,7 @@ class _SearchPageState extends State<SearchPage> {
   void dispose() {
     // TODO: implement dispose
     super.dispose();
+    _searchTextController.dispose();
   }
 
   @override
