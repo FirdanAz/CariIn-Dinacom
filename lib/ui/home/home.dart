@@ -87,7 +87,7 @@ class _HomePageState extends State<HomePage> {
                           .copyWith(overscroll: false),
                       child: StreamBuilder(
                         stream: _lowongan
-                            .where("isConfirm", isEqualTo: true)
+                            .where("isConfirm", isEqualTo: true).where('isActive', isEqualTo:  true)
                             .snapshots(),
                         builder: (context,
                             AsyncSnapshot<QuerySnapshot> streamSnapshot) {
@@ -219,7 +219,7 @@ class _HomePageState extends State<HomePage> {
       width: 310.w,
       padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
       decoration: BoxDecoration(
-        color: ColorApp.accentColor,
+        color: ColorApp.primaryColor,
         borderRadius: BorderRadius.circular(10),
         boxShadow: const [
           BoxShadow(
@@ -231,51 +231,50 @@ class _HomePageState extends State<HomePage> {
       ),
       child: Row(
         children: [
-          SvgPicture.asset(cvLogo),
+          SvgPicture.asset(warningLogo),
           SizedBox(width: 10.w),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+            children: const [
               Text(
-                "Lengkapi Data CV mu",
-                style: TextStyle(fontSize: 10.sp, fontWeight: FontWeight.w600),
-              ),
-              SizedBox(height: 5.h),
-              SizedBox(
-                width: 173.w,
-                child: Text(
-                  "Dapatkan rekomendasi pekerjaan sesuai Kartu CV mu!",
-                  style:
-                      TextStyle(fontSize: 10.sp, fontWeight: FontWeight.w500),
+                'Apakah hasilnya kurang lerevan?',
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w500
                 ),
               ),
-              SizedBox(height: 3.h),
-              Row(
-                children: [
-                  for (int i = 1; i <= 6; i++)
-                    Container(
-                      height: 4,
-                      width: 20,
-                      margin: EdgeInsets.only(right: 5.w),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(2),
-                          color: i <= cvCheck
-                              ? ColorApp.secondaryColor
-                              : const Color(0x4d3A4750)),
-                    ),
-                  SizedBox(width: 5.w),
-                  Text(
-                    "$cvCheck Dari 6",
-                    style:
-                        TextStyle(fontSize: 10.sp, fontWeight: FontWeight.w500),
-                  ),
-                ],
+              SizedBox(
+                height: 5,
+              ),
+              Text(
+                'Update minat dan preferensi kerjamu',
+                style: TextStyle(
+                    fontSize: 11,
+                    fontWeight: FontWeight.w500
+                ),
+              ),
+              Text(
+                'untuk rekomendasi yang lebih akurat.',
+                style: TextStyle(
+                    fontSize: 11,
+                    fontWeight: FontWeight.w500
+                ),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Text(
+                'Update Sekarang',
+                style: TextStyle(
+                    fontSize: 10,
+                    fontWeight: FontWeight.w500,
+                  color: ColorApp.accentColor
+                ),
               ),
             ],
           ),
           const Spacer(),
-          const Icon(Icons.arrow_forward_ios, color: ColorApp.primaryColor),
         ],
       ),
     );

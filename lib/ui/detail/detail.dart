@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
@@ -50,38 +48,6 @@ class DetailPage extends StatefulWidget {
 
 class _DetailPageState extends State<DetailPage> {
   bool isOn = false;
-  final CollectionReference _wishList = FirebaseFirestore.instance
-      .collection('user_wistlist')
-      .doc('FRtSiXkc7gu7EH1yQvy1')
-      .collection(FirebaseAuth.instance.currentUser!.uid);
-
-  readWishList() async {
-
-    return StreamBuilder(
-      stream: _wishList.snapshots(),
-      builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
-        return ListView.builder(
-          itemBuilder: (context, index) {
-            final DocumentSnapshot documnentSnapshot =
-            streamSnapshot.data!.docs[index];
-            if(documnentSnapshot['lowonganName'] == widget.lowonganName){
-              setState(() {
-                isOn = true;
-              });
-            }
-            return Text('data');
-          },
-        );
-      },
-    );
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    readWishList();
-    super.initState();
-  }
   
   @override
   Widget build(BuildContext context) {
@@ -227,28 +193,28 @@ class _DetailPageState extends State<DetailPage> {
                 SizedBox(height: 3.h),
 
                 // Skil
-                Container(
-                  width: screenSize.width,
-                  color: Colors.white,
-                  padding: EdgeInsets.all(25.w),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _titleText("Skill Yang Harus Dimiliki"),
-                      SizedBox(height: 15.h),
-                      Wrap(
-                        spacing: 15,
-                        runSpacing: 10,
-                        children: [
-                          _skilCard("Java"),
-                          _skilCard("Hacking"),
-                          _skilCard("Mobile Legend"),
-                          _skilCard("Hyper Text Markup Language"),
-                        ],
-                      )
-                    ],
-                  ),
-                ),
+                // Container(
+                //   width: screenSize.width,
+                //   color: Colors.white,
+                //   padding: EdgeInsets.all(25.w),
+                //   child: Column(
+                //     crossAxisAlignment: CrossAxisAlignment.start,
+                //     children: [
+                //       _titleText("Skill Yang Harus Dimiliki"),
+                //       SizedBox(height: 15.h),
+                //       Wrap(
+                //         spacing: 15,
+                //         runSpacing: 10,
+                //         children: [
+                //           _skilCard("Java"),
+                //           _skilCard("Hacking"),
+                //           _skilCard("Mobile Legend"),
+                //           _skilCard("Hyper Text Markup Language"),
+                //         ],
+                //       )
+                //     ],
+                //   ),
+                // ),
               ],
             ),
           ),
@@ -278,7 +244,7 @@ class _DetailPageState extends State<DetailPage> {
                         context,
                         PageTransition(
                           duration: const Duration(milliseconds: 380),
-                          child: LamarPage(),
+                          child: LamarPage(lowonganName: widget.lowonganName, companyName: widget.companyName, locationCompany: widget.locationCompany, minimalEducationCompany: widget.minimalEducationCompany, professionCompany: widget.professionCompany, wagesCompany: widget.wagesCompany, ageRequiredCompany: widget.ageRequiredCompany, peopleRequired: widget.peopleRequired, experienceRequiredCompany: widget.experienceRequiredCompany, descriptionCompany: widget.descriptionCompany, aboutCompany: widget.aboutCompany, conditionCompany: widget.conditionCompany, descriptionJob: widget.descriptionJob, date: widget.date, isConfirm: widget.isConfirm),
                           type: PageTransitionType.bottomToTop,
                         ),
                       );

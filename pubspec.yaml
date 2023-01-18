@@ -51,6 +51,7 @@ dependencies:
   url_launcher: ^6.1.7
   permission_handler:
   sqflite:
+  file_picker:
 
 dev_dependencies:
   flutter_test:

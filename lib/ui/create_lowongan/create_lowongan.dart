@@ -34,9 +34,9 @@ class _CreateLowonganState extends State<CreateLowongan> {
       "http://dev.farizdotid.com/api/daerahindonesia/kota?id_provinsi=32";
   bool isLoadedApi = false;
   List _dataCity = [];
-  String _varCity = "Kabupaten Bogor";
   CityModel? cityModel;
-  String selectedValuePendidikan = "SMK";
+  String selectedValuePendidikan = "SMA/SMK";
+  String rekomenSelectedValue = "Administrasi";
   String? _selectedValueKota;
   DateTime dateTime = DateTime.now();
 
@@ -67,11 +67,23 @@ class _CreateLowonganState extends State<CreateLowongan> {
   };
 
   List<DropdownMenuItem<String>> get dropdownItemsPendidikan {
-    List<DropdownMenuItem<String>> menuItems = const [
-      DropdownMenuItem(value: "SMK", child: Text("SMK")),
-      DropdownMenuItem(value: "SMP", child: Text("SMP")),
-      DropdownMenuItem(value: "SD", child: Text("SD")),
-      DropdownMenuItem(value: "Tidak Sekolah", child: Text("Tidak Sekolah")),
+    List<DropdownMenuItem<String>> menuItems = [
+      DropdownMenuItem(child: Text("Perguruan Tinggi"), value: "Perguruan Tinggi"),
+      DropdownMenuItem(child: Text("SMA/SMK"), value: "SMA/SMK"),
+      DropdownMenuItem(child: Text("SMP"), value: "SMP"),
+      DropdownMenuItem(child: Text("SD"), value: "SD"),
+      DropdownMenuItem(child: Text("Tidak Sekolah"), value: "Tidak Sekolah"),
+    ];
+    return menuItems;
+  }
+
+  List<DropdownMenuItem<String>> get rekomendasiDropdownItems {
+    List<DropdownMenuItem<String>> menuItems = [
+      DropdownMenuItem(child: Text("Administrasi"), value: "Administrasi"),
+      DropdownMenuItem(child: Text("Keuangan"), value: "Keuangan"),
+      DropdownMenuItem(child: Text("Programmer"), value: "Programmer"),
+      DropdownMenuItem(child: Text("Kesehatan"), value: "Kesehatan"),
+      DropdownMenuItem(child: Text("Keamanan"), value: "Keamanan"),
     ];
     return menuItems;
   }
@@ -101,6 +113,7 @@ class _CreateLowonganState extends State<CreateLowongan> {
       String aboutCompany,
       String conditionCompany,
       String descriptionJob,
+      String keahlian
       ) async {
     DocumentReference documentReference = FirebaseFirestore.instance
         .collection('admin')
@@ -123,7 +136,9 @@ class _CreateLowonganState extends State<CreateLowongan> {
       'conditionCompany': conditionCompany,
       'descriptionJob': descriptionJob,
       'date':
-      '${_numberToMonthMap[dateTime.month]} ${dateTime.day} ${dateTime.year}'
+      '${_numberToMonthMap[dateTime.month]} ${dateTime.day} ${dateTime.year}',
+      'keahlian' : keahlian,
+      'isActive' : true
     });
     documentReference.update({
       'isConfirm': isConfirm,
@@ -140,7 +155,9 @@ class _CreateLowonganState extends State<CreateLowongan> {
       'conditionCompany': conditionCompany,
       'descriptionJob': descriptionJob,
       'date':
-      '${_numberToMonthMap[dateTime.month]} ${dateTime.day} ${dateTime.year}'
+      '${_numberToMonthMap[dateTime.month]} ${dateTime.day} ${dateTime.year}',
+      'keahlian' : keahlian,
+      'isActive' : true
     });
   }
 
@@ -243,8 +260,49 @@ class _CreateLowonganState extends State<CreateLowongan> {
                 ],
               ),
               SizedBox(height: 15.h),
-              _textFieldCard('Profesi dibuhkan', _profiessionCompany),
+              _textFieldCard('Profesi dibutuhkan', _profiessionCompany),
               SizedBox(height: 15.h),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    'Bidang Dibutuhkan',
+                    style: TextStyle(
+                        color: ColorApp.accentColor,
+                        fontWeight: FontWeight.w500),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  SizedBox(
+                      height: 55,
+                      width: double.maxFinite,
+                      child: DropdownButton<String>(
+                          isExpanded: true,
+                          value: rekomenSelectedValue,
+                          icon: const Icon(Icons.arrow_downward),
+                          elevation: 18,
+                          style:
+                          const TextStyle(color: ColorApp.primaryColor),
+                          underline: Container(
+                            height: 2,
+                            color: ColorApp.primaryColor,
+                          ),
+                          onChanged: (String? value) {
+                            // This is called when the user selects an item.
+                            setState(() {
+                              rekomenSelectedValue = value!;
+                            });
+                          },
+                          items: rekomendasiDropdownItems)),
+                  SizedBox(
+                    height: 10,
+                  ),
+                ],
+              ),
               _numberFieldCard('Gaji Lowongan', _wagesCompany),
               SizedBox(height: 15.h),
               _numberFieldCard('Umur Minimal', _ageRequiredCompany),
@@ -271,19 +329,21 @@ class _CreateLowonganState extends State<CreateLowongan> {
                   child: ElevatedButton(
                     onPressed: () {
                       createJobs(
-                          _lowonganName.text,
-                          _companyName.text,
-                          _selectedValueKota!.trim().toString(),
-                          selectedValuePendidikan.trim().toString(),
-                          _profiessionCompany.text,
-                          int.parse(_wagesCompany.text),
-                          int.parse(_ageRequiredCompany.text),
-                          int.parse(_peopleRequired.text),
-                          _experienceRequiredCompany.text,
-                          _descriptionCompany.text,
-                          _aboutCompany.text,
-                          _conditionCompany.text,
-                          _descriptionJob.text);
+                        _lowonganName.text,
+                        _companyName.text,
+                        _selectedValueKota!.trim().toString(),
+                        selectedValuePendidikan.trim().toString(),
+                        _profiessionCompany.text,
+                        int.parse(_wagesCompany.text),
+                        int.parse(_ageRequiredCompany.text),
+                        int.parse(_peopleRequired.text),
+                        _experienceRequiredCompany.text,
+                        _descriptionCompany.text,
+                        _aboutCompany.text,
+                        _conditionCompany.text,
+                        _descriptionJob.text,
+                        rekomenSelectedValue.trim()
+                      );
                       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => CustomBottomNavBar(intPage: 3),));
                       showDialog<String>(
                           context: context,
