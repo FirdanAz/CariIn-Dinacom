@@ -87,42 +87,58 @@ class _HomePageState extends State<HomePage> {
                           .copyWith(overscroll: false),
                       child: StreamBuilder(
                         stream: _lowongan
-                            .where("isConfirm", isEqualTo: true).where('isActive', isEqualTo:  true)
+                            .where("isConfirm", isEqualTo: true)
+                            .where('isActive', isEqualTo: true)
                             .snapshots(),
                         builder: (context,
                             AsyncSnapshot<QuerySnapshot> streamSnapshot) {
                           if (streamSnapshot.hasData) {
                             return ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              shrinkWrap: true,
-                              itemCount: streamSnapshot.data!.docs.length,
-                              padding: EdgeInsets.symmetric(horizontal: 23.w),
-                              itemBuilder: (context, index) {
-                                final DocumentSnapshot documnentSnapshot =
-                                streamSnapshot.data!.docs[index];
-                                //rupiah
-                                final formartter = NumberFormat.simpleCurrency(
-                                    locale: 'id_ID');
-                                var nilai = documnentSnapshot['wagesCompany'];
-                                var rupiah = formartter.format(nilai);
-                                return LowonganCardVertikal(
-                                  lowonganName: documnentSnapshot['lowonganName'],
-                                  companyName: documnentSnapshot['companyName'],
-                                  locationCompany: documnentSnapshot['locationCompany'],
-                                  minimalEducationCompany: documnentSnapshot['minimalEducationCompany'],
-                                  professionCompany: documnentSnapshot['professionCompany'],
-                                  wagesCompany: documnentSnapshot['wagesCompany'],
-                                  ageRequiredCompany: documnentSnapshot['ageRequiredCompany'],
-                                  peopleRequired: documnentSnapshot['peopleRequired'],
-                                  experienceRequiredCompany: documnentSnapshot['experienceRequiredCompany'],
-                                  descriptionCompany: documnentSnapshot['descriptionCompany'],
-                                  aboutCompany: documnentSnapshot['aboutCompany'],
-                                  conditionCompany: documnentSnapshot['conditionCompany'],
-                                  descriptionJob: documnentSnapshot['descriptionJob'],
-                                  date: documnentSnapshot['date'],
-                                  isConfirm: documnentSnapshot['isConfirm'],
-                                );
-                              });
+                                scrollDirection: Axis.horizontal,
+                                shrinkWrap: true,
+                                itemCount: streamSnapshot.data!.docs.length,
+                                padding: EdgeInsets.symmetric(horizontal: 23.w),
+                                itemBuilder: (context, index) {
+                                  final DocumentSnapshot documnentSnapshot =
+                                      streamSnapshot.data!.docs[index];
+                                  //rupiah
+                                  final formartter =
+                                      NumberFormat.simpleCurrency(
+                                          locale: 'id_ID');
+                                  var nilai = documnentSnapshot['wagesCompany'];
+                                  var rupiah = formartter.format(nilai);
+                                  return LowonganCardVertikal(
+                                    lowonganName:
+                                        documnentSnapshot['lowonganName'],
+                                    companyName:
+                                        documnentSnapshot['companyName'],
+                                    locationCompany:
+                                        documnentSnapshot['locationCompany'],
+                                    minimalEducationCompany: documnentSnapshot[
+                                        'minimalEducationCompany'],
+                                    professionCompany:
+                                        documnentSnapshot['professionCompany'],
+                                    wagesCompany:
+                                        documnentSnapshot['wagesCompany'],
+                                    ageRequiredCompany:
+                                        documnentSnapshot['ageRequiredCompany'],
+                                    peopleRequired:
+                                        documnentSnapshot['peopleRequired'],
+                                    experienceRequiredCompany:
+                                        documnentSnapshot[
+                                            'experienceRequiredCompany'],
+                                    descriptionCompany:
+                                        documnentSnapshot['descriptionCompany'],
+                                    aboutCompany:
+                                        documnentSnapshot['aboutCompany'],
+                                    conditionCompany:
+                                        documnentSnapshot['conditionCompany'],
+                                    descriptionJob:
+                                        documnentSnapshot['descriptionJob'],
+                                    date: documnentSnapshot['date'],
+                                    isConfirm: documnentSnapshot['isConfirm'],
+                                  );
+                                });
                           }
                           return const Center(
                             child: CircularProgressIndicator(),
@@ -135,7 +151,9 @@ class _HomePageState extends State<HomePage> {
                   textData('Pekerjaan Baru', false),
                   SizedBox(height: 17.h),
                   StreamBuilder(
-                    stream: _lowongan.where('isConfirm' , isEqualTo: true).snapshots(),
+                    stream: _lowongan
+                        .where('isConfirm', isEqualTo: true)
+                        .snapshots(),
                     builder:
                         (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
                       if (streamSnapshot.hasData) {
@@ -156,17 +174,26 @@ class _HomePageState extends State<HomePage> {
                               isNew: true,
                               lowonganName: documnentSnapshot['lowonganName'],
                               companyName: documnentSnapshot['companyName'],
-                              locationCompany: documnentSnapshot['locationCompany'],
-                              minimalEducationCompany: documnentSnapshot['minimalEducationCompany'],
-                              professionCompany: documnentSnapshot['professionCompany'],
+                              locationCompany:
+                                  documnentSnapshot['locationCompany'],
+                              minimalEducationCompany:
+                                  documnentSnapshot['minimalEducationCompany'],
+                              professionCompany:
+                                  documnentSnapshot['professionCompany'],
                               wagesCompany: documnentSnapshot['wagesCompany'],
-                              ageRequiredCompany: documnentSnapshot['ageRequiredCompany'],
-                              peopleRequired: documnentSnapshot['peopleRequired'],
-                              experienceRequiredCompany: documnentSnapshot['experienceRequiredCompany'],
-                              descriptionCompany: documnentSnapshot['descriptionCompany'],
+                              ageRequiredCompany:
+                                  documnentSnapshot['ageRequiredCompany'],
+                              peopleRequired:
+                                  documnentSnapshot['peopleRequired'],
+                              experienceRequiredCompany: documnentSnapshot[
+                                  'experienceRequiredCompany'],
+                              descriptionCompany:
+                                  documnentSnapshot['descriptionCompany'],
                               aboutCompany: documnentSnapshot['aboutCompany'],
-                              conditionCompany: documnentSnapshot['conditionCompany'],
-                              descriptionJob: documnentSnapshot['descriptionJob'],
+                              conditionCompany:
+                                  documnentSnapshot['conditionCompany'],
+                              descriptionJob:
+                                  documnentSnapshot['descriptionJob'],
                               date: documnentSnapshot['date'],
                               isConfirm: documnentSnapshot['isConfirm'],
                             );
@@ -215,7 +242,7 @@ class _HomePageState extends State<HomePage> {
   Widget cvCard() {
     return Container(
       alignment: Alignment.centerLeft,
-      height: 106.h,
+      height: 110.h,
       width: 310.w,
       padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
       decoration: BoxDecoration(
@@ -239,27 +266,18 @@ class _HomePageState extends State<HomePage> {
             children: const [
               Text(
                 'Apakah hasilnya kurang lerevan?',
-                style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w500
-                ),
+                style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
               ),
               SizedBox(
                 height: 5,
               ),
               Text(
                 'Update minat dan preferensi kerjamu',
-                style: TextStyle(
-                    fontSize: 11,
-                    fontWeight: FontWeight.w500
-                ),
+                style: TextStyle(fontSize: 11, fontWeight: FontWeight.w500),
               ),
               Text(
                 'untuk rekomendasi yang lebih akurat.',
-                style: TextStyle(
-                    fontSize: 11,
-                    fontWeight: FontWeight.w500
-                ),
+                style: TextStyle(fontSize: 11, fontWeight: FontWeight.w500),
               ),
               SizedBox(
                 height: 5,
@@ -269,8 +287,7 @@ class _HomePageState extends State<HomePage> {
                 style: TextStyle(
                     fontSize: 10,
                     fontWeight: FontWeight.w500,
-                  color: ColorApp.accentColor
-                ),
+                    color: ColorApp.accentColor),
               ),
             ],
           ),
