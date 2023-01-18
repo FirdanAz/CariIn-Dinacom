@@ -25,9 +25,10 @@ class _RegisterPageState extends State<RegisterPage> {
   final _dateController = TextEditingController();
   final _statusKerjaController = TextEditingController();
   final _alamatController = TextEditingController();
-  final _pendidikanController = TextEditingController();
   DateTime dateTime = DateTime.now();
-  String selectedValue = "SMK";
+  String selectedValue = "SMA/SMK";
+  String statusSelectedValue = "Belum Bekerja";
+  String rekomenSelectedValue = "Administrasi";
 
   Future signUp() async {
     if (passwordConfirmed()) {
@@ -36,18 +37,20 @@ class _RegisterPageState extends State<RegisterPage> {
         password: _passwordController.text.trim(),
       );
       addDetailUser(
-          _nameController.text.trim(),
-          _nomorController.text.trim(),
-          _usernameController.text.trim(),
-          _dateController.text.trim(),
-          _alamatController.text.trim(),
-          _statusKerjaController.text.trim(),
-          selectedValue.trim());
+        _nameController.text.trim(),
+        _nomorController.text.trim(),
+        _usernameController.text.trim(),
+        _dateController.text.trim(),
+        _alamatController.text.trim(),
+        statusSelectedValue.trim(),
+        selectedValue.trim(),
+        rekomenSelectedValue.trim()
+      );
     }
   }
 
   Future addDetailUser(String name, String nomor, String email, String date,
-      String alamat, String statusKerja, String pendidikanTerakhir) async {
+      String alamat, String statusKerja, String pendidikanTerakhir, String keahlian) async {
     DocumentReference documentReference = FirebaseFirestore.instance
         .collection('users')
         .doc(FirebaseAuth.instance.currentUser!.uid);
@@ -58,7 +61,8 @@ class _RegisterPageState extends State<RegisterPage> {
       'date': date,
       'alamat': alamat,
       'status_kerja': statusKerja,
-      'pendidikan': pendidikanTerakhir
+      'pendidikan': pendidikanTerakhir,
+      'keahlian' : keahlian
     });
   }
 
@@ -88,10 +92,29 @@ class _RegisterPageState extends State<RegisterPage> {
 
   List<DropdownMenuItem<String>> get dropdownItems {
     List<DropdownMenuItem<String>> menuItems = [
-      DropdownMenuItem(child: Text("SMK"), value: "SMK"),
+      DropdownMenuItem(child: Text("Perguruan Tinggi"), value: "Perguruan Tinggi"),
+      DropdownMenuItem(child: Text("SMA/SMK"), value: "SMA/SMK"),
       DropdownMenuItem(child: Text("SMP"), value: "SMP"),
       DropdownMenuItem(child: Text("SD"), value: "SD"),
       DropdownMenuItem(child: Text("Tidak Sekolah"), value: "Tidak Sekolah"),
+    ];
+    return menuItems;
+  }
+
+  List<DropdownMenuItem<String>> get statusDropdownItems {
+    List<DropdownMenuItem<String>> menuItems = [
+      DropdownMenuItem(child: Text("Belum Bekerja"), value: "Belum Bekerja"),
+      DropdownMenuItem(child: Text("Bekerja"), value: "Bekerja")
+    ];
+    return menuItems;
+  }
+  List<DropdownMenuItem<String>> get rekomendasiDropdownItems {
+    List<DropdownMenuItem<String>> menuItems = [
+      DropdownMenuItem(child: Text("Administrasi"), value: "Administrasi"),
+      DropdownMenuItem(child: Text("Keuangan"), value: "Keuangan"),
+      DropdownMenuItem(child: Text("Programmer"), value: "Programmer"),
+      DropdownMenuItem(child: Text("Kesehatan"), value: "Kesehatan"),
+      DropdownMenuItem(child: Text("Keamanan"), value: "Keamanan"),
     ];
     return menuItems;
   }
@@ -311,24 +334,26 @@ class _RegisterPageState extends State<RegisterPage> {
                       height: 10,
                     ),
                     SizedBox(
-                      height: 55,
-                      child: TextField(
-                        controller: _statusKerjaController,
-                        textAlign: TextAlign.left,
-                        style: TextStyle(color: Colors.black),
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          hintStyle: TextStyle(color: Colors.black45),
-                          enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                width: 2,
-                                color: ColorApp.primaryColor,
-                              ),
-                              borderRadius: BorderRadius.circular(10)),
-                          hintText: 'Status Pekerjaan Anda',
-                        ),
-                      ),
-                    ),
+                        height: 55,
+                        width: double.maxFinite,
+                        child: DropdownButton<String>(
+                          isExpanded: true,
+                            value: statusSelectedValue,
+                            icon: const Icon(Icons.arrow_downward),
+                            elevation: 18,
+                            style:
+                            const TextStyle(color: ColorApp.primaryColor),
+                            underline: Container(
+                              height: 2,
+                              color: ColorApp.primaryColor,
+                            ),
+                            onChanged: (String? value) {
+                              // This is called when the user selects an item.
+                              setState(() {
+                                statusSelectedValue = value!;
+                              });
+                            },
+                            items: statusDropdownItems)),
                     SizedBox(
                       height: 10,
                     ),
@@ -345,6 +370,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         height: 55,
                         width: double.maxFinite,
                         child: DropdownButton<String>(
+                          isExpanded: true,
                             value: selectedValue,
                             icon: Container(
                                 alignment: Alignment.centerRight,
@@ -363,6 +389,39 @@ class _RegisterPageState extends State<RegisterPage> {
                               });
                             },
                             items: dropdownItems)),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      'Bidang Keahlian',
+                      style: TextStyle(
+                          color: ColorApp.accentColor,
+                          fontWeight: FontWeight.w500),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    SizedBox(
+                        height: 55,
+                        width: double.maxFinite,
+                        child: DropdownButton<String>(
+                            isExpanded: true,
+                            value: rekomenSelectedValue,
+                            icon: const Icon(Icons.arrow_downward),
+                            elevation: 18,
+                            style:
+                            const TextStyle(color: ColorApp.primaryColor),
+                            underline: Container(
+                              height: 2,
+                              color: ColorApp.primaryColor,
+                            ),
+                            onChanged: (String? value) {
+                              // This is called when the user selects an item.
+                              setState(() {
+                                rekomenSelectedValue = value!;
+                              });
+                            },
+                            items: rekomendasiDropdownItems)),
                     SizedBox(
                       height: 10,
                     ),
