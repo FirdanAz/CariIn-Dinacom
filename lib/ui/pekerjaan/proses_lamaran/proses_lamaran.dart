@@ -11,7 +11,7 @@ class ProsesLamaranTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return isHaveLamaran
         ? ListView.separated(
-            itemCount: 5,
+            itemCount: 1,
             padding: EdgeInsets.all(25.h),
             separatorBuilder: (context, index) => Divider(
               height: 20.h,

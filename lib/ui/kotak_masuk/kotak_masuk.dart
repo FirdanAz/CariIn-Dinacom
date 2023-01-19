@@ -24,7 +24,7 @@ class KotakMasukPage extends StatelessWidget {
       body: FirebaseAuth.instance.currentUser == null
           ? const KotakMasukNotLoginPage()
           : ListView.separated(
-              itemCount: 5,
+              itemCount: 1,
               padding: EdgeInsets.all(25.w),
               separatorBuilder: (context, index) => Divider(
                 height: 15.h,
@@ -74,7 +74,7 @@ class KotakMasukPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Lorem Ipsum Dolor amet",
+                  "Mobile Development",
                   style: TextStyle(
                     color: ColorApp.accentColor,
                     fontSize: 15.sp,
@@ -83,7 +83,7 @@ class KotakMasukPage extends StatelessWidget {
                 ),
                 SizedBox(height: 5.h),
                 Text(
-                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad",
+                  "Pada dasarnya Mobile Application Development adalah pengembangan aplikasi perangkat lunak yang ada di smartphone kita.",
                   style: TextStyle(
                     color: ColorApp.primaryColor,
                     fontSize: 10.sp,

@@ -39,7 +39,7 @@ class PekerjaanCard extends StatelessWidget {
             ),
             SizedBox(width: 15.w),
             SizedBox(
-              width: 220.w,
+              width: 210.w,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
