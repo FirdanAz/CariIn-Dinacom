@@ -7,6 +7,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lowongan_pekerjaan/common/color_app.dart';
+import 'package:lowongan_pekerjaan/ui/bottom_navigation/bottom_navigation.dart';
 import 'package:lowongan_pekerjaan/ui/detail/firebase_api.dart';
 import 'package:path/path.dart';
 
@@ -138,7 +139,10 @@ class _LamarPageState extends State<LamarPage> {
           content: const Text('Menunggu konfirmasi dari Perusahaan', style: TextStyle(color: Colors.black87),),
           actions: <Widget>[
             TextButton(
-              onPressed: () => Navigator.pop(context, 'Iya'),
+              onPressed: () {
+                Navigator.pop(context, 'Iya');
+                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => CustomBottomNavBar(intPage: 0),), (route) => false);
+              },
               child: const Text('Iya'),
             ),
           ],

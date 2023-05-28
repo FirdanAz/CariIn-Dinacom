@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:lowongan_pekerjaan/common/color_app.dart';
+import 'package:lowongan_pekerjaan/ui/bottom_navigation/bottom_navigation.dart';
 import 'package:lowongan_pekerjaan/ui/detail/lamar.dart';
 import 'package:lowongan_pekerjaan/ui/widget/wishlist_button.dart';
 import 'package:page_transition/page_transition.dart';
+
+import 'admin.dart';
 
 // ignore: must_be_immutable
 class DetailPageAdmin extends StatefulWidget {
@@ -58,6 +61,8 @@ class _DetailPageAdminState extends State<DetailPageAdmin> {
     documentReference.update({
       'isConfirm' : true
     });
+
+    
   }
 
   @override
@@ -249,9 +254,23 @@ class _DetailPageAdminState extends State<DetailPageAdmin> {
                   height: 40.h,
                   width: 300.w,
                   child: ElevatedButton(
-                    onPressed: () {
-                      confirm(isConfirm, widget.lowonganName.toString());
-                      Navigator.of(context);
+                    onPressed: () async {
+                      await confirm(isConfirm, widget.lowonganName.toString());
+                      // ignore: use_build_context_synchronously
+                      showDialog<String>(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                            title: const Text('Telah Dikonfirmasi', style: TextStyle(color: ColorApp.accentColor),),
+                            content: const Text('Lowongan telah ditampilkan', style: TextStyle(color: Colors.black87),),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.canPop(context);
+                                },
+                                child: InkWell(child: const Text('Iya'), onTap: () => Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => CustomBottomNavBar(intPage: 3),), (route) => false),),
+                              ),
+                            ],
+                          ));
                     },
                     style:
                     ElevatedButton.styleFrom(primary: ColorApp.accentColor),
