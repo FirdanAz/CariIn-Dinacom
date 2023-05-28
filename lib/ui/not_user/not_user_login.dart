@@ -171,10 +171,14 @@ class _NotLoginState extends State<NotUserLogin> {
               padding: const EdgeInsets.only(left: 20, right: 20),
               child: InkWell(
                 onTap: () async {
-                  if(_usernameController.text == 'admin' && _passwordController.text == 'admin123'){
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AdminPage(),));
-                  }
-                  else {
+                  if (_usernameController.text == 'admin' &&
+                      _passwordController.text == 'admin123') {
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AdminPage(),
+                        ));
+                  } else {
                     User? user = await loginUsingEmailPaswword(
                         email: _usernameController.text,
                         password: _passwordController.text,
@@ -247,25 +251,18 @@ class _NotLoginState extends State<NotUserLogin> {
               ),
             ),
             Center(
-              child: Column(
-                children: [
-                  SignInButton(
-                    Buttons.Google,
-                    onPressed: () async {
-                      currentUser();
-                    },
-                  ),
-                  SignInButton(
-                    Buttons.Facebook,
-                    onPressed: () {},
-                  ),
-                  SignInButton(
-                    Buttons.LinkedIn,
-                    onPressed: () {},
-                  )
-                ],
+              child: Container(
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: SignInButton(
+                  Buttons.Google,
+                  padding: const EdgeInsets.symmetric(vertical: 5),
+                  onPressed: () async {
+                    currentUser();
+                  },
+                ),
               ),
-            )
+            ),
           ],
         ),
       ),
