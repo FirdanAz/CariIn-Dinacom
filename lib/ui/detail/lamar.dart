@@ -27,22 +27,23 @@ class LamarPage extends StatefulWidget {
   String? descriptionJob;
   String? date;
   bool? isConfirm;
-  LamarPage({super.key,
-    required this.lowonganName,
-    required this.companyName,
-    required this.locationCompany,
-    required this.minimalEducationCompany,
-    required this.professionCompany,
-    required this.wagesCompany,
-    required this.ageRequiredCompany,
-    required this.peopleRequired,
-    required this.experienceRequiredCompany,
-    required this.descriptionCompany,
-    required this.aboutCompany,
-    required this.conditionCompany,
-    required this.descriptionJob,
-    required this.date,
-    required this.isConfirm});
+  LamarPage(
+      {super.key,
+        required this.lowonganName,
+        required this.companyName,
+        required this.locationCompany,
+        required this.minimalEducationCompany,
+        required this.professionCompany,
+        required this.wagesCompany,
+        required this.ageRequiredCompany,
+        required this.peopleRequired,
+        required this.experienceRequiredCompany,
+        required this.descriptionCompany,
+        required this.aboutCompany,
+        required this.conditionCompany,
+        required this.descriptionJob,
+        required this.date,
+        required this.isConfirm});
 
   @override
   State<LamarPage> createState() => _LamarPageState();
@@ -58,11 +59,12 @@ class _LamarPageState extends State<LamarPage> {
   Future selectFile() async {
     final result = await FilePicker.platform.pickFiles(allowMultiple: false);
 
-    if(result == null) return;
+    if (result == null) return;
     final path = result.files.single.path!;
 
     setState(() => file = File(path));
   }
+
   final _numberToMonthMap = {
     1: 'Jan',
     2: 'Feb',
@@ -94,25 +96,31 @@ class _LamarPageState extends State<LamarPage> {
       String conditionCompany,
       String descriptionJob,
       ) async {
-    if(file == null) return;
+    if (file == null) return;
 
     final fileName = basename(file!.path);
     final destination = 'files/$fileName';
 
     task = FirebaseApi.uploadFile(destination, file!);
 
-    if(task == null) return;
+    if (task == null) return;
     final snapshot = await task!.whenComplete(() {});
     final urlDownload = await snapshot.ref.getDownloadURL();
 
     DocumentReference documentReference = FirebaseFirestore.instance
-        .collection('user').doc('pfDgeo0P06NwmaIgGfcl').collection('lowongan').doc(widget.lowonganName).collection(FirebaseAuth.instance.currentUser!.uid.toString()).doc(widget.lowonganName);
+        .collection('user')
+        .doc('pfDgeo0P06NwmaIgGfcl')
+        .collection('lowongan')
+        .doc(widget.lowonganName)
+        .collection(FirebaseAuth.instance.currentUser!.uid.toString())
+        .doc(widget.lowonganName);
     documentReference.set({
       'email': FirebaseAuth.instance.currentUser!.email,
-      'date': '${_numberToMonthMap[dateTime.month]} ${dateTime.day} ${dateTime.year}',
-      'urlFile' : urlDownload,
-      'nomorTelepon' : _nomorTelepon.text,
-      'suratLamaran' : _suratLamaran.text,
+      'date':
+      '${_numberToMonthMap[dateTime.month]} ${dateTime.day} ${dateTime.year}',
+      'urlFile': urlDownload,
+      'nomorTelepon': _nomorTelepon.text,
+      'suratLamaran': _suratLamaran.text,
       'isConfirm': true,
       'lowonganName': lowonganName,
       'companyName': companyName,
@@ -129,20 +137,27 @@ class _LamarPageState extends State<LamarPage> {
       'descriptionJob': descriptionJob,
       'date':
       '${_numberToMonthMap[dateTime.month]} ${dateTime.day} ${dateTime.year}',
-      'isActive' : true
+      'isActive': true
     });
 
     showDialog<String>(
         context: context,
         builder: (BuildContext context) => AlertDialog(
-          title: const Text('Lowongan Telah Dilamar', style: TextStyle(color: ColorApp.accentColor),),
-          content: const Text('Menunggu konfirmasi dari Perusahaan', style: TextStyle(color: Colors.black87),),
+          title: const Text(
+            'Lowongan Telah Dilamar',
+            style: TextStyle(color: ColorApp.accentColor),
+          ),
+          content: const Text(
+            'Menunggu konfirmasi dari Perusahaan',
+            style: TextStyle(color: Colors.black87),
+          ),
           actions: <Widget>[
             TextButton(
-              onPressed: () {
-                Navigator.pop(context, 'Iya');
-                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => CustomBottomNavBar(intPage: 0),), (route) => false);
-              },
+              onPressed: () => Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => CustomBottomNavBar(intPage: 0)),
+                      (route) => false),
               child: const Text('Iya'),
             ),
           ],
@@ -173,7 +188,8 @@ class _LamarPageState extends State<LamarPage> {
                 Text("Kamu akan Melamar di", style: _styleHeader(false)),
                 Text(widget.companyName.toString(), style: _styleHeader(true)),
                 Text("sebagai", style: _styleHeader(false)),
-                Text(widget.professionCompany.toString(), style: _styleHeader(true)),
+                Text(widget.professionCompany.toString(),
+                    style: _styleHeader(true)),
                 SizedBox(height: 25.h),
 
                 // Resume
@@ -189,9 +205,8 @@ class _LamarPageState extends State<LamarPage> {
                     Text(
                       _fileName,
                       style: TextStyle(
-                        color: Colors.white,
-                        backgroundColor: ColorApp.primaryColor
-                      ),
+                          color: Colors.white,
+                          backgroundColor: ColorApp.primaryColor),
                     ),
                   ],
                 ),
@@ -209,9 +224,7 @@ class _LamarPageState extends State<LamarPage> {
                       child: const Center(
                         child: Text(
                           'Upload File',
-                          style: TextStyle(
-                            color: Colors.white
-                          ),
+                          style: TextStyle(color: Colors.white),
                         ),
                       ),
                     ),
@@ -321,13 +334,27 @@ class _LamarPageState extends State<LamarPage> {
               width: 268.w,
               child: ElevatedButton(
                 onPressed: () {
-                  uploadFile(context, widget.lowonganName.toString(), widget.companyName.toString(), widget.locationCompany.toString(), widget.minimalEducationCompany.toString(), widget.professionCompany.toString(), int.parse(widget.wagesCompany.toString()), int.parse(widget.ageRequiredCompany.toString()), int.parse(widget.peopleRequired.toString()), widget.experienceRequiredCompany.toString(), widget.descriptionCompany.toString(), widget.aboutCompany.toString(), widget.conditionCompany.toString(), widget.descriptionJob.toString());
+                  uploadFile(
+                      context,
+                      widget.lowonganName.toString(),
+                      widget.companyName.toString(),
+                      widget.locationCompany.toString(),
+                      widget.minimalEducationCompany.toString(),
+                      widget.professionCompany.toString(),
+                      int.parse(widget.wagesCompany.toString()),
+                      int.parse(widget.ageRequiredCompany.toString()),
+                      int.parse(widget.peopleRequired.toString()),
+                      widget.experienceRequiredCompany.toString(),
+                      widget.descriptionCompany.toString(),
+                      widget.aboutCompany.toString(),
+                      widget.conditionCompany.toString(),
+                      widget.descriptionJob.toString());
                 },
                 style: ElevatedButton.styleFrom(primary: ColorApp.accentColor),
                 child: Text(
                   "LAMAR SEKARANG",
                   style:
-                      TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w600),
+                  TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w600),
                 ),
               ),
             ),

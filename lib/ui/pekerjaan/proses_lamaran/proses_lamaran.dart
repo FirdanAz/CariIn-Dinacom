@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lowongan_pekerjaan/ui/pekerjaan/not_login.dart';
 import 'package:lowongan_pekerjaan/ui/pekerjaan/proses_lamaran/no_have.dart';
 import 'package:lowongan_pekerjaan/ui/widget/Pekerjaan_card.dart';
 
