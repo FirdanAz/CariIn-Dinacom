@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lowongan_pekerjaan/common/color_app.dart';
+import 'package:lowongan_pekerjaan/ui/bottom_navigation/bottom_navigation.dart';
 
 class PekerjaanNotLoginPage extends StatelessWidget {
   const PekerjaanNotLoginPage({super.key});
@@ -23,7 +24,13 @@ class PekerjaanNotLoginPage extends StatelessWidget {
               height: 40.h,
               width: 90.w,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              CustomBottomNavBar(intPage: 3)));
+                },
                 style: ElevatedButton.styleFrom(
                   primary: ColorApp.accentColor,
                 ),
